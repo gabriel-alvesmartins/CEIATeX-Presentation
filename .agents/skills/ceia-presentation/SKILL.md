@@ -60,7 +60,6 @@ Toda a coloração dos slides deve seguir rigorosamente as cores declaradas em `
 | `CEIATextMuted` | `#64748B` | `100, 116, 139` | Eyebrow headers, comentários de código, legendas e metadados de rodapé |
 | `CEIABorder` | `#E2E8F0` | `226, 232, 240` | Bordas sutis de cards e divisórias |
 | `CEIABgSoft` | `#F8FAFC` | `248, 250, 252` | Fundo de cards modulares, linhas alternadas de tabelas |
-| `CEIADarkIDE` | `#0F172A` | `15, 23, 42` | Fundo para blocos de código em dark mode (`ceiacodedark`) |
 
 ---
 
@@ -493,12 +492,19 @@ Distribuição em 2 colunas balanceadas com marcadores vetoriais (\matrixok, \ma
 #### A. Transição Canônica de Capítulos (`\ceiasectionframe`)
 Para abrir novos capítulos com identidade visual robusta e respiração tipográfica:
 - Fundo nobre `CEIADarkBlue` com iluminação radial suave.
-- **Padrão Oficial de Gotas do CEIA (Manual pág. 23)** no canto inferior direito.
-- Tag de capítulo em pílula `CAPÍTULO XX`, título em caixa alta com espaçamento vertical generoso, barra de acento em verde menta (`CEIAGreen`) e subtítulo descritivo.
+- **Tipografia 100% Pura e Respirável**: Rótulo `CAPÍTULO XX` diretamente em fonte Inter Bold na cor `CEIAGreen` (sem caixas ou cards fechados), título em caixa alta de 24pt, barra horizontal de acento em verde menta (`CEIAGreen`) e subtítulo descritivo em `white!85`.
+- **Duas Variantes Oficiais de Gotas TikZ (Manual pág. 23)**:
+  1. `[right]` (padrão): Grade oficial de gotas encostadas rente à margem lateral direita.
+  2. `[bottom]`: Faixa horizontal contínua de gotas na base do slide preenchendo de ponta a ponta.
 
 ```latex
+% Variante 1: Gotas na lateral direita (padrão)
 \section{ARQUITETURA \& MULTI-AGENTE}
 \ceiasectionframe{02}{ARQUITETURA \& MULTI-AGENTE}{Orquestração de Agentes, Contratos Formais e HITL Gates}
+
+% Variante 2: Gotas na horizontal inferior
+\section{BENCHMARKS \& ESPECIFICAÇÕES}
+\ceiasectionframe[bottom]{03}{BENCHMARKS \& ESPECIFICAÇÕES}{Avaliação Empírica de Modelos e Conformidade SDD}
 ```
 
 #### B. Fundo Suave Institucional (`\setLayout{soft}`)

@@ -27,13 +27,13 @@ Assim como no template base do INF (UFGTeX), o **CEIATeX** permite alternar o la
 ### Tabela de Seleção de Layouts
 | Layout | Comando | Descrição Visual |
 |---|---|---|
-| **Capa Oficial** | \setLayout{cover} | Fundo azul marinho CEIADarkBlue com padrão paramétrico de gotas TikZ (Manual pág. 23) e logotipo branco. |
-| **Conteúdo Padrão** | \setLayout{content} | Fundo branco limpo, cabeçalho *eyebrow* em azul brilhante e rodapé discreto com metadados. |
-| **Transição de Seção** | \setLayout{section} | Fundo escuro CEIADarkBlue com detalhes em verde menta, ideal para abertura de grandes capítulos. |
-| **Modo Escuro / IDE** | \setLayout{dark} | Fundo escuro técnico de alto contraste (CEIADarkIDE) com acento superior e texto claro para código. |
-| **Fundo Suave** | \setLayout{soft} | Fundo suave CEIABgSoft (#F8FAFC) para visualização de cards modulares com contraste amigável. |
-| **Tese Institucional** | \setLayout{statement} | Fundo limpo com manifesto *We Are CEIA* vetorizado em tipografia oficial Actay Wide. |
-| **Encerramento** | \setLayout{closing} | Slide final oficial com OBRIGADO, contatos e régua institucional. |
+| **Capa Oficial** | `\setLayout{cover}` | Fundo azul marinho `CEIADarkBlue` com padrão paramétrico de gotas TikZ (Manual pág. 23) e logotipo branco. |
+| **Conteúdo Padrão** | `\setLayout{content}` | Fundo branco limpo, cabeçalho *eyebrow* em azul brilhante e rodapé discreto com metadados. |
+| **Transição de Seção (Lateral)** | `\setLayout{section}` ou `\setLayout{section-right}` | Fundo escuro `CEIADarkBlue` com gotas autênticas encostadas na margem direita e tipografia verde-menta pura. |
+| **Transição de Seção (Inferior)** | `\setLayout{section-bottom}` | Fundo escuro `CEIADarkBlue` com faixa horizontal de gotas na base preenchendo de ponta a ponta. |
+| **Fundo Suave** | `\setLayout{soft}` | Fundo suave `CEIABgSoft` (`#F8FAFC`) para visualização de cards modulares com contraste amigável. |
+| **Tese Institucional** | `\setLayout{statement}` | Fundo limpo com manifesto *We Are CEIA* vetorizado em tipografia oficial Actay Wide. |
+| **Encerramento** | `\setLayout{closing}` | Slide final oficial com OBRIGADO, contatos e régua institucional. |
 
 #### Cor de Fundo Dinâmica (\setBGColor)
 Para trocar a cor de fundo de um slide específico mantendo a estrutura:
@@ -49,13 +49,15 @@ Para trocar a cor de fundo de um slide específico mantendo a estrutura:
 
 | Capa Institucional | Multi-Agente & HITL Gates |
 | :---: | :---: |
-| ![Capa Institucional](figs/slide_01.png) | ![Multi-Agente & HITL Gates](figs/slide_12.png) |
+| ![Capa Institucional](figs/slide_01.png) | ![Multi-Agente & HITL Gates](figs/slide_13.png) |
+| **Transição de Seção (Lateral)** | **Transição de Seção (Inferior)** |
+| ![Transição Lateral](figs/layouts/section_variant_A_right.png) | ![Transição Inferior](figs/layouts/section_variant_B_bottom.png) |
 | **Matriz Comparativa & Tabelas** | **Gráficos Científicos Vetoriais** |
-| ![Matriz Comparativa](figs/slide_15.png) | ![Gráficos Científicos](figs/slide_17.png) |
+| ![Matriz Comparativa](figs/slide_17.png) | ![Gráficos Científicos](figs/slide_19.png) |
 | **Code Diff & Janela IDE** | **Métricas e Indicadores de Impacto** |
-| ![Code Diff](figs/slide_11.png) | ![Indicadores de Impacto](figs/slide_19.png) |
+| ![Code Diff](figs/slide_12.png) | ![Indicadores de Impacto](figs/slide_21.png) |
 
-> 💡 *Todos os 27 slides renderizados em alta definição estão disponíveis na pasta [`figs/`](figs/).*
+> 💡 *Todos os 28 slides renderizados em alta definição estão disponíveis na pasta [`figs/`](figs/).*
 
 ---
 
@@ -247,6 +249,23 @@ export const AgentVerdictSchema = z.object({
 `latex
 \ceiastatfour{99.1\%}{F1-Score Geral}{4.2x}{Throughput}{18ms}{Inferência}{0}{Falhas Críticas}
 `
+
+---
+
+### 10. Slides de Transição de Grandes Capítulos (`\ceiasectionframe`)
+Abertura de seções com identidade visual de alto impacto e respiração tipográfica:
+- **Tipografia Pura**: Rótulo `CAPÍTULO XX` diretamente em fonte Inter Bold na cor `CEIAGreen` (sem caixas ou cards fechados), título em caixa alta de 24pt e subtítulo descritivo em `white!85`.
+- **Suporte a 2 Variantes de Gotas**:
+  - `[right]` (padrão): Gotas oficiais encostadas rente à margem lateral direita.
+  - `[bottom]`: Gotas alinhadas em faixa horizontal na base preenchendo lado a lado.
+
+```latex
+% Variante 1: Gotas na lateral direita (padrão)
+\ceiasectionframe{02}{ARQUITETURA \& MULTI-AGENTE}{Orquestração de Agentes, Contratos Formais e HITL Gates}
+
+% Variante 2: Gotas na horizontal inferior
+\ceiasectionframe[bottom]{03}{BENCHMARKS \& ESPECIFICAÇÕES}{Avaliação Empírica de Modelos e Conformidade SDD}
+```
 
 ---
 

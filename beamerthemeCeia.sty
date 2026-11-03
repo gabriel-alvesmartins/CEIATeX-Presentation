@@ -24,6 +24,7 @@
 \RequirePackage{array}
 \RequirePackage{ifthen}
 \RequirePackage{etoolbox}
+\RequirePackage{xparse}
 
 % Garantir compatibilidade com \rowcolors se xcolor=table não foi passado
 \providecommand{\rowcolors}[3]{}
@@ -309,7 +310,7 @@
   \setbeamercolor{normal text}{fg=white, bg=CEIADarkBlue}%
 }
 
-% 4. Layout: section (Divisória de Grandes Capítulos com Padrão de Gotas Oficial)
+% 4. Layout: section (Divisória de Grandes Capítulos com Gotas Encostadas na Lateral Direita)
 \newcommand{\setLayoutSection}{%
   \renewcommand{\currentlayout}{section}%
   \usebackgroundtemplate{%
@@ -320,8 +321,8 @@
       \shade[inner color=CEIABrightBlue!20!CEIADarkBlue, outer color=CEIADarkBlue] 
         ($(current page.north west)+(2.0, -1.5)$) circle (5.5cm);
 
-      % Grade oficial de gotas autênticas do CEIA no canto inferior direito (Manual pág. 23)
-      \begin{scope}[shift={($(current page.south east)+(-4.5, -0.1)$)}]
+      % Grade oficial de gotas autênticas do CEIA encostadas na lateral direita (Manual pág. 23)
+      \begin{scope}[shift={($(current page.south east)+(-3.6, -0.05)$)}]
         % Linha 3 (Topo, y = 2.6)
         \ceiacoveritem{1.3}{2.6}{CEIABrightBlue}{270}
         \ceiacoveritem{2.6}{2.6}{CEIAGreen!80!CEIADarkBlue}{90}
@@ -343,18 +344,58 @@
   \setbeamercolor{normal text}{fg=white, bg=CEIADarkBlue}%
 }
 
-% Macro Canônica para Slide de Capítulo Respirável e Elegante
-\newcommand{\ceiasectionframe}[3]{%
-  \setLayout{section}%
+% 4b. Layout: section-bottom (Divisória de Capítulos com Gotas na Horizontal em Baixo de Ponta a Ponta)
+\newcommand{\setLayoutSectionBottom}{%
+  \renewcommand{\currentlayout}{section-bottom}%
+  \usebackgroundtemplate{%
+    \begin{tikzpicture}[remember picture, overlay]
+      \fill[CEIADarkBlue] (current page.south west) rectangle (current page.north east);
+      
+      % Suave iluminação radial no quadrante superior
+      \shade[inner color=CEIABrightBlue!20!CEIADarkBlue, outer color=CEIADarkBlue] 
+        ($(current page.north west)+(2.0, -1.5)$) circle (5.5cm);
+
+      % Faixa horizontal de gotas autênticas do CEIA na base (preenchendo de ponta a ponta)
+      \begin{scope}[shift={($(current page.south west)+(0.1, 0.0)$)}]
+        \ceiacoveritem{0.0}{0.0}{CEIABrightBlue}{0}
+        \ceiacoveritem{1.3}{0.0}{CEIAGreen}{90}
+        \ceiacoveritem{2.6}{0.0}{CEIABlue}{circle}
+        \ceiacoveritem{3.9}{0.0}{CEIABrightBlue!80!CEIADarkBlue}{180}
+        \ceiacoveritem{5.2}{0.0}{CEIAGreen!75!CEIADarkBlue}{270}
+        \ceiacoveritem{6.5}{0.0}{CEIABlue}{circle}
+        \ceiacoveritem{7.8}{0.0}{CEIABrightBlue}{90}
+        \ceiacoveritem{9.1}{0.0}{CEIAGreen}{0}
+        \ceiacoveritem{10.4}{0.0}{CEIABlue!70!CEIADarkBlue}{circle}
+        \ceiacoveritem{11.7}{0.0}{CEIABrightBlue}{270}
+        \ceiacoveritem{13.0}{0.0}{CEIAGreen!80!CEIADarkBlue}{180}
+        \ceiacoveritem{14.3}{0.0}{CEIABlue}{circle}
+        \ceiacoveritem{15.6}{0.0}{CEIABrightBlue!70!CEIADarkBlue}{90}
+      \end{scope}
+    \end{tikzpicture}%
+  }%
+  \setbeamertemplate{headline}{}%
+  \setbeamertemplate{frametitle}{}%
+  \setbeamertemplate{footline}{}%
+  \setbeamercolor{normal text}{fg=white, bg=CEIADarkBlue}%
+}
+
+% Macro Canônica para Slide de Capítulo Respirável e Elegante (Sem cards/caixas - 100% Tipográfico)
+% Uso: \ceiasectionframe[right|bottom]{Número}{Título}{Subtítulo}
+\NewDocumentCommand{\ceiasectionframe}{ O{right} m m m }{%
+  \ifthenelse{\equal{#1}{bottom}}{%
+    \setLayoutSectionBottom%
+  }{%
+    \setLayoutSection%
+  }%
   \begin{frame}[noframenumbering]%
-    \vspace{0.14\paperheight}%
+    \vspace{0.12\paperheight}%
     \hspace{0.03\paperwidth}%
-    \begin{minipage}{0.68\textwidth}%
+    \begin{minipage}{0.75\textwidth}%
       \raggedright%
-      \tikz[baseline=-0.5ex]{\node[fill=CEIAGreen!18, text=CEIAGreen, font=\scriptsize\bfseries, rounded corners=3pt, inner sep=4.5pt, draw=CEIAGreen!60, line width=0.6pt] {CAPÍTULO #1};}\par\vspace{1.2em}%
-      {\fontsize{22}{26}\bfseries\color{white}\MakeUppercase{#2}}\par\vspace{0.8em}%
-      {\color{CEIAGreen}\rule{3.2cm}{1.8pt}}\par\vspace{0.9em}%
-      {\fontsize{9.5}{14}\mdseries\color{white!80} #3\par}%
+      {\fontsize{11}{14}\bfseries\color{CEIAGreen} CAPÍTULO #2}\par\vspace{0.8em}%
+      {\fontsize{24}{28}\bfseries\color{white}\MakeUppercase{#3}}\par\vspace{0.9em}%
+      {\color{CEIAGreen}\rule{3.2cm}{2pt}}\par\vspace{1.0em}%
+      {\fontsize{10}{15}\mdseries\color{white!85} #4\par}%
     \end{minipage}%
   \end{frame}%
   \setLayout{content}%
@@ -409,6 +450,8 @@
   \ifthenelse{\equal{#1}{titlepage}}{\setLayoutCover}{}%
   \ifthenelse{\equal{#1}{closing}}{\setLayoutClosing}{}%
   \ifthenelse{\equal{#1}{section}}{\setLayoutSection}{}%
+  \ifthenelse{\equal{#1}{section-right}}{\setLayoutSection}{}%
+  \ifthenelse{\equal{#1}{section-bottom}}{\setLayoutSectionBottom}{}%
   \ifthenelse{\equal{#1}{statement}}{\setLayoutStatement}{}%
   \ifthenelse{\equal{#1}{soft}}{\setLayoutSoft}{}%
 }
