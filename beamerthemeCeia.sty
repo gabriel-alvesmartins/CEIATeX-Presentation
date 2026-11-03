@@ -1,0 +1,1477 @@
+%% ==============================================================================
+%% beamerthemeCeia.sty - Tema LaTeX Beamer Oficial do CEIA (Versão 2.0.0)
+%% Centro de Excelência em Inteligência Artificial (UFG / MCTI / FAPEG / EMBRAPII)
+%% Desenvolvido para Pesquisa Científica, Engenharia de Software e IA
+%% Baseado estritamente no Manual de Uso da Marca CEIA (Goiânia, 2026)
+%% ==============================================================================
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{beamerthemeCeia}[2026/10/24 v2.0.0 CEIA Beamer Theme - Software & AI Suite]
+
+% ------------------------------------------------------------------------------
+% Pacotes Obrigatórios
+% ------------------------------------------------------------------------------
+\RequirePackage{fontspec}
+\RequirePackage[sfdefault]{inter} % Família tipográfica oficial (Manual pág. 19)
+\RequirePackage{tikz}
+\usetikzlibrary{calc,shapes,arrows.meta,positioning,backgrounds}
+\RequirePackage{listings}
+\RequirePackage{tcolorbox}
+\tcbuselibrary{skins,listings,breakable}
+\RequirePackage{xcolor}
+\RequirePackage{colortbl}
+\RequirePackage{adjustbox}
+\RequirePackage{booktabs}
+\RequirePackage{array}
+\RequirePackage{ifthen}
+\RequirePackage{etoolbox}
+
+% Garantir compatibilidade com \rowcolors se xcolor=table não foi passado
+\providecommand{\rowcolors}[3]{}
+
+\mode<presentation>
+
+% ------------------------------------------------------------------------------
+% Desativação Global de Hifenização (Slides limpos para leitura rápida)
+% ------------------------------------------------------------------------------
+\hyphenpenalty=10000
+\exhyphenpenalty=10000
+\tolerance=1000
+
+% ------------------------------------------------------------------------------
+% Paleta Cromática Oficial (Manual pág. 14) & Semântica Técnica
+% ------------------------------------------------------------------------------
+\definecolor{CEIADarkBlue}{RGB}{27, 57, 131}    % #1B3983 - Azul institucional / Núcleo / HITL
+\definecolor{CEIABlue}{RGB}{28, 74, 184}       % #1C4AB8 - Azul vibrante / LLMs / Destaques
+\definecolor{CEIABrightBlue}{RGB}{40, 102, 229} % #2866E5 - Azul elétrico / Status / Métricas
+\definecolor{CEIAGreen}{RGB}{12, 212, 170}      % #0CD4AA - Verde Menta / Tools / Sucesso / Gates
+
+% Tons Neutros e Estruturais
+\definecolor{CEIATextDark}{RGB}{30, 41, 59}     % #1E293B - Slate-800 para texto corrido
+\definecolor{CEIATextMuted}{RGB}{100, 116, 139} % #64748B - Slate-500 para legendas e metadados
+\definecolor{CEIABorder}{RGB}{226, 232, 240}    % #E2E8F0 - Slate-200 para bordas sutis
+\definecolor{CEIABgLight}{RGB}{255, 255, 255}   % Branco puro
+\definecolor{CEIABgSoft}{RGB}{248, 250, 252}    % #F8FAFC - Fundo suave de cards
+\definecolor{CEIALightGray}{RGB}{241, 245, 249} % #F1F5F9 - Fundo de código IDE
+\definecolor{CEIADarkIDE}{RGB}{15, 23, 42}      % #0F172A - Fundo IDE Dark / Prompts
+\definecolor{CEIADeepNavy}{RGB}{14, 28, 70}     % #0E1C46 - Azul Marinho Profundo (Manual pág. 1)
+
+% ------------------------------------------------------------------------------
+% Configurações de Tipografia e Hierarquia Beamer (Manual págs. 19-21)
+% ------------------------------------------------------------------------------
+\setbeamerfont{title}{size=\huge, series=\bfseries}
+\setbeamerfont{subtitle}{size=\large, series=\mdseries}
+\setbeamerfont{frametitle}{size=\Large, series=\bfseries}
+\setbeamerfont{framesubtitle}{size=\small, series=\mdseries}
+\setbeamerfont{author}{size=\normalsize, series=\bfseries}
+\setbeamerfont{institute}{size=\scriptsize, series=\mdseries}
+\setbeamerfont{date}{size=\scriptsize, series=\mdseries}
+\setbeamerfont{footline}{size=\tiny, series=\mdseries}
+
+% Configurações de Cores Base
+\setbeamercolor{normal text}{fg=CEIATextDark, bg=white}
+\setbeamercolor{structure}{fg=CEIABlue}
+\setbeamercolor{frametitle}{fg=CEIADarkBlue}
+\setbeamercolor{framesubtitle}{fg=CEIABlue}
+\setbeamercolor{item}{fg=CEIABrightBlue}
+\setbeamercolor{subitem}{fg=CEIAGreen}
+\setbeamercolor{subsubitem}{fg=CEIABlue}
+\setbeamercolor{alerted text}{fg=CEIABrightBlue}
+\setbeamercolor{example text}{fg=CEIAGreen}
+
+\setbeamersize{text margin left=0.06\paperwidth}
+\setbeamersize{text margin right=0.06\paperwidth}
+\setbeamertemplate{navigation symbols}{}
+
+% Marcadores de Itemize elegantes
+\setbeamertemplate{itemize item}{\scriptsize\raise1pt\hbox{\color{CEIABrightBlue}$\blacksquare$}}
+\setbeamertemplate{itemize subitem}{\tiny\raise1.5pt\hbox{\color{CEIAGreen}$\bullet$}}
+\setbeamertemplate{itemize subsubitem}{\tiny\raise1.5pt\hbox{\color{CEIATextMuted}$-$}}
+
+% Template Institucional para Sumário e Agenda (\tableofcontents)
+\setbeamertemplate{section in toc}{%
+  \begin{tikzpicture}[baseline=-0.6ex]
+    \node[circle, fill=CEIABrightBlue, text=white, font=\tiny\bfseries, inner sep=2.5pt] {\inserttocsectionnumber};
+  \end{tikzpicture}\hspace{7pt}%
+  {\small\bfseries\color{CEIADarkBlue}\MakeUppercase{\inserttocsection}}\par\vspace{0.7em}%
+}
+\setbeamertemplate{subsection in toc}{%
+  \hspace{1.2em}%
+  \begin{tikzpicture}[baseline=-0.6ex]
+    \node[circle, fill=CEIAGreen, inner sep=1.8pt] {};
+  \end{tikzpicture}\hspace{6pt}%
+  {\footnotesize\color{CEIATextDark}\inserttocsubsection}\par\vspace{0.4em}%
+}
+
+% ------------------------------------------------------------------------------
+% Sistema Híbrido de Eyebrow Header e Rodapé Discreto (Ganho de +20% altura útil)
+% ------------------------------------------------------------------------------
+\newcommand{\ceiaeyebrowtext}{}
+\newcommand{\ceiaeyebrow}[1]{\renewcommand{\ceiaeyebrowtext}{#1}}
+\newcommand{\ceiafooterdefault}{\insertshortauthor}
+\newcommand{\ceiafootertext}{}
+\newcommand{\ceiafooter}[1]{\renewcommand{\ceiafootertext}{#1}}
+\newcommand{\ceiafooterleft}{\ifx\ceiafootertext\@empty\ceiafooterdefault\else\ceiafootertext\fi}
+\newcommand{\ceiafooterright}{\insertframenumber{} / \inserttotalframenumber}
+
+% Limpeza automática do eyebrow a cada frame
+\pretocmd{\beamer@reseteveryframe}{\renewcommand{\ceiaeyebrowtext}{}}{}{}
+
+% ------------------------------------------------------------------------------
+% Grafismo Paramétrico de Gotas CEIA em TikZ (Manual págs. 22-24)
+% ------------------------------------------------------------------------------
+% Forma oficial: quadrado de lado W com 3 cantos arredondados de raio W/2 e 1 canto reto de 90° em (0,0)
+\newcommand{\ceiagota}[3][CEIABlue]{%
+  % #1 = cor de preenchimento
+  % #2 = angulo de rotação (0, 90, 180, 270)
+  % #3 = largura da gota (lado W em cm ou número)
+  \begin{tikzpicture}[baseline={(0,0)}]
+    \pgfmathsetmacro{\ceiarad}{#3*0.5}%
+    \fill[#1, rotate around={#2:({\ceiarad cm}, {\ceiarad cm})}] 
+      (0,0) [rounded corners=\ceiarad cm] -- 
+      ({\ceiarad*2 cm},0) -- 
+      ({\ceiarad*2 cm},{\ceiarad*2 cm}) -- 
+      (0,{\ceiarad*2 cm}) [sharp corners] -- 
+      cycle;
+  \end{tikzpicture}%
+}
+
+% Macro para desenhar uma gota absoluta no canvas
+\newcommand{\ceiagotanode}[4][CEIABlue]{%
+  % #1 = cor, #2 = (x,y), #3 = angulo, #4 = largura/escala em cm
+  \begin{scope}[shift={#2}]
+    \pgfmathsetmacro{\ceiarad}{#4*0.5}%
+    \fill[#1, rotate around={#3:({\ceiarad cm}, {\ceiarad cm})}] 
+      (0,0) [rounded corners=\ceiarad cm] -- 
+      ({\ceiarad*2 cm},0) -- 
+      ({\ceiarad*2 cm},{\ceiarad*2 cm}) -- 
+      (0,{\ceiarad*2 cm}) [sharp corners] -- 
+      cycle;
+  \end{scope}
+}
+
+% ------------------------------------------------------------------------------
+% Sistema de Layouts (\setLayout)
+% ------------------------------------------------------------------------------
+\newcommand{\currentlayout}{content}
+
+% 1. Layout: content (Padrão com Eyebrow Header e Rodapé Discreto)
+\newcommand{\setLayoutContent}{%
+  \renewcommand{\currentlayout}{content}%
+  \usebackgroundtemplate{}%
+  \setbeamercolor{normal text}{fg=CEIATextDark, bg=white}%
+  \setbeamertemplate{headline}{}%
+  % Frametitle com Eyebrow integrado (sem desperdício de espaço vertical)
+  \setbeamertemplate{frametitle}{%
+    \vspace{0.02\paperheight}%
+    \begin{beamercolorbox}[wd=\textwidth]{frametitle}%
+      % Eyebrow Header: lê \ceiaeyebrowtext ou \insertsectionhead
+      \ifx\ceiaeyebrowtext\@empty%
+        \ifx\insertsectionhead\@empty\else%
+          {\color{CEIABrightBlue}\fontsize{7.5}{9}\bfseries\MakeUppercase{\insertsectionhead}}\par\vspace{0.2ex}%
+        \fi%
+      \else%
+        {\color{CEIABrightBlue}\fontsize{7.5}{9}\bfseries\MakeUppercase{\ceiaeyebrowtext}}\par\vspace{0.2ex}%
+      \fi%
+      % Título principal em Inter ExtraBold (ALL CAPS conforme Manual pág. 19)
+      {\color{CEIADarkBlue}\bfseries\Large\MakeUppercase{\insertframetitle}}\par%
+      % Subtítulo opcional em Inter Medium (ALL CAPS conforme Manual pág. 19)
+      \ifx\insertframesubtitle\@empty\else%
+        \vspace{0.2ex}%
+        {\color{CEIABlue}\mdseries\footnotesize\MakeUppercase{\insertframesubtitle}}\par%
+      \fi%
+    \end{beamercolorbox}%
+    \vspace{0.2ex}%
+  }%
+  % Footline discreta
+  \setbeamertemplate{footline}{%
+    \begin{beamercolorbox}[wd=\paperwidth, ht=2.2ex, dp=1.2ex, leftskip=0.06\paperwidth, rightskip=0.06\paperwidth]{}%
+      {\color{CEIATextMuted}\tiny\ceiafooterleft}%
+      \hfill%
+      {\color{CEIATextMuted}\tiny\ceiafooterright}%
+    \end{beamercolorbox}%
+    \vspace{0.015\paperheight}%
+  }%
+}
+
+% Macro pura para gota ou círculo isolado da capa (sem retângulos ou recortes)
+\newcommand{\ceiacoveritem}[4]{%
+  % #1 = x em cm
+  % #2 = y em cm
+  % #3 = cor oficial (CEIABrightBlue, CEIABlue, CEIAGreen)
+  % #4 = rotação (0, 90, 180, 270) ou circle
+  \begin{scope}[shift={(#1, #2)}]
+    \ifthenelse{\equal{#4}{circle}}{%
+      \fill[#3] (0.55, 0.55) circle (0.55cm);
+    }{%
+      \fill[#3, rotate around={#4:(0.55, 0.55)}]
+        (0,0) [rounded corners=0.55cm] -- 
+        (1.1,0) -- 
+        (1.1,1.1) -- 
+        (0,1.1) [sharp corners] -- 
+        cycle;
+    }%
+  \end{scope}
+}
+
+% 2. Layout: cover (Capa Institucional 100% Vetorial e Fiel à Página 23 do Manual)
+\newcommand{\setLayoutCover}{%
+  \renewcommand{\currentlayout}{cover}%
+  \usebackgroundtemplate{%
+    \begin{tikzpicture}[remember picture, overlay]
+      % Fundo 100% sólido e uniforme em CEIADarkBlue (sem frestas, sem recortes)
+      \fill[CEIADarkBlue] (current page.south west) rectangle (current page.north east);
+      
+      % Suave iluminação radial
+      \shade[inner color=CEIABrightBlue!22!CEIADarkBlue, outer color=CEIADarkBlue] 
+        ($(current page.south west)+(3.0, 4.5)$) circle (7.0cm);
+
+      % Grade canônica de gotas e círculos autênticos do CEIA (Manual pág. 23)
+      \begin{scope}[shift={($(current page.south west)+(0.3, 0.3)$)}]
+        % Linha 6 (Topo, y = 7.2)
+        \ceiacoveritem{0.0}{7.2}{CEIABlue!75!CEIADarkBlue}{0}
+        \ceiacoveritem{1.3}{7.2}{CEIABrightBlue}{90}
+        \ceiacoveritem{2.6}{7.2}{CEIAGreen}{180}
+        \ceiacoveritem{3.9}{7.2}{CEIABlue}{circle}
+        \ceiacoveritem{5.2}{7.2}{CEIABrightBlue!60!CEIADarkBlue}{90}
+
+        % Linha 5 (y = 5.9)
+        \ceiacoveritem{0.0}{5.9}{CEIABrightBlue}{circle}
+        \ceiacoveritem{1.3}{5.9}{CEIABlue}{180}
+        \ceiacoveritem{2.6}{5.9}{CEIABrightBlue}{270}
+        \ceiacoveritem{3.9}{5.9}{CEIAGreen}{0}
+        \ceiacoveritem{5.2}{5.9}{CEIABlue!70!CEIADarkBlue}{circle}
+
+        % Linha 4 (y = 4.6)
+        \ceiacoveritem{0.0}{4.6}{CEIAGreen}{90}
+        \ceiacoveritem{1.3}{4.6}{CEIABrightBlue}{0}
+        \ceiacoveritem{2.6}{4.6}{CEIABlue}{circle}
+        \ceiacoveritem{3.9}{4.6}{CEIABrightBlue}{90}
+        \ceiacoveritem{5.2}{4.6}{CEIAGreen!70!CEIADarkBlue}{180}
+
+        % Linha 3 (y = 3.3)
+        \ceiacoveritem{0.0}{3.3}{CEIABlue}{circle}
+        \ceiacoveritem{1.3}{3.3}{CEIABrightBlue}{270}
+        \ceiacoveritem{2.6}{3.3}{CEIAGreen}{0}
+        \ceiacoveritem{3.9}{3.3}{CEIABlue}{180}
+        \ceiacoveritem{5.2}{3.3}{CEIABrightBlue!60!CEIADarkBlue}{circle}
+
+        % Linha 2 (y = 2.0)
+        \ceiacoveritem{0.0}{2.0}{CEIABrightBlue}{180}
+        \ceiacoveritem{1.3}{2.0}{CEIAGreen}{90}
+        \ceiacoveritem{2.6}{2.0}{CEIABrightBlue}{circle}
+        \ceiacoveritem{3.9}{2.0}{CEIABlue}{270}
+        \ceiacoveritem{5.2}{2.0}{CEIAGreen!70!CEIADarkBlue}{0}
+
+        % Linha 1 (y = 0.7)
+        \ceiacoveritem{0.0}{0.7}{CEIABlue}{circle}
+        \ceiacoveritem{1.3}{0.7}{CEIABrightBlue}{0}
+        \ceiacoveritem{2.6}{0.7}{CEIABlue}{90}
+        \ceiacoveritem{3.9}{0.7}{CEIAGreen}{180}
+        \ceiacoveritem{5.2}{0.7}{CEIABrightBlue!60!CEIADarkBlue}{circle}
+
+        % Linha 0 (Base, y = -0.6 - sangria suave)
+        \ceiacoveritem{0.0}{-0.6}{CEIAGreen}{270}
+        \ceiacoveritem{1.3}{-0.6}{CEIABlue}{circle}
+        \ceiacoveritem{2.6}{-0.6}{CEIABrightBlue}{180}
+        \ceiacoveritem{3.9}{-0.6}{CEIABlue}{0}
+        \ceiacoveritem{5.2}{-0.6}{CEIAGreen!60!CEIADarkBlue}{90}
+      \end{scope}
+    \end{tikzpicture}%
+  }%
+  \setbeamertemplate{headline}{}%
+  \setbeamertemplate{frametitle}{}%
+  \setbeamertemplate{footline}{}%
+  \setbeamercolor{normal text}{fg=white, bg=CEIADarkBlue}%
+}
+
+% 3. Layout: closing (Encerramento Institucional 100% Vetorial conforme Manual pág. 33)
+\newcommand{\setLayoutClosing}{%
+  \renewcommand{\currentlayout}{closing}%
+  \usebackgroundtemplate{%
+    \begin{tikzpicture}[remember picture, overlay]
+      % Fundo sólido oficial CEIADarkBlue
+      \fill[CEIADarkBlue] (current page.south west) rectangle (current page.north east);
+
+      % Brilho radial suave no canto inferior direito (Manual pág. 28)
+      \shade[inner color=CEIABrightBlue!25!CEIADarkBlue, outer color=CEIADarkBlue]
+        ($(current page.south east)+(2.0, -2.0)$) circle (9.0cm);
+
+      % Logo oficial branco à esquerda (substitui "Sistema Visual de Marca")
+      \node[anchor=north west, inner sep=0pt] 
+        at ($(current page.north west)+(0.8, -0.6)$) {\ceialogowhite[height=0.65cm]};
+      \node[anchor=north east, font=\fontsize{7.5}{10}\selectfont\color{white!60}] 
+        at ($(current page.north east)+(-0.8, -0.7)$) {GOIÂNIA 2026};
+    \end{tikzpicture}%
+  }%
+  \setbeamertemplate{headline}{}%
+  \setbeamertemplate{frametitle}{}%
+  \setbeamertemplate{footline}{}%
+  \setbeamercolor{normal text}{fg=white, bg=CEIADarkBlue}%
+}
+
+% 4. Layout: section (Divisória de Grandes Capítulos)
+\newcommand{\setLayoutSection}{%
+  \renewcommand{\currentlayout}{section}%
+  \usebackgroundtemplate{%
+    \begin{tikzpicture}[remember picture, overlay]
+      \fill[CEIADarkBlue] (current page.south west) rectangle (current page.north east);
+      % Detalhes sutis em verde menta no canto inferior
+      \fill[CEIAGreen!15] ($(current page.south east)+(-3, 0)$) arc[start angle=180, end angle=90, radius=3] -- ++(0,-3) -- cycle;
+    \end{tikzpicture}%
+  }%
+  \setbeamertemplate{headline}{}%
+  \setbeamertemplate{frametitle}{}%
+  \setbeamertemplate{footline}{}%
+  \setbeamercolor{normal text}{fg=white, bg=CEIADarkBlue}%
+}
+
+% 5. Layout: dark-code / dark (Modo Escuro Técnico para Arquitetura e IDE)
+\newcommand{\setLayoutDarkCode}{%
+  \renewcommand{\currentlayout}{dark-code}%
+  \usebackgroundtemplate{%
+    \begin{tikzpicture}[remember picture, overlay]
+      \fill[CEIADarkIDE] (current page.south west) rectangle (current page.north east);
+      % Acento de borda sutil no topo
+      \fill[CEIABlue] (current page.north west) rectangle ($(current page.north east)+(0, -2.5pt)$);
+    \end{tikzpicture}%
+  }%
+  \setbeamercolor{normal text}{fg=white!95, bg=CEIADarkIDE}%
+  \setbeamertemplate{headline}{}%
+  \setbeamertemplate{frametitle}{%
+    \vspace{0.02\paperheight}%
+    \begin{beamercolorbox}[wd=\textwidth]{frametitle}%
+      \ifx\ceiaeyebrowtext\@empty%
+        \ifx\insertsectionhead\@empty\else%
+          {\color{CEIAGreen}\fontsize{7.5}{9}\bfseries\MakeUppercase{\insertsectionhead}}\par\vspace{0.2ex}%
+        \fi%
+      \else%
+        {\color{CEIAGreen}\fontsize{7.5}{9}\bfseries\MakeUppercase{\ceiaeyebrowtext}}\par\vspace{0.2ex}%
+      \fi%
+      {\color{white}\bfseries\Large\MakeUppercase{\insertframetitle}}\par%
+      \ifx\insertframesubtitle\@empty\else%
+        \vspace{0.2ex}%
+        {\color{CEIABrightBlue}\mdseries\footnotesize\MakeUppercase{\insertframesubtitle}}\par%
+      \fi%
+    \end{beamercolorbox}%
+    \vspace{0.2ex}%
+  }%
+  \setbeamertemplate{footline}{%
+    \begin{beamercolorbox}[wd=\paperwidth, ht=2.2ex, dp=1.2ex, leftskip=0.06\paperwidth, rightskip=0.06\paperwidth]{}%
+      {\color{white!50}\tiny\ceiafooterleft}\hfill{\color{white!50}\tiny\ceiafooterright}%
+    \end{beamercolorbox}%
+    \vspace{0.015\paperheight}%
+  }%
+}
+
+% 6. Layout: statement (Frase de Impacto ou Tese)
+\newcommand{\setLayoutStatement}{%
+  \renewcommand{\currentlayout}{statement}%
+  \usebackgroundtemplate{}%
+  \setbeamertemplate{headline}{}%
+  \setbeamertemplate{frametitle}{}%
+  \setbeamertemplate{footline}{%
+    \begin{beamercolorbox}[wd=\paperwidth, ht=2.2ex, dp=1.2ex, leftskip=0.06\paperwidth, rightskip=0.06\paperwidth]{}%
+      {\color{CEIATextMuted}\tiny\ceiafooterleft}\hfill{\color{CEIATextMuted}\tiny\ceiafooterright}%
+    \end{beamercolorbox}%
+    \vspace{0.015\paperheight}%
+  }%
+  \setbeamercolor{normal text}{fg=CEIADarkBlue, bg=white}%
+}
+
+% Seletor mestre de Layouts
+\newcommand{\setLayout}[1]{%
+  \ifthenelse{\equal{#1}{content}}{\setLayoutContent}{}%
+  \ifthenelse{\equal{#1}{standard}}{\setLayoutContent}{}%
+  \ifthenelse{\equal{#1}{cover}}{\setLayoutCover}{}%
+  \ifthenelse{\equal{#1}{titlepage}}{\setLayoutCover}{}%
+  \ifthenelse{\equal{#1}{closing}}{\setLayoutClosing}{}%
+  \ifthenelse{\equal{#1}{section}}{\setLayoutSection}{}%
+  \ifthenelse{\equal{#1}{dark}}{\setLayoutDarkCode}{}%
+  \ifthenelse{\equal{#1}{dark-code}}{\setLayoutDarkCode}{}%
+  \ifthenelse{\equal{#1}{statement}}{\setLayoutStatement}{}%
+}
+
+% Inicialização padrão
+\setLayoutContent
+
+% ------------------------------------------------------------------------------
+% Macros de Marca, Logos e Submarcas (Manual págs. 3-13 e 15-18)
+% ------------------------------------------------------------------------------
+
+% Logo Principal Colorido (fundo branco)
+\newcommand{\ceialogo}[1][height=1.2cm]{%
+  \includegraphics[#1]{lib/logos/ceia_logo_color.pdf}%
+}
+
+% Logo Negativo em Branco (fundo escuro - 100% transparente)
+\newcommand{\ceialogowhite}[1][height=1.2cm]{%
+  \includegraphics[#1]{lib/logos/ceia_logo_white.pdf}%
+}
+
+% Logo Positivo em Preto (monocromático)
+\newcommand{\ceialogoblack}[1][height=1.2cm]{%
+  \includegraphics[#1]{lib/logos/ceia_logo_black.pdf}%
+}
+
+% Símbolo Isolado (Cabeça com conexões)
+\newcommand{\ceiasimbolo}[1][height=1.0cm]{%
+  \includegraphics[#1]{lib/logos/ceia_simbolo.pdf}%
+}
+
+% Submarcas Oficiais (Manual pág. 10: Símbolo + Logotipo CEIA + Barra + Nome em Inter Medium com proteção 2x)
+\newcommand{\ceiasubmarca}[2][height=0.88cm]{%
+  \begin{tikzpicture}[baseline={(logo.base)}]
+    \node[inner sep=0pt, anchor=west] (logo) {\includegraphics[#1]{lib/logos/ceia_logo_notag.pdf}};
+    \draw[line width=1.0pt, color=CEIADarkBlue] ([xshift=7pt, yshift=-1.5pt]logo.south east) -- ([xshift=7pt, yshift=1.5pt]logo.north east);
+    \node[anchor=west, inner sep=0pt] at ([xshift=14pt]logo.east) {%
+      {\fontsize{11.5}{13.5}\mdseries\color{CEIADarkBlue}#2}%
+    };
+  \end{tikzpicture}%
+}
+
+% Régua Institucional de Parceiros (Manual pág. 9)
+\newcommand{\ceiaregua}[1][width=\textwidth]{%
+  \includegraphics[clip, #1]{lib/logos/regua_institucional_color.pdf}%
+}
+\newcommand{\ceiareguacolor}[1][width=\textwidth]{\ceiaregua[#1]}
+\newcommand{\ceiareguawhite}[1][width=\textwidth]{%
+  \includegraphics[clip, #1]{lib/logos/regua_institucional_white.pdf}%
+}
+
+% Tipografia Eventual Actay Wide (Manual pág. 20)
+\newcommand{\ceiaweareceia}[1][height=1.8cm]{%
+  \includegraphics[#1]{lib/logos/we_are_ceia_actay.pdf}%
+}
+
+% ------------------------------------------------------------------------------
+% Configuração de Listings e Highlight de Code Diff (Engenharia & IA)
+% ------------------------------------------------------------------------------
+\lstdefinestyle{ceiacodestyle}{
+  basicstyle=\ttfamily\fontsize{7.5}{9.2}\selectfont\color{CEIATextDark},
+  keywordstyle=\bfseries\color{CEIABlue},
+  stringstyle=\color{CEIAGreen},
+  commentstyle=\itshape\color{CEIATextMuted},
+  numberstyle=\tiny\color{CEIATextMuted},
+  numbers=left,
+  numbersep=7pt,
+  xleftmargin=18pt,
+  breaklines=true,
+  tabsize=2,
+  showstringspaces=false,
+  escapeinside={(*@}{@*)},
+}
+
+% Comandos para Diff em Linhas de Código (Ajustados para não inflar entrelinha)
+\newcommand{\ceiaadded}[1]{{\setlength{\fboxsep}{1.2pt}\colorbox{CEIAGreen!20}{\vphantom{Ag}\color{CEIADarkBlue}\bfseries#1}}}
+\newcommand{\ceiaremoved}[1]{{\setlength{\fboxsep}{1.2pt}\colorbox{red!15}{\vphantom{Ag}\color{red!75!black}\bfseries#1}}}
+
+% ------------------------------------------------------------------------------
+% Biblioteca de Componentes Customizados (Engenharia de Software & IA)
+% ------------------------------------------------------------------------------
+
+% 1. Janela de IDE / Código Fonte (\newtcblisting)
+% IMPORTANTE: O slide que usar este ambiente DEVE conter [fragile]
+\newtcblisting{ceiacode}[2][]{%
+  enhanced,
+  colback=CEIALightGray,
+  colframe=CEIABorder,
+  boxrule=0.7pt,
+  arc=3.5pt,
+  left=4pt, right=5pt, top=1.5pt, bottom=1.5pt,
+  before={\par\vspace{0.5pt}\noindent}, after={\par\vspace{0.5pt}},
+  before upper={\raggedright},
+  colbacktitle=CEIABgSoft,
+  coltitle=CEIADarkBlue,
+  fonttitle=\ttfamily\scriptsize\bfseries,
+  title={%
+    \begin{tikzpicture}[baseline=-0.5ex]
+      \fill[CEIADarkBlue] (0,0) circle (2.0pt);
+      \fill[CEIABrightBlue] (5.5pt,0) circle (2.0pt);
+      \fill[CEIAGreen] (11pt,0) circle (2.0pt);
+    \end{tikzpicture}\hspace{6pt}#2%
+  },
+  listing only,
+  listing engine=listings,
+  listing options={style=ceiacodestyle,#1}
+}
+
+% 2. Janela de IDE Dark Mode
+\newtcblisting{ceiacodedark}[2][]{%
+  enhanced,
+  colback=CEIADarkIDE,
+  colframe=CEIABlue!50!black,
+  boxrule=0.75pt,
+  arc=4pt,
+  left=4pt, right=6pt, top=2.5pt, bottom=2.5pt,
+  before={\par\vspace{1.5pt}\noindent}, after={\par\vspace{1.5pt}},
+  before upper={\raggedright},
+  colbacktitle=CEIADarkBlue!90!black,
+  coltitle=white,
+  fonttitle=\ttfamily\scriptsize\bfseries,
+  title={%
+    \begin{tikzpicture}[baseline=-0.5ex]
+      \fill[CEIABlue] (0,0) circle (2.0pt);
+      \fill[CEIABrightBlue] (5.5pt,0) circle (2.0pt);
+      \fill[CEIAGreen] (11pt,0) circle (2.0pt);
+    \end{tikzpicture}\hspace{6pt}#2%
+  },
+  listing only,
+  listing engine=listings,
+  listing options={
+    style=ceiacodestyle,
+    basicstyle=\ttfamily\scriptsize\color{white!95},
+    keywordstyle=\bfseries\color{CEIABrightBlue},
+    stringstyle=\color{CEIAGreen},
+    commentstyle=\itshape\color{white!50},
+    numberstyle=\tiny\color{white!40},
+    #1
+  }
+}
+
+% 3. Bloco de Prompt de Agente / LLM
+\newtcolorbox{ceiaprompt}[2][ROLE: SYSTEM]{%
+  enhanced,
+  colback=CEIADarkBlue!95!black,
+  colframe=CEIAGreen,
+  boxrule=0pt,
+  leftrule=3.5pt,
+  arc=3pt,
+  left=8pt, right=8pt, top=6pt, bottom=6pt,
+  before={\par\vspace{1.5pt}\noindent}, after={\par\vspace{1.5pt}},
+  before upper={\raggedright},
+  coltitle=white,
+  fonttitle=\small\bfseries,
+  title={%
+    \begin{tikzpicture}[baseline=-0.5ex]
+      \node[fill=CEIAGreen, text=CEIADarkBlue, font=\tiny\bfseries, rounded corners=2pt, inner sep=2pt] {#1};
+    \end{tikzpicture}\hspace{5pt}#2%
+  },
+  colupper=white!95,
+  fontupper=\footnotesize\sffamily
+}
+
+% 4. Card de Especificação SDD (Spec-Driven Development)
+\newcommand{\ceiaspec}[3]{%
+  \begin{tcolorbox}[
+    enhanced,
+    colback=CEIABgSoft,
+    colframe=CEIABorder,
+    boxrule=0.7pt,
+    arc=3.5pt,
+    left=6pt, right=6pt, top=1.8pt, bottom=1.8pt,
+    before={\par\vspace{0.8pt}\noindent}, after={\par\vspace{0.8pt}},
+    before upper={\raggedright}
+  ]
+    \begin{columns}[c]
+      \column{0.18\textwidth}
+      \centering\tikz\node[fill=CEIABrightBlue, text=white, font=\scriptsize\bfseries, rounded corners=2.5pt, inner sep=2.5pt] {#1};
+      \column{0.62\textwidth}
+      {\footnotesize\color{CEIATextDark}\textbf{#2}}
+      \column{0.20\textwidth}
+      \centering\tikz\node[fill=CEIAGreen!20, text=CEIADarkBlue, font=\tiny\bfseries, rounded corners=2pt, inner sep=2pt, draw=CEIAGreen!60] {#3};
+    \end{columns}
+  \end{tcolorbox}%
+}
+
+% 5. Tabela de Benchmark e Eval
+\newcommand{\bestmetric}[1]{\colorbox{CEIAGreen!25}{\strut\color{CEIADarkBlue}\bfseries #1}}
+
+\newenvironment{ceiatable}[2][]{%
+  \begin{center}%
+  \small%
+  \rowcolors{2}{white}{CEIABgSoft}%
+  \begin{tabular}{#2}%
+    \toprule
+}{%
+    \bottomrule
+  \end{tabular}%
+  \end{center}%
+}
+
+% 6. Card Modular Institucional
+\newtcolorbox{ceiacard}[2][]{%
+  enhanced,
+  colback=CEIABgSoft,
+  colframe=CEIABorder,
+  boxrule=0.75pt,
+  arc=4pt,
+  left=8pt, right=8pt, top=6pt, bottom=6pt,
+  before={\par\vspace{1.5pt}\noindent}, after={\par\vspace{1.5pt}},
+  before upper={\raggedright},
+  fonttitle=\small\bfseries,
+  colbacktitle=CEIABgSoft,
+  coltitle=CEIADarkBlue,
+  titlerule=0pt,
+  title={\MakeUppercase{#2}},
+  #1
+}
+
+% 7. Blocos Institucionais
+\newtcolorbox{ceiablock}[2][]{%
+  enhanced,
+  colback=CEIABgSoft,
+  colframe=CEIABlue,
+  boxrule=0pt,
+  leftrule=3.5pt,
+  arc=3pt,
+  left=7pt, right=7pt, top=3.5pt, bottom=3.5pt,
+  before={\par\vspace{1.5pt}\noindent}, after={\par\vspace{1.5pt}},
+  before upper={\raggedright},
+  fonttitle=\footnotesize\bfseries,
+  coltitle=CEIADarkBlue,
+  colbacktitle=CEIABgSoft,
+  titlerule=0pt,
+  title={\MakeUppercase{#2}},
+  #1
+}
+
+\newtcolorbox{ceiaalert}[2][]{%
+  enhanced,
+  colback=CEIABgSoft,
+  colframe=CEIAGreen,
+  boxrule=0pt,
+  leftrule=3.5pt,
+  arc=3pt,
+  left=7pt, right=7pt, top=3.5pt, bottom=3.5pt,
+  before={\par\vspace{1.5pt}\noindent}, after={\par\vspace{1.5pt}},
+  before upper={\raggedright},
+  fonttitle=\footnotesize\bfseries,
+  coltitle=CEIADarkBlue,
+  colbacktitle=CEIABgSoft,
+  titlerule=0pt,
+  title={\MakeUppercase{#2}},
+  #1
+}
+
+% 8. Stat Display / Big Numbers
+\newcommand{\ceiastat}[2]{%
+  \begin{center}
+    {\fontsize{30}{34}\bfseries\color{CEIABrightBlue} #1}\par\vspace{0.2em}%
+    {\footnotesize\bfseries\color{CEIATextDark}\MakeUppercase{#2}\par}%
+  \end{center}
+}
+\newcommand{\ceiastatsep}{%
+  \centering\color{CEIABorder}\rule{1pt}{1.8cm}%
+}
+
+% Indicadores com Alinhamento Perfeito (Centralização Geométrica com TikZ)
+\newcommand{\ceiastatfour}[8]{%
+  \vspace{0.4em}%
+  \noindent%
+  \begin{minipage}{\linewidth}%
+    \centering%
+    \begin{tikzpicture}
+      \def\totalw{13.6}
+      \def\hgt{1.0}
+      % 3 divisores verticais perfeitamente posicionados em 25%, 50%, 75%
+      \draw[CEIABorder, line width=0.85pt] (\totalw*0.25, -\hgt) -- (\totalw*0.25, \hgt);
+      \draw[CEIABorder, line width=0.85pt] (\totalw*0.50, -\hgt) -- (\totalw*0.50, \hgt);
+      \draw[CEIABorder, line width=0.85pt] (\totalw*0.75, -\hgt) -- (\totalw*0.75, \hgt);
+      % 4 colunas centralizadas com precisão geométrica em 12.5%, 37.5%, 62.5%, 87.5%
+      \node[anchor=center, align=center, text width=3.1cm] at (\totalw*0.125, 0) {
+        {\fontsize{30}{34}\selectfont\bfseries\color{CEIABrightBlue} #1}\par\vspace{0.35em}%
+        {\fontsize{7.5}{9.5}\selectfont\bfseries\color{CEIATextDark}\MakeUppercase{#2}}
+      };
+      \node[anchor=center, align=center, text width=3.1cm] at (\totalw*0.375, 0) {
+        {\fontsize{30}{34}\selectfont\bfseries\color{CEIABrightBlue} #3}\par\vspace{0.35em}%
+        {\fontsize{7.5}{9.5}\selectfont\bfseries\color{CEIATextDark}\MakeUppercase{#4}}
+      };
+      \node[anchor=center, align=center, text width=3.1cm] at (\totalw*0.625, 0) {
+        {\fontsize{30}{34}\selectfont\bfseries\color{CEIABrightBlue} #5}\par\vspace{0.35em}%
+        {\fontsize{7.5}{9.5}\selectfont\bfseries\color{CEIATextDark}\MakeUppercase{#6}}
+      };
+      \node[anchor=center, align=center, text width=3.1cm] at (\totalw*0.875, 0) {
+        {\fontsize{30}{34}\selectfont\bfseries\color{CEIABrightBlue} #7}\par\vspace{0.35em}%
+        {\fontsize{7.5}{9.5}\selectfont\bfseries\color{CEIATextDark}\MakeUppercase{#8}}
+      };
+    \end{tikzpicture}%
+  \end{minipage}%
+}
+
+\newcommand{\ceiastatthree}[6]{%
+  \vspace{0.4em}%
+  \noindent%
+  \begin{minipage}{\linewidth}%
+    \centering%
+    \begin{tikzpicture}
+      \def\totalw{13.6}
+      \def\hgt{1.0}
+      % 2 divisores verticais em 33.33% e 66.67%
+      \draw[CEIABorder, line width=0.85pt] (\totalw*0.3333, -\hgt) -- (\totalw*0.3333, \hgt);
+      \draw[CEIABorder, line width=0.85pt] (\totalw*0.6667, -\hgt) -- (\totalw*0.6667, \hgt);
+      % 3 colunas centralizadas com precisão geométrica em 16.67%, 50%, 83.33%
+      \node[anchor=center, align=center, text width=4.1cm] at (\totalw*0.1667, 0) {
+        {\fontsize{32}{36}\selectfont\bfseries\color{CEIABrightBlue} #1}\par\vspace{0.35em}%
+        {\fontsize{8}{10}\selectfont\bfseries\color{CEIATextDark}\MakeUppercase{#2}}
+      };
+      \node[anchor=center, align=center, text width=4.1cm] at (\totalw*0.5000, 0) {
+        {\fontsize{32}{36}\selectfont\bfseries\color{CEIABrightBlue} #3}\par\vspace{0.35em}%
+        {\fontsize{8}{10}\selectfont\bfseries\color{CEIATextDark}\MakeUppercase{#4}}
+      };
+      \node[anchor=center, align=center, text width=4.1cm] at (\totalw*0.8333, 0) {
+        {\fontsize{32}{36}\selectfont\bfseries\color{CEIABrightBlue} #5}\par\vspace{0.35em}%
+        {\fontsize{8}{10}\selectfont\bfseries\color{CEIATextDark}\MakeUppercase{#6}}
+      };
+    \end{tikzpicture}%
+  \end{minipage}%
+}
+
+% 9. Título de Transição de Seção
+\newcommand{\ceiatransitiontitle}[2]{%
+  \begin{tikzpicture}[remember picture, overlay]
+    \node[anchor=center, text width=0.85\paperwidth, align=center] at (current page.center) {
+      {\fontsize{34}{40}\bfseries\color{white}\MakeUppercase{#1}}\par\vspace{1em}%
+      {\fontsize{14}{18}\mdseries\color{CEIAGreen}\MakeUppercase{#2}}
+    };
+  \end{tikzpicture}
+}
+
+% ------------------------------------------------------------------------------
+% Estilos TikZ para Pipelines Multi-Agente
+% ------------------------------------------------------------------------------
+\tikzset{
+  ceiaagent/.style={
+    draw=CEIABlue, fill=CEIABlue!12, line width=1pt, rounded corners=4pt,
+    font=\scriptsize\bfseries, align=center, text=CEIADarkBlue, minimum height=0.85cm
+  },
+  ceiatool/.style={
+    draw=CEIAGreen, fill=CEIAGreen!15, line width=1pt, rounded corners=4pt,
+    font=\scriptsize\bfseries, align=center, text=CEIADarkBlue, minimum height=0.85cm
+  },
+  ceiagate/.style={
+    draw=CEIADarkBlue, fill=CEIADarkBlue, line width=1pt, rounded corners=4pt,
+    font=\scriptsize\bfseries, align=center, text=white, minimum height=0.85cm
+  },
+  ceiaarr/.style={->, >=Stealth, thick, color=CEIABlue},
+  ceiafeedback/.style={->, >=Stealth, thick, dashed, color=CEIAGreen!80!black}
+}
+
+% ==============================================================================
+% Design System v3.0: Componentes de Estruturação, Pesquisa e Engenharia
+% ==============================================================================
+
+% 1. Marcadores de Lista e Ambiente ceiaitemize (Gotas e Círculos Paramétricos)
+% Gota oficial ortogonal: quadrado de lado W com 3 cantos arredondados (R = W/2) e 1 canto reto (Manual págs. 22-24)
+\newcommand{\ceiaminidrop}[1][CEIABrightBlue]{%
+  \tikz[baseline=-0.35ex]{%
+    \fill[#1] (0,0) [rounded corners=0.95mm] -- (1.9mm,0) -- (1.9mm,1.9mm) -- (0,1.9mm) [sharp corners] -- cycle;
+  }\hspace{2.5pt}%
+}
+\newcommand{\ceiaminicircle}[1][CEIAGreen]{%
+  \tikz[baseline=-0.35ex]{\fill[#1] (0,0) circle (1.8pt);}\hspace{2.5pt}%
+}
+\newcommand{\ceiaminidash}[1][CEIADarkBlue]{%
+  \tikz[baseline=-0.35ex]{\fill[#1, rounded corners=0.4pt] (0,-0.5pt) rectangle (5.5pt, 1.0pt);}\hspace{2.5pt}%
+}
+
+\setbeamertemplate{itemize item}{\ceiaminidrop}
+\setbeamertemplate{itemize subitem}{\ceiaminicircle}
+\setbeamertemplate{itemize subsubitem}{\ceiaminidash}
+
+\newenvironment{ceiaitemize}{%
+  \begin{itemize}%
+  \setlength{\itemsep}{0.3em}%
+  \setlength{\parskip}{0pt}%
+}{%
+  \end{itemize}%
+}
+
+% Variante compacta para otimização de espaço vertical
+\newenvironment{ceiaitemizecompact}{%
+  \begin{itemize}%
+  \setlength{\itemsep}{1.5pt}%
+  \setlength{\parskip}{0pt}%
+}{%
+  \end{itemize}%
+}
+
+% Ambiente de densidade para slides com volume alto de informação
+\newenvironment{ceiadense}{%
+  \vspace{-0.2em}%
+  \setlength{\parskip}{0.5pt}%
+  \small%
+}{%
+  \vspace{-0.2em}%
+}
+
+% 2. Tags e Pílulas Semânticas (ceiatag)
+\newcommand{\ceiatag}[2][CEIABrightBlue]{%
+  \tikz[baseline=-0.5ex]{%
+    \node[fill=#1!12, text=#1!85!black, font=\tiny\bfseries, rounded corners=2pt, inner sep=2.5pt, draw=#1!40, line width=0.5pt] {#2};%
+  }%
+}
+
+% 3. Passos e Sequenciamento de Processos (ceiastep)
+\newcommand{\ceiastep}[4][]{%
+  \begin{tcolorbox}[
+    enhanced, colback=white, colframe=CEIABorder, boxrule=0.75pt, arc=4pt,
+    left=8pt, right=8pt, top=3.5pt, bottom=3.5pt,
+    before={\par\vspace{1.5pt}\noindent}, after={\par\vspace{1.5pt}},
+    #1
+  ]
+    \begin{columns}[c]
+      \column{0.12\linewidth}
+      \centering
+      \tikz\node[fill=CEIABlue, text=white, font=\footnotesize\bfseries, rounded corners=3pt, inner sep=4pt, minimum width=0.75cm] {#2};
+      \column{0.85\linewidth}
+      {\small\bfseries\color{CEIADarkBlue} #3}\par\vspace{1pt}
+      {\footnotesize\color{CEIATextDark} #4}
+    \end{columns}
+  \end{tcolorbox}%
+}
+
+% 4. Checklist de Auditoria e Requisitos (ceiachecklist & \checkitem)
+% Ícones vetoriais padronizados em estrita conformidade com a paleta oficial do CEIA:
+% - ok:   Verde Menta (CEIAGreen) com checkmark vetorial em CEIADarkBlue
+% - warn: Azul Elétrico (CEIABrightBlue) com exclamação vetorial em CEIADarkBlue
+% - fail: Azul Escuro (CEIADarkBlue) com cruz vetorial em CEIADarkBlue
+% - info: Slate Neutro (CEIATextMuted) com indicador vetorial em CEIATextDark
+\newcommand{\checkicon}[1]{%
+  \ifstrequal{#1}{ok}{%
+    \tikz[baseline=-0.6ex]{%
+      \filldraw[fill=CEIAGreen!18, draw=CEIAGreen, line width=0.85pt] (0,0) circle (1.85mm);%
+      \draw[CEIADarkBlue, line width=1.1pt, line cap=round, line join=round] (-0.95mm,-0.1mm) -- (-0.3mm,-0.75mm) -- (0.95mm,0.7mm);%
+    }%
+  }{%
+    \ifstrequal{#1}{warn}{%
+      \tikz[baseline=-0.6ex]{%
+        \filldraw[fill=CEIABrightBlue!18, draw=CEIABrightBlue, line width=0.85pt] (0,0) circle (1.85mm);%
+        \draw[CEIADarkBlue, line width=1.15pt, line cap=round] (0, 0.75mm) -- (0, -0.1mm);%
+        \fill[CEIADarkBlue] (0, -0.65mm) circle (0.32mm);%
+      }%
+    }{%
+      \ifstrequal{#1}{fail}{%
+        \tikz[baseline=-0.6ex]{%
+          \filldraw[fill=CEIADarkBlue!15, draw=CEIADarkBlue, line width=0.85pt] (0,0) circle (1.85mm);%
+          \draw[CEIADarkBlue, line width=1.1pt, line cap=round] (-0.7mm,-0.7mm) -- (0.7mm,0.7mm);%
+          \draw[CEIADarkBlue, line width=1.1pt, line cap=round] (-0.7mm,0.7mm) -- (0.7mm,-0.7mm);%
+        }%
+      }{%
+        \tikz[baseline=-0.6ex]{%
+          \filldraw[fill=CEIATextMuted!15, draw=CEIATextMuted, line width=0.85pt] (0,0) circle (1.85mm);%
+          \draw[CEIATextDark, line width=1.1pt, line cap=round] (0, -0.7mm) -- (0, 0.1mm);%
+          \fill[CEIATextDark] (0, 0.65mm) circle (0.32mm);%
+        }%
+      }%
+    }%
+  }%
+}
+\newcommand{\checkitem}[3][ok]{%
+  \item[\checkicon{#1}] {\small\bfseries\color{CEIADarkBlue} #2:}\quad{\footnotesize\color{CEIATextDark} #3}%
+}
+\newenvironment{ceiachecklist}{%
+  \begin{itemize}%
+  \setlength{\itemsep}{0.25em}%
+}{%
+  \end{itemize}%
+}
+
+% Sistema de Grade Padronizado (\ceiasplit para 2 colunas com gutter automático)
+\newcommand{\ceiasplit}[3][0.48]{%
+  % #1 = proporção da coluna esquerda (padrão 0.48 = 50/50 balanceado)
+  % #2 = conteúdo da coluna esquerda
+  % #3 = conteúdo da coluna direita
+  \pgfmathsetmacro{\ceiarightcol}{0.96 - #1}%
+  \begin{columns}[T]%
+    \begin{column}{#1\textwidth}%
+      #2%
+    \end{column}%
+    \begin{column}{\ceiarightcol\textwidth}%
+      #3%
+    \end{column}%
+  \end{columns}%
+}
+
+% 5. Comparação e Trade-offs (ceiavs & ceiaprogress)
+\newcommand{\ceiavs}[4]{%
+  \begin{columns}[T]
+    \begin{column}{0.48\textwidth}
+      \begin{tcolorbox}[
+        enhanced, colback=CEIABgSoft, colframe=CEIABorder, boxrule=0.75pt, arc=4pt,
+        top=3.5pt, bottom=3.5pt, left=7pt, right=7pt, equal height group=ceiavs,
+        fonttitle=\footnotesize\bfseries, coltitle=CEIATextMuted, colbacktitle=CEIABgSoft, titlerule=0pt,
+        title={\MakeUppercase{#1}}
+      ]
+        {\footnotesize\color{CEIATextDark} #2}
+      \end{tcolorbox}
+    \end{column}
+    \begin{column}{0.48\textwidth}
+      \begin{tcolorbox}[
+        enhanced, colback=CEIABrightBlue!6, colframe=CEIABlue, boxrule=1pt, arc=4pt,
+        top=3.5pt, bottom=3.5pt, left=7pt, right=7pt, equal height group=ceiavs,
+        fonttitle=\footnotesize\bfseries, coltitle=CEIADarkBlue, colbacktitle=CEIABrightBlue!6, titlerule=0pt,
+        title={\MakeUppercase{#3}}
+      ]
+        {\footnotesize\color{CEIATextDark} #4}
+      \end{tcolorbox}
+    \end{column}
+  \end{columns}%
+}
+
+\newcommand{\ceiaprogress}[3][CEIABrightBlue]{%
+  \par\noindent
+  \begin{minipage}{\linewidth}
+    \begin{columns}[c]
+      \column{0.68\linewidth}
+      {\footnotesize\bfseries\color{CEIADarkBlue} #3}\par\vspace{1pt}
+      \tikz{%
+        \fill[CEIABorder, rounded corners=1.8pt] (0,0) rectangle (4.5cm, 0.17cm);
+        \fill[#1, rounded corners=1.8pt] (0,0) rectangle ({4.5cm * #2 / 100}, 0.17cm);
+      }%
+      \column{0.28\linewidth}
+      \raggedleft{\normalsize\bfseries\color{CEIADarkBlue} #2\%}
+    \end{columns}
+  \end{minipage}\par\vspace{1pt}%
+}
+
+% 6. Hierarquia em Camadas (ceialayer / ceiastack)
+\newcommand{\ceialayer}[3][CEIABgSoft]{%
+  \begin{tcolorbox}[
+    enhanced, colback=#1, colframe=CEIABorder, boxrule=0.75pt, arc=3pt,
+    left=8pt, right=8pt, top=2.5pt, bottom=2.5pt,
+    before={\par\vspace{1pt}\noindent}, after={\par\vspace{1pt}}
+  ]
+    \begin{columns}[c]
+      \column{0.32\linewidth}
+      {\footnotesize\bfseries\color{CEIADarkBlue} \MakeUppercase{#2}}
+      \column{0.65\linewidth}
+      {\footnotesize\color{CEIATextDark} #3}
+    \end{columns}
+  \end{tcolorbox}%
+}
+
+% 7. Linha do Tempo de Milestones (ceiatimelinefour)
+\newcommand{\ceiatimelinefour}[8]{%
+  \begin{center}\vspace{-0.15cm}
+  \begin{tikzpicture}[x=3.1cm, y=0.8cm]
+    \draw[CEIABorder, line width=1.5pt] (0, 0) -- (3, 0);
+    
+    \fill[CEIABrightBlue] (0, 0) circle (4.5pt);
+    \fill[white] (0, 0) circle (2.2pt);
+    \node[above=3.5pt, font=\scriptsize\bfseries, color=CEIABlue] at (0, 0) {#1};
+    \node[below=3.5pt, font=\footnotesize\bfseries, align=center, text width=2.4cm, color=CEIADarkBlue] at (0, 0) {#2};
+    
+    \fill[CEIABrightBlue] (1, 0) circle (4.5pt);
+    \fill[white] (1, 0) circle (2.2pt);
+    \node[above=3.5pt, font=\scriptsize\bfseries, color=CEIABlue] at (1, 0) {#3};
+    \node[below=3.5pt, font=\footnotesize\bfseries, align=center, text width=2.4cm, color=CEIADarkBlue] at (1, 0) {#4};
+    
+    \fill[CEIABrightBlue] (2, 0) circle (4.5pt);
+    \fill[white] (2, 0) circle (2.2pt);
+    \node[above=3.5pt, font=\scriptsize\bfseries, color=CEIABlue] at (2, 0) {#5};
+    \node[below=3.5pt, font=\footnotesize\bfseries, align=center, text width=2.4cm, color=CEIADarkBlue] at (2, 0) {#6};
+    
+    \fill[CEIAGreen] (3, 0) circle (5.5pt);
+    \fill[white] (3, 0) circle (2.6pt);
+    \node[above=3.5pt, font=\scriptsize\bfseries, color=CEIAGreen!80!black] at (3, 0) {#7};
+    \node[below=3.5pt, font=\footnotesize\bfseries, align=center, text width=2.4cm, color=CEIADarkBlue] at (3, 0) {#8};
+  \end{tikzpicture}\vspace{-0.15cm}
+  \end{center}
+}
+
+% 8. Rigor Científico e Pesquisa Acadêmica (ceiaformula, ceiatheorem, ceiaquote)
+\newtcolorbox{ceiaformula}[2][]{%
+  enhanced, colback=CEIABgSoft, colframe=CEIABorder, boxrule=0.75pt, arc=4pt,
+  left=10pt, right=10pt, top=6pt, bottom=6pt,
+  before={\par\vspace{2pt}\noindent}, after={\par\vspace{2pt}},
+  fonttitle=\footnotesize\bfseries, coltitle=CEIADarkBlue, colbacktitle=CEIABgSoft, titlerule=0pt,
+  title={\MakeUppercase{#2}},
+  #1
+}
+
+\newtcolorbox{ceiatheorem}[2][]{%
+  enhanced, colback=CEIABgSoft, colframe=CEIABrightBlue, boxrule=0pt, leftrule=3.5pt, arc=3pt,
+  left=8pt, right=8pt, top=5pt, bottom=5pt,
+  before={\par\vspace{2pt}\noindent}, after={\par\vspace{2pt}},
+  fonttitle=\footnotesize\bfseries, coltitle=CEIADarkBlue, colbacktitle=CEIABgSoft, titlerule=0pt,
+  title={\textbf{\MakeUppercase{Definição / Teorema:}} \MakeUppercase{#2}},
+  #1
+}
+
+\newcommand{\ceiacite}[1]{{\scriptsize\color{CEIATextMuted}\quad[#1]}}
+\newenvironment{ceiaquote}[2][]{%
+  \def\ceiaquoteauthor{#2}%
+  \def\ceiaquotecite{#1}%
+  \begin{tcolorbox}[
+    enhanced, colback=CEIABgSoft, colframe=CEIABorder, boxrule=0.75pt, arc=4pt,
+    left=22pt, right=10pt, top=7pt, bottom=7pt,
+    before={\par\vspace{3pt}\noindent}, after={\par\vspace{3pt}},
+    overlay unbroken and first={%
+      \node[anchor=north west, color=CEIABlue!22, font=\fontsize{36}{36}\selectfont] at ($(frame.north west)+(3pt,-2pt)$) {``};
+    }
+  ]
+    \itshape\color{CEIATextDark}\small
+}{%
+    \par\vspace{3pt}\raggedleft\upshape\footnotesize\bfseries\color{CEIADarkBlue}--- \ceiaquoteauthor\ifthenelse{\equal{\ceiaquotecite}{}}{}{\ceiacite{\ceiaquotecite}}
+  \end{tcolorbox}%
+}
+
+% 9. Mídia e Layout de Pilares (ceiafigure & ceiapillars)
+\newcommand{\ceiafigure}[3][width=0.95\linewidth]{%
+  \begin{center}
+    \begin{tcolorbox}[
+      enhanced, colback=white, colframe=CEIABorder, boxrule=0.75pt, arc=4pt,
+      left=4pt, right=4pt, top=4pt, bottom=4pt,
+      width=\linewidth, halign=center,
+      before={\par\vspace{2pt}\noindent}, after={\par\vspace{2pt}}
+    ]
+      \includegraphics[#1]{#2}\par\vspace{3pt}%
+      {\scriptsize\color{CEIATextMuted}\textbf{Figura:} #3}
+    \end{tcolorbox}
+  \end{center}%
+}
+
+% 9. Layout de Cards Modulares Generalistas (ceiacards & \ceiacarditem)
+% Totalmente moldável: suporta 2, 3 ou 4 colunas dinamicamente com altura sincronizada
+\newcounter{ceiacardscols}
+\newcommand{\ceiacardcolwidth}{0.31\textwidth}
+
+\newenvironment{ceiacards}[1][3]{%
+  \setcounter{ceiacardscols}{#1}%
+  \ifnum#1=2
+    \renewcommand{\ceiacardcolwidth}{0.48\textwidth}%
+  \else\ifnum#1=4
+    \renewcommand{\ceiacardcolwidth}{0.23\textwidth}%
+  \else
+    \renewcommand{\ceiacardcolwidth}{0.31\textwidth}%
+  \fi\fi
+  \begin{columns}[T]%
+}{%
+  \end{columns}%
+}
+
+\newcommand{\ceiacarditem}[3][]{%
+  \begin{column}{\ceiacardcolwidth}%
+    \begin{tcolorbox}[
+      enhanced, colback=CEIABgSoft, colframe=CEIABorder, boxrule=0.75pt, arc=4pt,
+      top=6pt, bottom=7pt, left=7pt, right=7pt, equal height group=ceiacardsgroup
+    ]
+      \if\relax\detokenize{#1}\relax\else
+        \centering\tikz\node[circle, fill=CEIABlue, text=white, font=\footnotesize\bfseries, inner sep=3.2pt] {#1};\par\vspace{3pt}%
+      \fi
+      \centering{\small\bfseries\color{CEIADarkBlue} #2}\par\vspace{3pt}%
+      {\scriptsize\color{CEIATextDark}\raggedright #3\par}%
+    \end{tcolorbox}%
+  \end{column}%
+}
+
+% Atalho canônico para 3 pilares executivos (100% retrocompatível)
+\newcommand{\ceiapillars}[9]{%
+  \begin{ceiacards}[3]
+    \ceiacarditem[#1]{#2}{#3}
+    \ceiacarditem[#4]{#5}{#6}
+    \ceiacarditem[#7]{#8}{#9}
+  \end{ceiacards}%
+}
+
+% ------------------------------------------------------------------------------
+% Biblioteca de Gráficos Nativos e Responsivos em TikZ (Paleta Oficial CEIA)
+% ------------------------------------------------------------------------------
+
+% 1. Gráfico de Barras Horizontais com Metas / Benchmarks (\ceiahbar)
+% #1 = Cor (opcional, padrão CEIABrightBlue)
+% #2 = Rótulo da métrica/modelo
+% #3 = Valor numérico
+% #4 = Valor máximo da escala
+% #5 = Unidade (ex: \%, s, ms, MB)
+\newcommand{\ceiahbar}[5][CEIABrightBlue]{%
+  \noindent\begin{minipage}{\linewidth}%
+    \vspace{2.5pt}%
+    \begin{tikzpicture}
+      \def\barw{3.8}
+      \def\barh{0.32}
+      \pgfmathsetmacro{\fillw}{(#3 / #4) * \barw}%
+      \node[anchor=east, font=\scriptsize\bfseries\color{CEIATextDark}, text width=3.0cm, align=right] 
+        at (-0.15, \barh*0.5) {#2};
+      \fill[CEIALightGray, rounded corners=2pt] (0, 0) rectangle (\barw, \barh);
+      \fill[#1, rounded corners=2pt] (0, 0) rectangle (\fillw, \barh);
+      \node[anchor=west, font=\scriptsize\bfseries\color{CEIADarkBlue}] 
+        at (\barw + 0.15, \barh*0.5) {#3#5};
+    \end{tikzpicture}%
+    \vspace{2.5pt}%
+  \end{minipage}\par%
+}
+
+% 2. Gráfico de Barras Verticais Comparativo (\ceiavbarsfour e \ceiavbarsthree)
+\newcommand{\ceiavbarsfour}[8]{%
+  % #1=Val1, #2=Label1, #3=Val2, #4=Label2, #5=Val3, #6=Label3, #7=Val4, #8=Label4
+  \begin{center}
+  \begin{tikzpicture}[x=1.8cm, y=0.035cm]
+    \draw[CEIABorder, dashed, line width=0.5pt] (-0.6, 25) -- (4.2, 25);
+    \draw[CEIABorder, dashed, line width=0.5pt] (-0.6, 50) -- (4.2, 50);
+    \draw[CEIABorder, dashed, line width=0.5pt] (-0.6, 75) -- (4.2, 75);
+    \draw[CEIABorder, dashed, line width=0.5pt] (-0.6, 100) -- (4.2, 100);
+    \node[left, font=\tiny\color{CEIATextMuted}] at (-0.6, 50) {50\%};
+    \node[left, font=\tiny\color{CEIATextMuted}] at (-0.6, 100) {100\%};
+
+    \draw[CEIABorder, line width=1.0pt] (-0.6, 0) -- (4.2, 0);
+
+    \fill[CEIABlue!70!CEIADarkBlue, rounded corners=2pt] (0-0.3, 0) rectangle (0+0.3, #1);
+    \node[above, font=\scriptsize\bfseries\color{CEIADarkBlue}] at (0, #1) {#1\%};
+    \node[below=3pt, font=\scriptsize\bfseries\color{CEIATextDark}, align=center] at (0, 0) {#2};
+
+    \fill[CEIABlue, rounded corners=2pt] (1.2-0.3, 0) rectangle (1.2+0.3, #3);
+    \node[above, font=\scriptsize\bfseries\color{CEIADarkBlue}] at (1.2, #3) {#3\%};
+    \node[below=3pt, font=\scriptsize\bfseries\color{CEIATextDark}, align=center] at (1.2, 0) {#4};
+
+    \fill[CEIABrightBlue, rounded corners=2pt] (2.4-0.3, 0) rectangle (2.4+0.3, #5);
+    \node[above, font=\scriptsize\bfseries\color{CEIADarkBlue}] at (2.4, #5) {#5\%};
+    \node[below=3pt, font=\scriptsize\bfseries\color{CEIATextDark}, align=center] at (2.4, 0) {#6};
+
+    \fill[CEIAGreen, rounded corners=2pt] (3.6-0.3, 0) rectangle (3.6+0.3, #7);
+    \node[above, font=\scriptsize\bfseries\color{CEIADarkBlue}] at (3.6, #7) {#7\%};
+    \node[below=3pt, font=\scriptsize\bfseries\color{CEIATextDark}, align=center] at (3.6, 0) {#8};
+  \end{tikzpicture}
+  \end{center}
+}
+
+\newcommand{\ceiavbarsthree}[6]{%
+  % #1=Val1, #2=Label1, #3=Val2, #4=Label2, #5=Val3, #6=Label3
+  \begin{center}
+  \begin{tikzpicture}[x=1.5cm, y=0.026cm]
+    \draw[CEIABorder, dashed, line width=0.5pt] (-0.5, 50) -- (2.9, 50);
+    \draw[CEIABorder, dashed, line width=0.5pt] (-0.5, 100) -- (2.9, 100);
+    \node[left, font=\tiny\color{CEIATextMuted}] at (-0.5, 50) {50\%};
+    \node[left, font=\tiny\color{CEIATextMuted}] at (-0.5, 100) {100\%};
+
+    \draw[CEIABorder, line width=1.0pt] (-0.5, 0) -- (2.9, 0);
+
+    \fill[CEIABlue, rounded corners=2pt] (0-0.3, 0) rectangle (0+0.3, #1);
+    \node[above, font=\scriptsize\bfseries\color{CEIADarkBlue}] at (0, #1) {#1\%};
+    \node[below=3pt, font=\scriptsize\bfseries\color{CEIATextDark}, align=center] at (0, 0) {#2};
+
+    \fill[CEIABrightBlue, rounded corners=2pt] (1.2-0.3, 0) rectangle (1.2+0.3, #3);
+    \node[above, font=\scriptsize\bfseries\color{CEIADarkBlue}] at (1.2, #3) {#3\%};
+    \node[below=3pt, font=\scriptsize\bfseries\color{CEIATextDark}, align=center] at (1.2, 0) {#4};
+
+    \fill[CEIAGreen, rounded corners=2pt] (2.4-0.3, 0) rectangle (2.4+0.3, #5);
+    \node[above, font=\scriptsize\bfseries\color{CEIADarkBlue}] at (2.4, #5) {#5\%};
+    \node[below=3pt, font=\scriptsize\bfseries\color{CEIATextDark}, align=center] at (2.4, 0) {#6};
+  \end{tikzpicture}
+  \end{center}
+}
+
+% 3. Gráficos de Rosca / Donut (\ceiadonutthree e \ceiadonuttwo)
+\newcommand{\ceiadonutslice}[5]{%
+  \fill[#1] (#2:#4) arc (#2:#3:#4) -- (#3:#5) arc (#3:#2:#5) -- cycle;
+}
+
+\newcommand{\ceiadonutthree}[7]{%
+  % #1=Perc1, #2=Cor1, #3=Perc2, #4=Cor2, #5=Perc3, #6=Cor3, #7=CentroTexto
+  \begin{tikzpicture}[baseline=(center)]
+    \def\rIn{0.90cm}
+    \def\rOut{1.50cm}
+    \pgfmathsetmacro{\aOne}{#1 * 3.6}%
+    \pgfmathsetmacro{\aTwo}{\aOne + (#3 * 3.6)}%
+    \ceiadonutslice{#2}{0}{\aOne}{\rIn}{\rOut}
+    \ceiadonutslice{#4}{\aOne}{\aTwo}{\rIn}{\rOut}
+    \ceiadonutslice{#6}{\aTwo}{360}{\rIn}{\rOut}
+    \node[align=center, font=\scriptsize\bfseries\color{CEIADarkBlue}] (center) at (0,0) {#7};
+  \end{tikzpicture}%
+}
+
+\newcommand{\ceiadonuttwo}[5]{%
+  % #1=Perc1, #2=Cor1, #3=Perc2, #4=Cor2, #5=CentroTexto
+  \begin{tikzpicture}[baseline=(center)]
+    \def\rIn{0.90cm}
+    \def\rOut{1.50cm}
+    \pgfmathsetmacro{\aOne}{#1 * 3.6}%
+    \ceiadonutslice{#2}{0}{\aOne}{\rIn}{\rOut}
+    \ceiadonutslice{#4}{\aOne}{360}{\rIn}{\rOut}
+    \node[align=center, font=\scriptsize\bfseries\color{CEIADarkBlue}] (center) at (0,0) {#5};
+  \end{tikzpicture}%
+}
+
+% 4. Curva de Treinamento e Convergência (\ceiatrainingchart)
+\newcommand{\ceiatrainingchart}[2]{%
+  % #1 = coordenadas de Loss: {(0.5, 95) (1.5, 60) ...}
+  % #2 = coordenadas de Acurácia: {(0.5, 30) (1.5, 75) ...}
+  \begin{tikzpicture}[x=0.7cm, y=0.026cm]
+    \draw[CEIABorder, dashed, line width=0.5pt] (0, 50) -- (6.5, 50);
+    \draw[CEIABorder, dashed, line width=0.5pt] (0, 100) -- (6.5, 100);
+    \node[left, font=\tiny\color{CEIATextMuted}] at (0, 50) {50\%};
+    \node[left, font=\tiny\color{CEIATextMuted}] at (0, 100) {100\%};
+    \draw[CEIABorder, line width=1.0pt] (0, 0) -- (6.5, 0);
+    \draw[CEIABrightBlue, line width=1.4pt, smooth] plot coordinates {#1};
+    \draw[CEIAGreen, line width=1.4pt, smooth] plot coordinates {#2};
+  \end{tikzpicture}%
+}
+
+% ==============================================================================
+% MÓDULOS DE ALTA MOLDABILIDADE (V2.1.0)
+% ==============================================================================
+
+% ------------------------------------------------------------------------------
+% 1. Tabelas Executivas e Marcadores Vetoriais de Status
+% ------------------------------------------------------------------------------
+\newcommand{\matrixok}{%
+  \tikz[baseline=-0.6ex]{%
+    \filldraw[fill=CEIAGreen!22, draw=CEIAGreen, line width=0.85pt] (0,0) circle (2.1mm);%
+    \draw[CEIADarkBlue, line width=1.15pt, line cap=round, line join=round] (-1.0mm,-0.1mm) -- (-0.3mm,-0.8mm) -- (1.05mm,0.8mm);%
+  }%
+}
+\newcommand{\matrixwarn}{%
+  \tikz[baseline=-0.6ex]{%
+    \filldraw[fill=CEIABrightBlue!20, draw=CEIABrightBlue, line width=0.85pt] (0,0) circle (2.1mm);%
+    \draw[CEIADarkBlue, line width=1.15pt, line cap=round] (0,0.85mm) -- (0,-0.2mm);%
+    \fill[CEIADarkBlue] (0,-0.8mm) circle (0.35mm);%
+  }%
+}
+\newcommand{\matrixfail}{%
+  \tikz[baseline=-0.6ex]{%
+    \filldraw[fill=CEIATextMuted!18, draw=CEIATextMuted!50, line width=0.85pt] (0,0) circle (2.1mm);%
+    \draw[CEIATextMuted, line width=1.15pt, line cap=round] (-0.85mm,0) -- (0.85mm,0);%
+  }%
+}
+
+\newenvironment{ceiamatrixtable}[2][]{%
+  \begin{center}%
+  \small%
+  \setlength{\tabcolsep}{5pt}%
+  \rowcolors{2}{white}{CEIABgSoft}%
+  \begin{tabular}{#2}%
+    \toprule
+}{%
+    \bottomrule
+  \end{tabular}%
+  \end{center}%
+}
+
+\newenvironment{ceiadatatable}[1]{%
+  \begin{center}%
+  \small%
+  \rowcolors{2}{white}{CEIABgSoft}%
+  \begin{tabular}{#1}%
+    \toprule
+}{%
+    \bottomrule
+  \end{tabular}%
+  \end{center}%
+}
+
+% ------------------------------------------------------------------------------
+% 2. DSL Declarativa de Multi-Agent Pipeline e Workflows
+% ------------------------------------------------------------------------------
+\tikzset{
+  ceiapipenode/.style={
+    line width=1pt, rounded corners=3.5pt, font=\scriptsize\bfseries, align=center, minimum height=0.9cm, text width=2.1cm
+  },
+  ceiapipelinearr/.style={
+    -{Stealth[scale=0.95]}, line width=1.3pt, color=CEIABlue
+  },
+  ceia@agent/.style={fill=CEIABlue!12, draw=CEIABlue, text=CEIADarkBlue},
+  ceia@gate/.style={fill=CEIADarkBlue, draw=CEIADarkBlue, text=white},
+  ceia@tool/.style={fill=CEIAGreen!20, draw=CEIAGreen, text=CEIADarkBlue},
+  ceia@db/.style={fill=CEIABgSoft, draw=CEIABorder, text=CEIATextDark}
+}
+
+\newcommand{\ceiapipelinethree}[6]{%
+  % #1=N1, #2=Role1, #3=N2, #4=Role2, #5=N3, #6=Role3
+  \begin{center}%
+  \begin{tikzpicture}[node distance=1.1cm]%
+    \node[ceiapipenode, ceia@#2] (n1) {#1};%
+    \node[ceiapipenode, ceia@#4, right=of n1] (n2) {#3};%
+    \node[ceiapipenode, ceia@#6, right=of n2] (n3) {#5};%
+    \draw[ceiapipelinearr] (n1) -- (n2);%
+    \draw[ceiapipelinearr] (n2) -- (n3);%
+  \end{tikzpicture}%
+  \end{center}%
+}
+
+\newcommand{\ceiapipelinefour}[8]{%
+  % #1=N1, #2=Role1, #3=N2, #4=Role2, #5=N3, #6=Role3, #7=N4, #8=Role4
+  \begin{center}%
+  \begin{tikzpicture}[node distance=0.8cm]%
+    \node[ceiapipenode, ceia@#2] (n1) {#1};%
+    \node[ceiapipenode, ceia@#4, right=of n1] (n2) {#3};%
+    \node[ceiapipenode, ceia@#6, right=of n2] (n3) {#5};%
+    \node[ceiapipenode, ceia@#8, right=of n3] (n4) {#7};%
+    \draw[ceiapipelinearr] (n1) -- (n2);%
+    \draw[ceiapipelinearr] (n2) -- (n3);%
+    \draw[ceiapipelinearr] (n3) -- (n4);%
+  \end{tikzpicture}%
+  \end{center}%
+}
+
+% ------------------------------------------------------------------------------
+% 3. Biblioteca Nativa de Ícones Vetoriais TikZ (\ceiaicon)
+% ------------------------------------------------------------------------------
+\NewDocumentCommand{\ceiaicon}{ O{CEIABrightBlue} O{1.0} m }{%
+  \begin{tikzpicture}[baseline=-0.6ex, scale=#2, transform shape]
+    \ifstrequal{#3}{brain}{%
+      % Ícone de Rede Neural / IA
+      \fill[#1] (0,0.12) circle (1.8pt);
+      \fill[#1] (0,-0.12) circle (1.8pt);
+      \fill[#1] (0.2,0.22) circle (1.8pt);
+      \fill[#1] (0.2,0) circle (1.8pt);
+      \fill[#1] (0.2,-0.22) circle (1.8pt);
+      \fill[#1] (0.4,0.12) circle (1.8pt);
+      \fill[#1] (0.4,-0.12) circle (1.8pt);
+      \draw[#1, line width=0.6pt] (0,0.12) -- (0.2,0.22) -- (0.4,0.12);
+      \draw[#1, line width=0.6pt] (0,0.12) -- (0.2,0) -- (0.4,-0.12);
+      \draw[#1, line width=0.6pt] (0,-0.12) -- (0.2,-0.22) -- (0.4,-0.12);
+      \draw[#1, line width=0.6pt] (0,-0.12) -- (0.2,0) -- (0.4,0.12);
+    }{%
+    \ifstrequal{#3}{shield}{%
+      % Ícone de Escudo / Governança / Segurança
+      \draw[#1, line width=1.1pt, line join=round] (-0.18,0.22) -- (0.18,0.22) -- (0.18,-0.02) arc (0:-180:0.18 and 0.22) -- cycle;
+      \draw[#1, line width=0.85pt, line cap=round, line join=round] (-0.08,0.08) -- (-0.02,0.02) -- (0.08,0.14);
+    }{%
+    \ifstrequal{#3}{database}{%
+      % Ícone de Banco de Dados / Base Vetorial
+      \draw[#1, line width=0.9pt] (0,0.16) ellipse (0.18cm and 0.06cm);
+      \draw[#1, line width=0.9pt] (-0.18,0.16) -- (-0.18,-0.16) arc (180:360:0.18cm and 0.06cm) -- (0.18,0.16);
+      \draw[#1, line width=0.9pt] (-0.18,0) arc (180:360:0.18cm and 0.06cm);
+    }{%
+    \ifstrequal{#3}{code}{%
+      % Ícone de Código / Contratos Tipados
+      \draw[#1, line width=1.0pt, line cap=round, line join=round] (-0.14,0.12) -- (-0.24,0) -- (-0.14,-0.12);
+      \draw[#1, line width=1.0pt, line cap=round, line join=round] (0.14,0.12) -- (0.24,0) -- (0.14,-0.12);
+      \draw[#1, line width=0.9pt, line cap=round] (-0.05,-0.16) -- (0.05,0.16);
+    }{%
+    \ifstrequal{#3}{server}{%
+      % Servidor em Rack / Soberania de Dados
+      \draw[#1, line width=0.9pt, rounded corners=1pt] (-0.2,0.03) rectangle (0.2,0.22);
+      \draw[#1, line width=0.9pt, rounded corners=1pt] (-0.2,-0.22) rectangle (0.2,-0.03);
+      \fill[#1] (0.12,0.125) circle (1.0pt);
+      \fill[#1] (0.12,-0.125) circle (1.0pt);
+      \draw[#1, line width=0.7pt] (-0.14,0.125) -- (0.02,0.125);
+      \draw[#1, line width=0.7pt] (-0.14,-0.125) -- (0.02,-0.125);
+    }{%
+    \ifstrequal{#3}{user}{%
+      % Usuário / Validador Humano (HITL)
+      \fill[#1] (0,0.14) circle (0.1cm);
+      \draw[#1, line width=1.0pt, line cap=round] (-0.18,-0.18) arc (180:0:0.18cm and 0.20cm);
+    }{%
+    \ifstrequal{#3}{clock}{%
+      % Relógio / Latência / Tempo de Resposta
+      \draw[#1, line width=1.0pt] (0,0) circle (0.2cm);
+      \draw[#1, line width=0.9pt, line cap=round] (0,0) -- (0,0.12);
+      \draw[#1, line width=0.9pt, line cap=round] (0,0) -- (0.1,0);
+    }{%
+    \ifstrequal{#3}{lock}{%
+      % Cadeado / Criptografia
+      \draw[#1, line width=0.9pt] (-0.10,0.06) arc (180:0:0.10cm and 0.12cm) -- (0.10,0.02);
+      \draw[#1, line width=0.9pt, rounded corners=1pt] (-0.16,-0.16) rectangle (0.16,0.04);
+      \fill[#1] (0,-0.04) circle (0.8pt);
+      \draw[#1, line width=0.7pt] (0,-0.04) -- (0,-0.10);
+    }{%
+      % Fallback: Círculo CEIA
+      \fill[#1] (0,0) circle (0.15cm);
+    }}}}}}}}
+  \end{tikzpicture}%
+}
+
+% ------------------------------------------------------------------------------
+% 4. Linha do Tempo e Roadmap Modular
+% ------------------------------------------------------------------------------
+\newcommand{\ceiaroadmapthree}[6]{%
+  % #1=Date1, #2=Title1, #3=Date2, #4=Title2, #5=Date3, #6=Title3
+  \begin{center}%
+  \begin{tikzpicture}[x=3.8cm, y=0.8cm]%
+    \draw[CEIABorder, line width=1.8pt] (0, 0) -- (2, 0);%
+    % Milestone 1 (Done)
+    \fill[CEIAGreen] (0, 0) circle (6.0pt);%
+    \fill[white] (0, 0) circle (2.8pt);%
+    \node[above=4pt, font=\scriptsize\bfseries, color=CEIADarkBlue] at (0, 0) {#1};%
+    \node[below=4pt, font=\footnotesize\bfseries, align=center, text width=3.0cm, color=CEIADarkBlue] at (0, 0) {#2};%
+    % Milestone 2 (Active)
+    \fill[CEIABrightBlue] (1, 0) circle (6.5pt);%
+    \fill[white] (1, 0) circle (3.0pt);%
+    \node[above=4pt, font=\scriptsize\bfseries, color=CEIABrightBlue] at (1, 0) {#3};%
+    \node[below=4pt, font=\footnotesize\bfseries, align=center, text width=3.0cm, color=CEIADarkBlue] at (1, 0) {#4};%
+    % Milestone 3 (Pending)
+    \fill[CEIABorder] (2, 0) circle (5.5pt);%
+    \fill[CEIABgSoft] (2, 0) circle (3.0pt);%
+    \node[above=4pt, font=\scriptsize\bfseries, color=CEIATextMuted] at (2, 0) {#5};%
+    \node[below=4pt, font=\footnotesize\bfseries, align=center, text width=3.0cm, color=CEIATextMuted] at (2, 0) {#6};%
+  \end{tikzpicture}%
+  \end{center}%
+}
+
+\newcommand{\ceiaroadmapfour}[8]{%
+  % #1=Date1, #2=Title1, #3=Date2, #4=Title2, #5=Date3, #6=Title3, #7=Date4, #8=Title4
+  \begin{center}%
+  \begin{tikzpicture}[x=2.7cm, y=0.8cm]%
+    \draw[CEIABorder, line width=1.8pt] (0, 0) -- (3, 0);%
+    % Milestone 1 (Done)
+    \fill[CEIAGreen] (0, 0) circle (5.5pt);%
+    \fill[white] (0, 0) circle (2.5pt);%
+    \node[above=4pt, font=\tiny\bfseries, color=CEIADarkBlue] at (0, 0) {#1};%
+    \node[below=4pt, font=\scriptsize\bfseries, align=center, text width=2.4cm, color=CEIADarkBlue] at (0, 0) {#2};%
+    % Milestone 2 (Done/Active)
+    \fill[CEIAGreen] (1, 0) circle (5.5pt);%
+    \fill[white] (1, 0) circle (2.5pt);%
+    \node[above=4pt, font=\tiny\bfseries, color=CEIADarkBlue] at (1, 0) {#3};%
+    \node[below=4pt, font=\scriptsize\bfseries, align=center, text width=2.4cm, color=CEIADarkBlue] at (1, 0) {#4};%
+    % Milestone 3 (Active)
+    \fill[CEIABrightBlue] (2, 0) circle (6.0pt);%
+    \fill[white] (2, 0) circle (2.8pt);%
+    \node[above=4pt, font=\tiny\bfseries, color=CEIABrightBlue] at (2, 0) {#5};%
+    \node[below=4pt, font=\scriptsize\bfseries, align=center, text width=2.4cm, color=CEIADarkBlue] at (2, 0) {#6};%
+    % Milestone 4 (Pending)
+    \fill[CEIABorder] (3, 0) circle (5.0pt);%
+    \fill[CEIABgSoft] (3, 0) circle (2.5pt);%
+    \node[above=4pt, font=\tiny\bfseries, color=CEIATextMuted] at (3, 0) {#7};%
+    \node[below=4pt, font=\scriptsize\bfseries, align=center, text width=2.4cm, color=CEIATextMuted] at (3, 0) {#8};%
+  \end{tikzpicture}%
+  \end{center}%
+}
+
+% ------------------------------------------------------------------------------
+% 5. Banners Executivos Institucionais (\ceiabanner)
+% ------------------------------------------------------------------------------
+\newcommand{\ceiabanner}[3][info]{%
+  \def\bannerrcol{CEIABlue}%
+  \def\bannerbg{CEIABgSoft}%
+  \ifstrequal{#1}{ok}{%
+    \def\bannerrcol{CEIAGreen}%
+    \def\bannerbg{CEIAGreen!8}%
+  }{%
+    \ifstrequal{#1}{warn}{%
+      \def\bannerrcol{CEIABrightBlue}%
+      \def\bannerbg{CEIABrightBlue!8}%
+    }{%
+    \ifstrequal{#1}{alert}{%
+      \def\bannerrcol{red!80!black}%
+      \def\bannerbg{red!8}%
+    }{}%
+    }%
+  }%
+  \begin{tcolorbox}[
+    enhanced, colback=\bannerbg, colframe=\bannerrcol,
+    boxrule=0pt, leftrule=3.5pt, arc=3pt,
+    left=8pt, right=8pt, top=4pt, bottom=4pt,
+    before={\par\vspace{2.5pt}\noindent}, after={\par\vspace{2.5pt}}
+  ]
+    {\small\bfseries\color{CEIADarkBlue} #2}\quad%
+    {\footnotesize\color{CEIATextDark} #3}%
+  \end{tcolorbox}%
+}
+
+% ------------------------------------------------------------------------------
+% 6. Layout Canônico de Figura Lateral (ceiasidefigure)
+% ------------------------------------------------------------------------------
+\newenvironment{ceiasidefigure}[3][0.46]{%
+  % #1 = fração da coluna da imagem (padrão 0.46)
+  % #2 = caminho da imagem
+  % #3 = legenda da figura
+  \pgfmathsetmacro{\ceiasidecolright}{0.96 - #1}%
+  \begin{columns}[c]%
+    \begin{column}{#1\textwidth}%
+      \begin{tcolorbox}[
+        enhanced, colback=white, colframe=CEIABorder, boxrule=0.75pt, arc=4pt,
+        left=3pt, right=3pt, top=3pt, bottom=3pt, halign=center
+      ]
+        \includegraphics[width=\linewidth,height=4.2cm,keepaspectratio]{#2}\par\vspace{2.5pt}%
+        {\scriptsize\color{CEIATextMuted}\textbf{Figura:} #3}%
+      \end{tcolorbox}%
+    \end{column}%
+    \begin{column}{\ceiasidecolright\textwidth}%
+}{%
+    \end{column}%
+  \end{columns}%
+}
+
+\mode<all>
+\endinput
