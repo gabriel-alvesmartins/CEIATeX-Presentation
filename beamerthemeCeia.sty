@@ -378,8 +378,8 @@
       \node[anchor=north east, inner sep=0pt] 
         at ($(current page.north east)+(-0.9, -0.65)$) {\ceialogowhite[height=0.62cm]};
 
-      % Faixa horizontal de gotas autênticas do CEIA na base (preenchendo de ponta a ponta)
-      \begin{scope}[shift={($(current page.south west)+(0.1, 0.0)$)}]
+      % Faixa horizontal de gotas autênticas do CEIA na base, suspensas da borda (sem cortes)
+      \begin{scope}[shift={($(current page.south west)+(0.30, 0.35)$)}]
         \ceiacoveritem{0.0}{0.0}{CEIABrightBlue}{0}
         \ceiacoveritem{1.3}{0.0}{CEIAGreen}{90}
         \ceiacoveritem{2.6}{0.0}{CEIABlue}{circle}
@@ -392,7 +392,6 @@
         \ceiacoveritem{11.7}{0.0}{CEIABrightBlue}{270}
         \ceiacoveritem{13.0}{0.0}{CEIAGreen!80!CEIADarkBlue}{180}
         \ceiacoveritem{14.3}{0.0}{CEIABlue}{circle}
-        \ceiacoveritem{15.6}{0.0}{CEIABrightBlue!70!CEIADarkBlue}{90}
       \end{scope}
     \end{tikzpicture}%
   }%
