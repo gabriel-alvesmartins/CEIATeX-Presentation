@@ -18,6 +18,20 @@ Ele foi construído do zero com foco em **alta moldabilidade**: tabelas executiv
 
 ---
 
+## 📸 Galeria de Demonstração
+
+| Capa Institucional | Multi-Agente & HITL Gates |
+| :---: | :---: |
+| ![Capa Institucional](figs/slide_01.png) | ![Multi-Agente & HITL Gates](figs/slide_12.png) |
+| **Matriz Comparativa & Tabelas** | **Gráficos Científicos Vetoriais** |
+| ![Matriz Comparativa](figs/slide_15.png) | ![Gráficos Científicos](figs/slide_17.png) |
+| **Code Diff & Janela IDE** | **Métricas e Indicadores de Impacto** |
+| ![Code Diff](figs/slide_11.png) | ![Indicadores de Impacto](figs/slide_19.png) |
+
+> 💡 *Todos os 23 slides renderizados em alta definição estão disponíveis na pasta [`figs/`](figs/).*
+
+---
+
 ## 🚀 Como Usar no Overleaf (1-Click Setup)
 
 O projeto já vem 100% pré-configurado para o **Overleaf**:
@@ -219,7 +233,7 @@ Este repositório inclui a skill canônica em `.agents/skills/ceia-presentation/
 
 ```text
 ├── beamerthemeCeia.sty               # Tema Beamer Oficial v3.4
-├── presentation_ceia.tex             # Apresentação Canônica de Referência (22 slides)
+├── presentation_ceia.tex             # Apresentação Canônica de Referência (23 slides)
 ├── main.tex                          # Ponto de entrada padrão para o Overleaf
 ├── .latexmkrc                        # Configuração automática de motor XeLaTeX para Overleaf
 ├── .gitignore                        # Filtro de arquivos intermediários do LaTeX
@@ -228,6 +242,7 @@ Este repositório inclui a skill canônica em `.agents/skills/ceia-presentation/
 ├── CEIA_Brand_Guidelines_compressed.pdf # Manual de Uso da Marca CEIA 2026 (Comprimido)
 ├── .agents/skills/ceia-presentation/ # Skill oficial para agentes de IA
 │   └── SKILL.md
+├── figs/                             # Previews dos slides em alta resolução (PNG)
 └── lib/                              # Ativos gráficos vetoriais oficiais
     ├── fonts/                        # Fontes OpenType
     ├── layouts/                      # Texturas e fundos oficiais
