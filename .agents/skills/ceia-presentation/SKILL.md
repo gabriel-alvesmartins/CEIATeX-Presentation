@@ -447,6 +447,47 @@ O sumário oficial do CEIA estiliza automaticamente chamadas a `\tableofcontents
 
 ---
 
+### 26. Sistema de Sumarização e Conclusões Moduláveis (Adaptável ao Volume de Texto)
+Para solucionar o clássico problema do Beamer (pouco texto deixa o slide vazio; muito texto estoura o layout), o CEIATeX oferece 3 padrões de síntese executiva:
+
+#### A. Modelo Punchy / Hero (ceiasummarypunch) — Para Pouco Texto / 1 Grande Veredito
+Um card monumental com tipografia expandida, fundo nobre (dark com CEIADarkBlue ou light com CEIABgSoft), borda em Verde Menta (CEIAGreen) e pílulas semânticas:
+`latex
+\begin{ceiasummarypunch}[dark]{Veredito Consolidado}{Arquitetura Homologada para Produção}
+    A migração para orquestração declarativa garantiu estabilidade determinística e 100\% de tipagem.
+    \par\vspace{0.6em}
+    \ceiatag[ok]{\ceiaicon[white][0.7]{shield}\hspace{2pt} Conformidade LGPD}\hspace{6pt}
+    \ceiatag[info]{\ceiaicon[white][0.7]{server}\hspace{2pt} On-Premise}
+\end{ceiasummarypunch}
+`
+
+#### B. Modelo Split (ceiasummarysplit) — Para Texto Médio (Veredito + 3 Evidências)
+Layout assimétrico: card executivo em CEIADarkBlue à esquerda e desdobramentos modulares à direita:
+`latex
+\begin{ceiasummarysplit}[0.38]{Veredito Final}{99.4\%}{Sistema validado em estresse.}{shield}
+    \ceiasplititem[CEIABrightBlue]{Orquestração}{Fallback automático para modelos locais.}
+    \ceiasplititem[CEIAGreen]{Eficiência}{Redução de 68\% no consumo de tokens.}
+    \ceiasplititem[CEIADarkBlue]{Observabilidade}{Trilhas OpenTelemetry fim a fim.}
+\end{ceiasummarysplit}
+`
+
+#### C. Modelo Compacto (\ceiacompactitem) — Para Grande Volume de Texto (4 a 6 Pontos)
+Distribuição em 2 colunas balanceadas com marcadores vetoriais (\matrixok, \matrixwarn), sem estourar o slide:
+`latex
+\begin{columns}[T]
+    \begin{column}{0.485\textwidth}
+        \ceiacompactitem{\matrixok}{Contratos Tipados}{Validação estrita em tempo de compilação.}
+        \ceiacompactitem{\matrixok}{HITL Gates}{Aprovação mandatória antes do deploy.}
+    \end{column}
+    \begin{column}{0.485\textwidth}
+        \ceiacompactitem{\matrixok}{Latência Sob SLA}{Tempo de inferência p95 < 180ms.}
+        \ceiacompactitem{\matrixwarn}{Cache Semântico}{Homologação final para economia de tokens.}
+    \end{column}
+\end{columns}
+`
+
+---
+
 ## 📏 Orçamento Rígido de Altura Vertical (Vertical Clearance)
 
 > [!IMPORTANT]

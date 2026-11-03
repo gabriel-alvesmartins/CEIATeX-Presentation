@@ -796,8 +796,12 @@
 
 % 2. Tags e Pílulas Semânticas (ceiatag)
 \newcommand{\ceiatag}[2][CEIABrightBlue]{%
+  \def\ceiatagcol{#1}%
+  \ifstrequal{#1}{ok}{\def\ceiatagcol{CEIAGreen}}{}%
+  \ifstrequal{#1}{warn}{\def\ceiatagcol{CEIABrightBlue}}{}%
+  \ifstrequal{#1}{info}{\def\ceiatagcol{CEIADarkBlue}}{}%
   \tikz[baseline=-0.5ex]{%
-    \node[fill=#1!12, text=#1!85!black, font=\tiny\bfseries, rounded corners=2pt, inner sep=2.5pt, draw=#1!40, line width=0.5pt] {#2};%
+    \node[fill=\ceiatagcol!15, text=\ceiatagcol!90!black, font=\tiny\bfseries, rounded corners=2pt, inner sep=2.5pt, draw=\ceiatagcol!50, line width=0.5pt] {#2};%
   }%
 }
 
@@ -1471,6 +1475,155 @@
 }{%
     \end{column}%
   \end{columns}%
+}
+
+% ------------------------------------------------------------------------------
+% 7. SISTEMA DE SUMARIZAÇÃO E CONCLUSÕES MODULÁVEIS (Adaptável ao Volume de Texto)
+% ------------------------------------------------------------------------------
+
+% 7.1. Summary Punchy / Hero (Pouco texto: 1 Grande Conclusão de Alto Impacto)
+% Opção 1: 'dark' (fundo CEIADarkBlue nobre com realces em CEIAGreen e branco)
+% Opção 2: 'light' (fundo suave CEIABgSoft com borda lateral CEIABlue)
+\newenvironment{ceiasummarypunch}[3][light]{%
+  \ifstrequal{#1}{dark}{%
+    \tcolorbox[
+      enhanced,
+      colback=CEIADarkBlue, colframe=CEIADarkBlue,
+      boxrule=0.75pt, arc=4pt,
+      left=12pt, right=12pt, top=8pt, bottom=9pt,
+      titlerule=0pt,
+      fonttitle=\scriptsize\bfseries,
+      coltitle=CEIAGreen, colbacktitle=CEIADarkBlue,
+      borderline west={4pt}{0pt}{CEIAGreen},
+      title={\MakeUppercase{#2}},
+      after title={\par\vspace{3pt}{\large\bfseries\color{white} #3}\par\vspace{4pt}},
+      before upper={\color{white}},
+      before={\par\vspace{3pt}\noindent}, after={\par\vspace{3pt}}
+    ]%
+  }{%
+    \tcolorbox[
+      enhanced,
+      colback=CEIABgSoft, colframe=CEIABorder,
+      boxrule=0.75pt, arc=4pt,
+      left=12pt, right=12pt, top=8pt, bottom=9pt,
+      titlerule=0pt,
+      fonttitle=\scriptsize\bfseries,
+      coltitle=CEIABlue, colbacktitle=CEIABgSoft,
+      borderline west={4pt}{0pt}{CEIABlue},
+      title={\MakeUppercase{#2}},
+      after title={\par\vspace{3pt}{\large\bfseries\color{CEIADarkBlue} #3}\par\vspace{4pt}},
+      before upper={\color{CEIATextDark}},
+      before={\par\vspace{3pt}\noindent}, after={\par\vspace{3pt}}
+    ]%
+  }%
+}{%
+  \endtcolorbox
+}
+
+% 7.2. Summary Split (Texto médio: 1 Veredito Executivo à esquerda + 2-3 Cards à direita)
+\newenvironment{ceiasummarysplit}[5][0.38]{%
+  % #1 = fração da coluna da esquerda (padrão 0.38)
+  % #2 = Título do Veredito (ex: "VEREDITO EXECUTIVO")
+  % #3 = Métrica / Status de destaque (ex: "99.4%" ou "APROVADO")
+  % #4 = Texto explicativo do veredito
+  % #5 = Nome do ícone TikZ (opcional, ex: "shield")
+  \pgfmathsetmacro{\ceiasplitcolright}{0.96 - #1}%
+  \begin{columns}[c]%
+    \begin{column}{#1\textwidth}%
+      \begin{tcolorbox}[
+        enhanced, colback=CEIADarkBlue, colframe=CEIADarkBlue,
+        boxrule=0pt, arc=4pt, left=10pt, right=10pt, top=10pt, bottom=10pt,
+        halign=center
+      ]
+        \if\relax\detokenize{#5}\relax\else
+          \ceiaicon[CEIAGreen][1.5]{#5}\par\vspace{4pt}%
+        \fi
+        {\scriptsize\bfseries\color{CEIAGreen}\MakeUppercase{#2}}\par\vspace{3pt}%
+        {\fontsize{18}{20}\bfseries\color{white} #3}\par\vspace{4pt}%
+        {\footnotesize\color{white!90}\raggedright #4\par}%
+      \end{tcolorbox}%
+    \end{column}%
+    \begin{column}{\ceiasplitcolright\textwidth}%
+      \vspace{-2pt}%
+}{%
+    \end{column}%
+  \end{columns}%
+}
+
+\newcommand{\ceiasplititem}[3][CEIABrightBlue]{%
+  % #1 = cor da borda de acento (CEIABrightBlue, CEIAGreen, CEIADarkBlue)
+  % #2 = Título do ponto
+  % #3 = Descrição
+  \begin{tcolorbox}[
+    enhanced, colback=CEIABgSoft, colframe=CEIABorder,
+    boxrule=0.75pt, leftrule=3.5pt, arc=3.5pt,
+    borderline west={3.5pt}{0pt}{#1},
+    left=8pt, right=8pt, top=4pt, bottom=4pt,
+    before={\par\vspace{2pt}\noindent}, after={\par\vspace{2pt}}
+  ]
+    {\small\bfseries\color{CEIADarkBlue} #2}\par\vspace{1.5pt}%
+    {\footnotesize\color{CEIATextDark} #3}%
+  \end{tcolorbox}%
+}
+
+% 7.3. Takeaways Grid (3 ou 4 pilares de síntese visual)
+\newenvironment{ceiatakeaways}[1][3]{%
+  \begin{ceiacards}[#1]%
+}{%
+  \end{ceiacards}%
+}
+
+\newcommand{\ceiatakeawayitem}[4][]{%
+  % #1 = ícone opcional (ex: shield, brain, database)
+  % #2 = número ou badge (ex: 1, 2, 3)
+  % #3 = título
+  % #4 = descrição
+  \begin{column}{\ceiacardcolwidth}%
+    \begin{tcolorbox}[
+      enhanced, colback=CEIABgSoft, colframe=CEIABorder, boxrule=0.75pt, arc=4pt,
+      top=7pt, bottom=8pt, left=8pt, right=8pt, equal height group=ceiatakeawaysgroup
+    ]
+      \centering
+      \if\relax\detokenize{#1}\relax
+        \tikz\node[circle, fill=CEIABlue, text=white, font=\footnotesize\bfseries, inner sep=3.5pt] {#2};\par\vspace{3.5pt}%
+      \else
+        \tikz\node[circle, fill=CEIABlue, text=white, inner sep=4pt] {\ceiaicon[white][0.85]{#1}};\par\vspace{3.5pt}%
+      \fi
+      {\small\bfseries\color{CEIADarkBlue} #3}\par\vspace{3pt}%
+      {\scriptsize\color{CEIATextDark}\raggedright #4\par}%
+    \end{tcolorbox}%
+  \end{column}%
+}
+
+% 7.4. Summary Compact (Texto denso: 4 a 6 conclusões em 2 colunas auto-balanceadas)
+\newenvironment{ceiacompactsummary}{%
+  \begin{columns}[T]%
+    \begin{column}{0.485\textwidth}%
+      \vspace{-2pt}%
+}{%
+    \end{column}%
+  \end{columns}%
+}
+
+\newcommand{\ceiacompactcolsplit}{%
+    \end{column}%
+    \begin{column}{0.485\textwidth}%
+      \vspace{-2pt}%
+}
+
+\newcommand{\ceiacompactitem}[3]{%
+  % #1 = marcador (\matrixok, \matrixwarn, \matrixfail, \ceiaicon{...}, etc.)
+  % #2 = título curto
+  % #3 = descrição
+  \begin{tcolorbox}[
+    enhanced, colback=CEIABgSoft, colframe=CEIABorder,
+    boxrule=0.5pt, arc=3pt,
+    left=5pt, right=5pt, top=2pt, bottom=2pt,
+    before={\par\vspace{1pt}\noindent}, after={\par\vspace{1pt}}
+  ]
+    \parbox[t]{16pt}{\vspace{0pt}#1}\hfill%
+    \parbox[t]{\dimexpr\linewidth-20pt\relax}{\vspace{0pt}{\footnotesize\bfseries\color{CEIADarkBlue} #2}\par\vspace{1pt}{\scriptsize\color{CEIATextDark} #3\par}}%
+  \end{tcolorbox}%
 }
 
 \mode<all>

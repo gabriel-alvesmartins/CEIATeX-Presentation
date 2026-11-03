@@ -28,7 +28,7 @@ Ele foi construído do zero com foco em **alta moldabilidade**: tabelas executiv
 | **Code Diff & Janela IDE** | **Métricas e Indicadores de Impacto** |
 | ![Code Diff](figs/slide_11.png) | ![Indicadores de Impacto](figs/slide_19.png) |
 
-> 💡 *Todos os 23 slides renderizados em alta definição estão disponíveis na pasta [`figs/`](figs/).*
+> 💡 *Todos os 26 slides renderizados em alta definição estão disponíveis na pasta [`figs/`](figs/).*
 
 ---
 
@@ -216,10 +216,48 @@ export const AgentVerdictSchema = z.object({
 
 ---
 
-### 10. Indicadores Numéricos de Impacto (`\ceiastatfour`)
-```latex
+### 10. Indicadores Numéricos de Impacto (\ceiastatfour)
+`latex
 \ceiastatfour{99.1\%}{F1-Score Geral}{4.2x}{Throughput}{18ms}{Inferência}{0}{Falhas Críticas}
-```
+`
+
+---
+
+### 11. Sistema de Sumarização e Conclusões Moduláveis
+Adaptável dinamicamente à quantidade de texto para eliminar slides vazios ou sobrecarregados:
+
+- **Pouco Texto / Punchy (ceiasummarypunch):**
+`latex
+\begin{ceiasummarypunch}[dark]{Veredito Consolidado}{Arquitetura Homologada para Produção}
+    A migração para orquestração declarativa garantiu estabilidade determinística e 100% de tipagem.
+    \par\vspace{0.6em}
+    \ceiatag[ok]{\ceiaicon[white][0.7]{shield} LGPD Assegurada}\hspace{6pt}
+    \ceiatag[info]{\ceiaicon[white][0.7]{server} Soberania On-Premise}
+\end{ceiasummarypunch}
+`
+
+- **Texto Médio / Split (ceiasummarysplit):**
+`latex
+\begin{ceiasummarysplit}[0.38]{Veredito Final}{99.4\%}{Sistema aprovado em estresse.}{shield}
+    \ceiasplititem[CEIABrightBlue]{Orquestração}{Fallback automático para modelos locais.}
+    \ceiasplititem[CEIAGreen]{Eficiência}{Redução de 68% no consumo de tokens.}
+    \ceiasplititem[CEIADarkBlue]{Observabilidade}{Trilhas OpenTelemetry fim a fim.}
+\end{ceiasummarysplit}
+`
+
+- **Texto Volumoso / Compacto (\ceiacompactitem):**
+`latex
+\begin{columns}[T]
+    \begin{column}{0.485\textwidth}
+        \ceiacompactitem{\matrixok}{Contratos Tipados}{Interfaces Zod validadas em compilação.}
+        \ceiacompactitem{\matrixok}{HITL Gates}{Aprovação mandatória antes de deploys.}
+    \end{column}
+    \begin{column}{0.485\textwidth}
+        \ceiacompactitem{\matrixok}{Latência Sob SLA}{Tempo de resposta p95 mantido <180ms.}
+        \ceiacompactitem{\matrixwarn}{Cache Semântico}{Homologação final para economia de tokens.}
+    \end{column}
+\end{columns}
+`
 
 ---
 
@@ -233,7 +271,7 @@ Este repositório inclui a skill canônica em `.agents/skills/ceia-presentation/
 
 ```text
 ├── beamerthemeCeia.sty               # Tema Beamer Oficial v3.4
-├── presentation_ceia.tex             # Apresentação Canônica de Referência (23 slides)
+├── presentation_ceia.tex             # Apresentação Canônica de Referência (26 slides)
 ├── main.tex                          # Ponto de entrada padrão para o Overleaf
 ├── .latexmkrc                        # Configuração automática de motor XeLaTeX para Overleaf
 ├── .gitignore                        # Filtro de arquivos intermediários do LaTeX
@@ -242,7 +280,8 @@ Este repositório inclui a skill canônica em `.agents/skills/ceia-presentation/
 ├── CEIA_Brand_Guidelines_compressed.pdf # Manual de Uso da Marca CEIA 2026 (Comprimido)
 ├── .agents/skills/ceia-presentation/ # Skill oficial para agentes de IA
 │   └── SKILL.md
-├── figs/                             # Previews dos slides em alta resolução (PNG)
+├── figs/                             # Previews dos 26 slides em alta resolução (PNG)
+│   └── cards/                        # Recortes visuais dos cards isolados (CEIADarkBlue, Split, Compact)
 └── lib/                              # Ativos gráficos vetoriais oficiais
     ├── fonts/                        # Fontes OpenType
     ├── layouts/                      # Texturas e fundos oficiais
