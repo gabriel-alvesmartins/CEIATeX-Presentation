@@ -897,13 +897,13 @@
   \tikz[baseline=-0.6ex]{%
     \node[
       fill=white,
-      draw=\chipcol!80,
-      line width=0.85pt,
+      draw=\chipcol!85,
+      line width=0.8pt,
       rounded corners=3.5pt,
-      inner sep=3.5pt,
-      inner xsep=6.5pt
+      inner sep=3pt,
+      inner xsep=5.5pt
     ] {%
-      \ceiaicon[\chipcol][0.85]{#2}\hspace{4.5pt}{\fontsize{7.5}{9}\selectfont\bfseries\color{CEIADarkBlue} #3}%
+      \ceiaicon[\chipcol][0.85]{#2}\hspace{4pt}{\fontsize{7.2}{8.5}\selectfont\bfseries\color{CEIADarkBlue} #3}%
     };
   }%
 }
@@ -1439,10 +1439,14 @@
       \draw[#1, line width=0.6pt] (-0.20,-0.12) -- (0,-0.22) -- (0.20,-0.12);
       \draw[#1, line width=0.6pt] (-0.20,-0.12) -- (0,0) -- (0.20,0.12);
     }{%
-    \ifstrequal{#3}{shield}{%
-      % Ícone de Escudo / Governança (Checkmark Perfeitamente Centralizado no Bojo)
-      \draw[#1, line width=1.1pt, line join=round] (-0.18,0.20) -- (0.18,0.20) -- (0.18,-0.02) arc (0:-180:0.18 and 0.20) -- cycle;
-      \draw[#1, line width=0.95pt, line cap=round, line join=round] (-0.08,-0.02) -- (-0.02,-0.08) -- (0.08,0.04);
+        \ifstrequal{#3}{shield}{%
+      % Ícone de Escudo / Governança (Crest Clássico Pontiagudo com Checkmark Perfeito)
+      \draw[#1, line width=1.1pt, line join=round, line cap=round] 
+        (0,0.22) -- (0.19,0.18) -- (0.19,0.02) 
+        to[out=-85, in=20] (0,-0.22) 
+        to[out=160, in=-95] (-0.19,0.02) -- (-0.19,0.18) -- cycle;
+      \draw[#1, line width=1.15pt, line cap=round, line join=round] 
+        (-0.08,0.01) -- (-0.02,-0.06) -- (0.09,0.07);
     }{%
     \ifstrequal{#3}{database}{%
       % Ícone de Banco de Dados / Base Vetorial
@@ -1625,22 +1629,21 @@
   \tcolorbox[
     enhanced,
     colback=CEIABgSoft, colframe=CEIABorder,
-    boxrule=0.75pt, arc=4pt,
-    left=11pt, right=11pt, top=5.5pt, bottom=6pt,
+    boxrule=0.75pt, arc=4.5pt,
+    left=14pt, right=14pt, top=14pt, bottom=16pt,
     titlerule=0pt,
     fonttitle=\scriptsize\bfseries,
     coltitle=\ceiasummarycol, colbacktitle=CEIABgSoft,
-    borderline west={4pt}{0pt}{\ceiasummarycol},
+    borderline west={4.5pt}{0pt}{\ceiasummarycol},
     title={\MakeUppercase{#2}},
-    after title={\par\vspace{2.5pt}{\large\bfseries\color{CEIADarkBlue} #3}\par\vspace{3.5pt}},
-    before upper={\color{CEIATextDark}},
-    before={\par\vspace{1pt}\noindent}, after={\par\vspace{1pt}}
+    after title={\par\vspace{4pt}{\fontsize{14}{17}\selectfont\bfseries\color{CEIADarkBlue} #3}\par\vspace{8pt}},
+    before upper={\color{CEIATextDark}\fontsize{9.5}{13.5}\selectfont},
+    before={\par\vspace{6pt}\noindent}, after={\par\vspace{6pt}}
   ]%
 }{%
   \endtcolorbox
 }
 
-% 7.2. Summary Split (Texto médio: 1 Veredito Executivo à esquerda + 2-3 Cards à direita)
 \newenvironment{ceiasummarysplit}[5][0.38]{%
   % #1 = fração da coluna da esquerda (padrão 0.38)
   % #2 = Título do Veredito (ex: "VEREDITO EXECUTIVO")
