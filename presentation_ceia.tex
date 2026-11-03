@@ -150,6 +150,20 @@
 % 7. ARQUITETURA EM CAMADAS E LINHA DO TEMPO (ceiastack & ceiatimelinefour)
 % ==============================================================================
 \section{ARQUITETURA \& MULTI-AGENTE}
+\setLayout{section}
+\begin{frame}[noframenumbering]
+    \vspace{0.14\paperheight}
+    \begin{center}
+        {\fontsize{10}{12}\bfseries\color{CEIAGreen} CAPÍTULO 02}\par\vspace{0.6em}
+        {\fontsize{24}{28}\bfseries\color{white} ARQUITETURA \& MULTI-AGENTE}\par\vspace{1.0em}
+        {\small\color{white!75} Orquestração de Agentes, Contratos Formais e HITL Gates}
+    \end{center}
+\end{frame}
+\setLayout{content}
+
+% ==============================================================================
+% 7. ARQUITETURA EM CAMADAS E LINHA DO TEMPO (ceiastack & ceiatimelinefour)
+% ==============================================================================
 \begin{frame}{ARQUITETURA EM CAMADAS E CRONOGRAMA}{DECOMPOSIÇÃO DO SISTEMA E EVOLUÇÃO TEMPORAL}
     \vspace{0.1em}
     \ceialayer[CEIABrightBlue!8]{Camada 03: Orquestração e Agentes}{Workflows assíncronos via LangGraph com snapshotting e checkpointing}
@@ -206,6 +220,7 @@
 % ==============================================================================
 % 11. JANELA DE CÓDIGO E DIFFS (Layout content com [fragile])
 % ==============================================================================
+\setLayout{dark}
 \begin{frame}[fragile]{CONTRATOS DE DADOS E CODE DIFF}{REFACTORING E VALIDAÇÃO VIA ZOD}
 \begin{ceiacode}[language=Java]{packages/core/src/agentContract.ts}
 export const AgentVerdictSchema = z.object({
@@ -220,6 +235,7 @@ export const AgentVerdictSchema = z.object({
         {\fontsize{7.2}{8.6}\selectfont Respostas de LLMs validadas contra schemas Zod. Saídas malformadas disparam retentativas determinísticas antes da propagação de estado.}
     \end{ceiaalert}
 \end{frame}
+\setLayout{content}
 
 % ==============================================================================
 % 12. PIPELINE MULTI-AGENTE EM TIKZ (Layout content)
@@ -360,6 +376,7 @@ export const AgentVerdictSchema = z.object({
 % ==============================================================================
 % 20. SUBMARCAS INSTITUCIONAIS (Layout content)
 % ==============================================================================
+\setLayout{soft}
 \begin{frame}{ECOSSISTEMA E EXTENSÕES DE MARCA}{SUBMARCAS OFICIAIS CONFORME O MANUAL DE IDENTIDADE}
     \begin{columns}[c]
         \column{0.48\textwidth}
@@ -382,6 +399,7 @@ export const AgentVerdictSchema = z.object({
         \ceiaregua[width=0.75\textwidth]\par
     \end{ceiacard}
 \end{frame}
+\setLayout{content}
 
 % ==============================================================================
 % 21. CITAÇÃO ACADÊMICA E PILARES EXECUTIVOS (ceiaquote & ceiapillars)

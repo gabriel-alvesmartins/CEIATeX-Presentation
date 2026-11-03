@@ -18,6 +18,33 @@ Ele foi construído do zero com foco em **alta moldabilidade**: tabelas executiv
 
 ---
 
+## 🖼️ Layouts e Variações de Fundo (Compatível com o Padrão INF/UFG)
+
+Assim como no template base do INF (UFGTeX), o **CEIATeX** permite alternar o layout estrutural e a cor de fundo de qualquer slide antes de \begin{frame} via \setLayout{nome} e \setBGColor{cor}:
+
+![Mosaico Geral de Layouts CEIA](figs/layouts/layouts_overview.png)
+
+### Tabela de Seleção de Layouts
+| Layout | Comando | Descrição Visual |
+|---|---|---|
+| **Capa Oficial** | \setLayout{cover} | Fundo azul marinho CEIADarkBlue com padrão paramétrico de gotas TikZ (Manual pág. 23) e logotipo branco. |
+| **Conteúdo Padrão** | \setLayout{content} | Fundo branco limpo, cabeçalho *eyebrow* em azul brilhante e rodapé discreto com metadados. |
+| **Transição de Seção** | \setLayout{section} | Fundo escuro CEIADarkBlue com detalhes em verde menta, ideal para abertura de grandes capítulos. |
+| **Modo Escuro / IDE** | \setLayout{dark} | Fundo escuro técnico de alto contraste (CEIADarkIDE) com acento superior e texto claro para código. |
+| **Fundo Suave** | \setLayout{soft} | Fundo suave CEIABgSoft (#F8FAFC) para visualização de cards modulares com contraste amigável. |
+| **Tese Institucional** | \setLayout{statement} | Fundo limpo com manifesto *We Are CEIA* vetorizado em tipografia oficial Actay Wide. |
+| **Encerramento** | \setLayout{closing} | Slide final oficial com OBRIGADO, contatos e régua institucional. |
+
+#### Cor de Fundo Dinâmica (\setBGColor)
+Para trocar a cor de fundo de um slide específico mantendo a estrutura:
+`latex
+\setBGColor{CEIABgSoft}    % Fundo suave acinzentado/azulado
+\setBGColor{CEIADarkBlue}  % Fundo escuro nobre institucional
+\setBGColor{white}        % Retorna ao fundo branco padrão
+`
+
+---
+
 ## 📸 Galeria de Demonstração
 
 | Capa Institucional | Multi-Agente & HITL Gates |
@@ -28,7 +55,7 @@ Ele foi construído do zero com foco em **alta moldabilidade**: tabelas executiv
 | **Code Diff & Janela IDE** | **Métricas e Indicadores de Impacto** |
 | ![Code Diff](figs/slide_11.png) | ![Indicadores de Impacto](figs/slide_19.png) |
 
-> 💡 *Todos os 26 slides renderizados em alta definição estão disponíveis na pasta [`figs/`](figs/).*
+> 💡 *Todos os 27 slides renderizados em alta definição estão disponíveis na pasta [`figs/`](figs/).*
 
 ---
 
@@ -271,7 +298,7 @@ Este repositório inclui a skill canônica em `.agents/skills/ceia-presentation/
 
 ```text
 ├── beamerthemeCeia.sty               # Tema Beamer Oficial v3.4
-├── presentation_ceia.tex             # Apresentação Canônica de Referência (26 slides)
+├── presentation_ceia.tex             # Apresentação Canônica de Referência (27 slides)
 ├── main.tex                          # Ponto de entrada padrão para o Overleaf
 ├── .latexmkrc                        # Configuração automática de motor XeLaTeX para Overleaf
 ├── .gitignore                        # Filtro de arquivos intermediários do LaTeX
@@ -280,7 +307,7 @@ Este repositório inclui a skill canônica em `.agents/skills/ceia-presentation/
 ├── CEIA_Brand_Guidelines_compressed.pdf # Manual de Uso da Marca CEIA 2026 (Comprimido)
 ├── .agents/skills/ceia-presentation/ # Skill oficial para agentes de IA
 │   └── SKILL.md
-├── figs/                             # Previews dos 26 slides em alta resolução (PNG)
+├── figs/                             # Previews dos 27 slides em alta resolução (PNG)
 │   └── cards/                        # Recortes visuais dos cards isolados (CEIADarkBlue, Split, Compact)
 └── lib/                              # Ativos gráficos vetoriais oficiais
     ├── fonts/                        # Fontes OpenType

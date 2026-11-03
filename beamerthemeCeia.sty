@@ -378,6 +378,36 @@
   \setbeamercolor{normal text}{fg=CEIADarkBlue, bg=white}%
 }
 
+% 6. Layout: soft (Fundo Suave Oficial CEIABgSoft #F8FAFC)
+\newcommand{\setLayoutSoft}{%
+  \setLayoutContent%
+  \renewcommand{\currentlayout}{soft}%
+  \usebackgroundtemplate{%
+    \begin{tikzpicture}[remember picture, overlay]
+      \fill[CEIABgSoft] (current page.south west) rectangle (current page.north east);
+    \end{tikzpicture}%
+  }%
+  \setbeamercolor{normal text}{fg=CEIATextDark, bg=CEIABgSoft}%
+}
+
+% 7. Utilitário de Cor de Fundo Dinâmica (\setBGColor - compatível com UFGTeX)
+\newcommand{\setBGColor}[1]{%
+  \usebackgroundtemplate{%
+    \begin{tikzpicture}[remember picture, overlay]
+      \fill[#1] (current page.south west) rectangle (current page.north east);
+    \end{tikzpicture}%
+  }%
+  \ifstrequal{#1}{CEIADarkBlue}{%
+    \setbeamercolor{normal text}{fg=white, bg=#1}%
+  }{%
+    \ifstrequal{#1}{CEIADarkIDE}{%
+      \setbeamercolor{normal text}{fg=white!95, bg=#1}%
+    }{%
+      \setbeamercolor{normal text}{fg=CEIATextDark, bg=#1}%
+    }%
+  }%
+}
+
 % Seletor mestre de Layouts
 \newcommand{\setLayout}[1]{%
   \ifthenelse{\equal{#1}{content}}{\setLayoutContent}{}%
@@ -389,6 +419,7 @@
   \ifthenelse{\equal{#1}{dark}}{\setLayoutDarkCode}{}%
   \ifthenelse{\equal{#1}{dark-code}}{\setLayoutDarkCode}{}%
   \ifthenelse{\equal{#1}{statement}}{\setLayoutStatement}{}%
+  \ifthenelse{\equal{#1}{soft}}{\setLayoutSoft}{}%
 }
 
 % Inicialização padrão
