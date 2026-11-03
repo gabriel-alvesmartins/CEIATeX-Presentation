@@ -881,14 +881,50 @@
   \vspace{-0.2em}%
 }
 
-% 2. Tags e Pílulas Semânticas (ceiatag)
+% 2. Tags e Pílulas Semânticas (ceiatag & ceiachip)
+% Em estrita conformidade com o Manual de Identidade Visual CEIA:
+% Fundo branco nítido, borda institucional saturada, ícone em alta visibilidade
+% e tipografia bold em CEIADarkBlue (garantindo contraste acessível > 7:1).
+\NewDocumentCommand{\ceiachip}{ O{info} m m }{%
+  % #1 = status/cor: ok (CEIAGreen), warn (CEIABlue), info (CEIABrightBlue), dark (CEIADarkBlue)
+  % #2 = ícone TikZ: shield, server, clock, check, brain, database, etc.
+  % #3 = texto do chip
+  \def\chipcol{CEIABrightBlue}%
+  \ifstrequal{#1}{ok}{\def\chipcol{CEIAGreen}}{}%
+  \ifstrequal{#1}{warn}{\def\chipcol{CEIABlue}}{}%
+  \ifstrequal{#1}{info}{\def\chipcol{CEIABrightBlue}}{}%
+  \ifstrequal{#1}{dark}{\def\chipcol{CEIADarkBlue}}{}%
+  \tikz[baseline=-0.6ex]{%
+    \node[
+      fill=white,
+      draw=\chipcol!80,
+      line width=0.85pt,
+      rounded corners=3.5pt,
+      inner sep=3.5pt,
+      inner xsep=6.5pt
+    ] {%
+      \ceiaicon[\chipcol][0.85]{#2}\hspace{4.5pt}{\fontsize{7.5}{9}\selectfont\bfseries\color{CEIADarkBlue} #3}%
+    };
+  }%
+}
+
 \newcommand{\ceiatag}[2][CEIABrightBlue]{%
   \def\ceiatagcol{#1}%
   \ifstrequal{#1}{ok}{\def\ceiatagcol{CEIAGreen}}{}%
   \ifstrequal{#1}{warn}{\def\ceiatagcol{CEIABrightBlue}}{}%
-  \ifstrequal{#1}{info}{\def\ceiatagcol{CEIADarkBlue}}{}%
+  \ifstrequal{#1}{info}{\def\ceiatagcol{CEIABlue}}{}%
+  \ifstrequal{#1}{dark}{\def\ceiatagcol{CEIADarkBlue}}{}%
   \tikz[baseline=-0.5ex]{%
-    \node[fill=\ceiatagcol!15, text=\ceiatagcol!90!black, font=\tiny\bfseries, rounded corners=2pt, inner sep=2.5pt, draw=\ceiatagcol!50, line width=0.5pt] {#2};%
+    \node[
+      fill=white,
+      text=CEIADarkBlue,
+      font=\fontsize{7.5}{9}\selectfont\bfseries,
+      rounded corners=3pt,
+      inner sep=3pt,
+      inner xsep=5.5pt,
+      draw=\ceiatagcol!80,
+      line width=0.75pt
+    ] {#2};%
   }%
 }
 
@@ -1578,40 +1614,28 @@
 % ------------------------------------------------------------------------------
 
 % 7.1. Summary Punchy / Hero (Pouco texto: 1 Grande Conclusão de Alto Impacto)
-% Opção 1: 'dark' (fundo CEIADarkBlue nobre com realces em CEIAGreen e branco)
-% Opção 2: 'light' (fundo suave CEIABgSoft com borda lateral CEIABlue)
-\newenvironment{ceiasummarypunch}[3][light]{%
-  \ifstrequal{#1}{dark}{%
-    \tcolorbox[
-      enhanced,
-      colback=CEIADarkBlue, colframe=CEIADarkBlue,
-      boxrule=0.75pt, arc=4pt,
-      left=12pt, right=12pt, top=8pt, bottom=9pt,
-      titlerule=0pt,
-      fonttitle=\scriptsize\bfseries,
-      coltitle=CEIAGreen, colbacktitle=CEIADarkBlue,
-      borderline west={4pt}{0pt}{CEIAGreen},
-      title={\MakeUppercase{#2}},
-      after title={\par\vspace{3pt}{\large\bfseries\color{white} #3}\par\vspace{4pt}},
-      before upper={\color{white}},
-      before={\par\vspace{3pt}\noindent}, after={\par\vspace{3pt}}
-    ]%
-  }{%
-    \tcolorbox[
-      enhanced,
-      colback=CEIABgSoft, colframe=CEIABorder,
-      boxrule=0.75pt, arc=4pt,
-      left=12pt, right=12pt, top=8pt, bottom=9pt,
-      titlerule=0pt,
-      fonttitle=\scriptsize\bfseries,
-      coltitle=CEIABlue, colbacktitle=CEIABgSoft,
-      borderline west={4pt}{0pt}{CEIABlue},
-      title={\MakeUppercase{#2}},
-      after title={\par\vspace{3pt}{\large\bfseries\color{CEIADarkBlue} #3}\par\vspace{4pt}},
-      before upper={\color{CEIATextDark}},
-      before={\par\vspace{3pt}\noindent}, after={\par\vspace{3pt}}
-    ]%
-  }%
+% Padrão institucional estrito: Fundo suave CEIABgSoft, borda west na cor de destaque e chips
+\newenvironment{ceiasummarypunch}[3][CEIABrightBlue]{%
+  \def\ceiasummarycol{#1}%
+  \ifstrequal{#1}{light}{\def\ceiasummarycol{CEIABrightBlue}}{}%
+  \ifstrequal{#1}{dark}{\def\ceiasummarycol{CEIABrightBlue}}{}% % descontinuado para padrão light
+  \ifstrequal{#1}{ok}{\def\ceiasummarycol{CEIAGreen}}{}%
+  \ifstrequal{#1}{warn}{\def\ceiasummarycol{CEIABlue}}{}%
+  \ifstrequal{#1}{info}{\def\ceiasummarycol{CEIABrightBlue}}{}%
+  \tcolorbox[
+    enhanced,
+    colback=CEIABgSoft, colframe=CEIABorder,
+    boxrule=0.75pt, arc=4pt,
+    left=11pt, right=11pt, top=5.5pt, bottom=6pt,
+    titlerule=0pt,
+    fonttitle=\scriptsize\bfseries,
+    coltitle=\ceiasummarycol, colbacktitle=CEIABgSoft,
+    borderline west={4pt}{0pt}{\ceiasummarycol},
+    title={\MakeUppercase{#2}},
+    after title={\par\vspace{2.5pt}{\large\bfseries\color{CEIADarkBlue} #3}\par\vspace{3.5pt}},
+    before upper={\color{CEIATextDark}},
+    before={\par\vspace{1pt}\noindent}, after={\par\vspace{1pt}}
+  ]%
 }{%
   \endtcolorbox
 }
