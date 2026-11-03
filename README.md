@@ -29,8 +29,8 @@ Assim como no template base do INF (UFGTeX), o **CEIATeX** permite alternar o la
 |---|---|---|
 | **Capa Oficial** | `\setLayout{cover}` | Fundo azul marinho `CEIADarkBlue` com padrão paramétrico de gotas TikZ (Manual pág. 23) e logotipo branco. |
 | **Conteúdo Padrão** | `\setLayout{content}` | Fundo branco limpo, cabeçalho *eyebrow* em azul brilhante e rodapé discreto com metadados. |
-| **Transição de Seção (Lateral)** | `\setLayout{section}` ou `\setLayout{section-right}` | Fundo escuro `CEIADarkBlue` com gotas autênticas encostadas na margem direita e tipografia verde-menta pura. |
-| **Transição de Seção (Inferior)** | `\setLayout{section-bottom}` | Fundo escuro `CEIADarkBlue` com faixa horizontal de gotas na base preenchendo de ponta a ponta. |
+| **Transição de Seção (Lateral)** | `\setLayout{section}` ou `\setLayout{section-right}` | Fundo escuro `CEIADarkBlue` com duas fileiras de gotas verticais de cima a baixo na direita (sem cortes) e logo branco no canto inferior esquerdo. |
+| **Transição de Seção (Inferior)** | `\setLayout{section-bottom}` | Fundo escuro `CEIADarkBlue` com faixa horizontal de gotas na base preenchendo de ponta a ponta e logo branco no canto superior direito. |
 | **Fundo Suave** | `\setLayout{soft}` | Fundo suave `CEIABgSoft` (`#F8FAFC`) para visualização de cards modulares com contraste amigável. |
 | **Tese Institucional** | `\setLayout{statement}` | Fundo limpo com manifesto *We Are CEIA* vetorizado em tipografia oficial Actay Wide. |
 | **Encerramento** | `\setLayout{closing}` | Slide final oficial com OBRIGADO, contatos e régua institucional. |
@@ -255,9 +255,9 @@ export const AgentVerdictSchema = z.object({
 ### 10. Slides de Transição de Grandes Capítulos (`\ceiasectionframe`)
 Abertura de seções com identidade visual de alto impacto e respiração tipográfica:
 - **Tipografia Pura**: Rótulo `CAPÍTULO XX` diretamente em fonte Inter Bold na cor `CEIAGreen` (sem caixas ou cards fechados), título em caixa alta de 24pt e subtítulo descritivo em `white!85`.
-- **Suporte a 2 Variantes de Gotas**:
-  - `[right]` (padrão): Gotas oficiais encostadas rente à margem lateral direita.
-  - `[bottom]`: Gotas alinhadas em faixa horizontal na base preenchendo lado a lado.
+- **Suporte a 2 Variantes Oficiais com Logotipo Integrado**:
+  - `[right]` (padrão): Duas fileiras de gotas preenchendo de cima a baixo na margem direita (sem cortes) com logotipo oficial do CEIA no canto inferior esquerdo.
+  - `[bottom]`: Gotas alinhadas em faixa horizontal na base preenchendo de ponta a ponta com logotipo oficial do CEIA no canto superior direito.
 
 ```latex
 % Variante 1: Gotas na lateral direita (padrão)

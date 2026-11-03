@@ -493,9 +493,9 @@ Distribuição em 2 colunas balanceadas com marcadores vetoriais (\matrixok, \ma
 Para abrir novos capítulos com identidade visual robusta e respiração tipográfica:
 - Fundo nobre `CEIADarkBlue` com iluminação radial suave.
 - **Tipografia 100% Pura e Respirável**: Rótulo `CAPÍTULO XX` diretamente em fonte Inter Bold na cor `CEIAGreen` (sem caixas ou cards fechados), título em caixa alta de 24pt, barra horizontal de acento em verde menta (`CEIAGreen`) e subtítulo descritivo em `white!85`.
-- **Duas Variantes Oficiais de Gotas TikZ (Manual pág. 23)**:
-  1. `[right]` (padrão): Grade oficial de gotas encostadas rente à margem lateral direita.
-  2. `[bottom]`: Faixa horizontal contínua de gotas na base do slide preenchendo de ponta a ponta.
+- **Duas Variantes Oficiais de Gotas TikZ e Logotipos (Manual págs. 15-23)**:
+  1. `[right]` (padrão): Duas fileiras verticais de gotas oficiais na margem direita preenchendo de cima a baixo sem cortes, com logo oficial CEIA em branco no canto inferior esquerdo.
+  2. `[bottom]`: Faixa horizontal contínua de gotas autênticas na base do slide preenchendo de ponta a ponta, com logo oficial CEIA em branco no canto superior direito.
 
 ```latex
 % Variante 1: Gotas na lateral direita (padrão)

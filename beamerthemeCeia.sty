@@ -310,7 +310,7 @@
   \setbeamercolor{normal text}{fg=white, bg=CEIADarkBlue}%
 }
 
-% 4. Layout: section (Divisória de Grandes Capítulos com Gotas Encostadas na Lateral Direita)
+% 4. Layout: section (Divisória de Grandes Capítulos com Duas Fileiras de Gotas na Direita de Cima a Baixo)
 \newcommand{\setLayoutSection}{%
   \renewcommand{\currentlayout}{section}%
   \usebackgroundtemplate{%
@@ -321,20 +321,39 @@
       \shade[inner color=CEIABrightBlue!20!CEIADarkBlue, outer color=CEIADarkBlue] 
         ($(current page.north west)+(2.0, -1.5)$) circle (5.5cm);
 
-      % Grade oficial de gotas autênticas do CEIA encostadas na lateral direita (Manual pág. 23)
-      \begin{scope}[shift={($(current page.south east)+(-3.6, -0.05)$)}]
-        % Linha 3 (Topo, y = 2.6)
-        \ceiacoveritem{1.3}{2.6}{CEIABrightBlue}{270}
-        \ceiacoveritem{2.6}{2.6}{CEIAGreen!80!CEIADarkBlue}{90}
+      % Logo oficial CEIA em branco no canto inferior esquerdo (Manual pág. 15-18)
+      \node[anchor=south west, inner sep=0pt] 
+        at ($(current page.south west)+(0.9, 0.65)$) {\ceialogowhite[height=0.62cm]};
 
-        % Linha 2 (y = 1.3)
-        \ceiacoveritem{0.0}{1.3}{CEIABrightBlue!60!CEIADarkBlue}{180}
-        \ceiacoveritem{1.3}{1.3}{CEIAGreen}{0}
-        \ceiacoveritem{2.6}{1.3}{CEIABlue}{circle}
+      % Duas fileiras oficiais de gotas na direita preenchendo de cima a baixo sem cortes (7 rows, 2 columns)
+      \begin{scope}[shift={($(current page.south west)+(13.0, 0.25)$)}]
+        % Linha 6 (Topo, y = 7.2)
+        \ceiacoveritem{0.0}{7.2}{CEIABrightBlue}{circle}
+        \ceiacoveritem{1.3}{7.2}{CEIAGreen}{90}
 
-        % Linha 1 (Base, y = 0.0)
-        \ceiacoveritem{1.3}{0.0}{CEIABlue!70!CEIADarkBlue}{circle}
-        \ceiacoveritem{2.6}{0.0}{CEIABrightBlue!80!CEIADarkBlue}{90}
+        % Linha 5 (y = 6.0)
+        \ceiacoveritem{0.0}{6.0}{CEIABlue}{180}
+        \ceiacoveritem{1.3}{6.0}{CEIABrightBlue!80!CEIADarkBlue}{circle}
+
+        % Linha 4 (y = 4.8)
+        \ceiacoveritem{0.0}{4.8}{CEIAGreen}{0}
+        \ceiacoveritem{1.3}{4.8}{CEIABrightBlue}{270}
+
+        % Linha 3 (y = 3.6)
+        \ceiacoveritem{0.0}{3.6}{CEIABrightBlue!70!CEIADarkBlue}{circle}
+        \ceiacoveritem{1.3}{3.6}{CEIAGreen!85!CEIADarkBlue}{90}
+
+        % Linha 2 (y = 2.4)
+        \ceiacoveritem{0.0}{2.4}{CEIABlue}{circle}
+        \ceiacoveritem{1.3}{2.4}{CEIABrightBlue}{180}
+
+        % Linha 1 (y = 1.2)
+        \ceiacoveritem{0.0}{1.2}{CEIAGreen}{90}
+        \ceiacoveritem{1.3}{1.2}{CEIABlue!70!CEIADarkBlue}{circle}
+
+        % Linha 0 (Base, y = 0.0)
+        \ceiacoveritem{0.0}{0.0}{CEIABrightBlue}{270}
+        \ceiacoveritem{1.3}{0.0}{CEIAGreen!70!CEIADarkBlue}{0}
       \end{scope}
     \end{tikzpicture}%
   }%
@@ -354,6 +373,10 @@
       % Suave iluminação radial no quadrante superior
       \shade[inner color=CEIABrightBlue!20!CEIADarkBlue, outer color=CEIADarkBlue] 
         ($(current page.north west)+(2.0, -1.5)$) circle (5.5cm);
+
+      % Logo oficial CEIA em branco no canto superior direito
+      \node[anchor=north east, inner sep=0pt] 
+        at ($(current page.north east)+(-0.9, -0.65)$) {\ceialogowhite[height=0.62cm]};
 
       % Faixa horizontal de gotas autênticas do CEIA na base (preenchendo de ponta a ponta)
       \begin{scope}[shift={($(current page.south west)+(0.1, 0.0)$)}]
@@ -379,7 +402,7 @@
   \setbeamercolor{normal text}{fg=white, bg=CEIADarkBlue}%
 }
 
-% Macro Canônica para Slide de Capítulo Respirável e Elegante (Sem cards/caixas - 100% Tipográfico)
+% Macro Canônica para Slide de Capítulo Respirável e Elegante (100% Tipográfico, Sem Sobreposições)
 % Uso: \ceiasectionframe[right|bottom]{Número}{Título}{Subtítulo}
 \NewDocumentCommand{\ceiasectionframe}{ O{right} m m m }{%
   \ifthenelse{\equal{#1}{bottom}}{%
@@ -388,14 +411,14 @@
     \setLayoutSection%
   }%
   \begin{frame}[noframenumbering]%
-    \vspace{0.12\paperheight}%
+    \vspace{0.10\paperheight}%
     \hspace{0.03\paperwidth}%
-    \begin{minipage}{0.75\textwidth}%
+    \begin{minipage}{11.2cm}%
       \raggedright%
-      {\fontsize{11}{14}\bfseries\color{CEIAGreen} CAPÍTULO #2}\par\vspace{0.8em}%
-      {\fontsize{24}{28}\bfseries\color{white}\MakeUppercase{#3}}\par\vspace{0.9em}%
+      {\fontsize{11}{14}\selectfont\bfseries\color{CEIAGreen} CAPÍTULO #2\par}\vspace{0.8em}%
+      {\fontsize{24}{30}\selectfont\bfseries\color{white}\raggedright\MakeUppercase{#3}\par}\vspace{0.8em}%
       {\color{CEIAGreen}\rule{3.2cm}{2pt}}\par\vspace{1.0em}%
-      {\fontsize{10}{15}\mdseries\color{white!85} #4\par}%
+      {\fontsize{10.5}{15}\selectfont\mdseries\color{white!85}\raggedright #4\par}%
     \end{minipage}%
   \end{frame}%
   \setLayout{content}%
@@ -1368,66 +1391,75 @@
 \NewDocumentCommand{\ceiaicon}{ O{CEIABrightBlue} O{1.0} m }{%
   \begin{tikzpicture}[baseline=-0.6ex, scale=#2, transform shape]
     \ifstrequal{#3}{brain}{%
-      % Ícone de Rede Neural / IA
-      \fill[#1] (0,0.12) circle (1.8pt);
-      \fill[#1] (0,-0.12) circle (1.8pt);
-      \fill[#1] (0.2,0.22) circle (1.8pt);
-      \fill[#1] (0.2,0) circle (1.8pt);
-      \fill[#1] (0.2,-0.22) circle (1.8pt);
-      \fill[#1] (0.4,0.12) circle (1.8pt);
-      \fill[#1] (0.4,-0.12) circle (1.8pt);
-      \draw[#1, line width=0.6pt] (0,0.12) -- (0.2,0.22) -- (0.4,0.12);
-      \draw[#1, line width=0.6pt] (0,0.12) -- (0.2,0) -- (0.4,-0.12);
-      \draw[#1, line width=0.6pt] (0,-0.12) -- (0.2,-0.22) -- (0.4,-0.12);
-      \draw[#1, line width=0.6pt] (0,-0.12) -- (0.2,0) -- (0.4,0.12);
+      % Ícone de Rede Neural / IA (Perfeitamente Centralizado no Origem)
+      \fill[#1] (-0.20,0.12) circle (1.8pt);
+      \fill[#1] (-0.20,-0.12) circle (1.8pt);
+      \fill[#1] (0,0.22) circle (1.8pt);
+      \fill[#1] (0,0) circle (1.8pt);
+      \fill[#1] (0,-0.22) circle (1.8pt);
+      \fill[#1] (0.20,0.12) circle (1.8pt);
+      \fill[#1] (0.20,-0.12) circle (1.8pt);
+      \draw[#1, line width=0.6pt] (-0.20,0.12) -- (0,0.22) -- (0.20,0.12);
+      \draw[#1, line width=0.6pt] (-0.20,0.12) -- (0,0) -- (0.20,-0.12);
+      \draw[#1, line width=0.6pt] (-0.20,-0.12) -- (0,-0.22) -- (0.20,-0.12);
+      \draw[#1, line width=0.6pt] (-0.20,-0.12) -- (0,0) -- (0.20,0.12);
     }{%
     \ifstrequal{#3}{shield}{%
-      % Ícone de Escudo / Governança / Segurança
-      \draw[#1, line width=1.1pt, line join=round] (-0.18,0.22) -- (0.18,0.22) -- (0.18,-0.02) arc (0:-180:0.18 and 0.22) -- cycle;
-      \draw[#1, line width=0.85pt, line cap=round, line join=round] (-0.08,0.08) -- (-0.02,0.02) -- (0.08,0.14);
+      % Ícone de Escudo / Governança (Checkmark Perfeitamente Centralizado no Bojo)
+      \draw[#1, line width=1.1pt, line join=round] (-0.18,0.20) -- (0.18,0.20) -- (0.18,-0.02) arc (0:-180:0.18 and 0.20) -- cycle;
+      \draw[#1, line width=0.95pt, line cap=round, line join=round] (-0.08,-0.02) -- (-0.02,-0.08) -- (0.08,0.04);
     }{%
     \ifstrequal{#3}{database}{%
       % Ícone de Banco de Dados / Base Vetorial
-      \draw[#1, line width=0.9pt] (0,0.16) ellipse (0.18cm and 0.06cm);
-      \draw[#1, line width=0.9pt] (-0.18,0.16) -- (-0.18,-0.16) arc (180:360:0.18cm and 0.06cm) -- (0.18,0.16);
-      \draw[#1, line width=0.9pt] (-0.18,0) arc (180:360:0.18cm and 0.06cm);
+      \draw[#1, line width=0.9pt] (0,0.15) ellipse (0.18cm and 0.055cm);
+      \draw[#1, line width=0.9pt] (-0.18,0.15) -- (-0.18,-0.15) arc (180:360:0.18cm and 0.055cm) -- (0.18,0.15);
+      \draw[#1, line width=0.9pt] (-0.18,0) arc (180:360:0.18cm and 0.055cm);
     }{%
     \ifstrequal{#3}{code}{%
-      % Ícone de Código / Contratos Tipados
-      \draw[#1, line width=1.0pt, line cap=round, line join=round] (-0.14,0.12) -- (-0.24,0) -- (-0.14,-0.12);
-      \draw[#1, line width=1.0pt, line cap=round, line join=round] (0.14,0.12) -- (0.24,0) -- (0.14,-0.12);
+      % Ícone de Código / Contratos Tipados (< / >)
+      \draw[#1, line width=1.0pt, line cap=round, line join=round] (-0.13,0.13) -- (-0.23,0) -- (-0.13,-0.13);
+      \draw[#1, line width=1.0pt, line cap=round, line join=round] (0.13,0.13) -- (0.23,0) -- (0.13,-0.13);
       \draw[#1, line width=0.9pt, line cap=round] (-0.05,-0.16) -- (0.05,0.16);
     }{%
     \ifstrequal{#3}{server}{%
       % Servidor em Rack / Soberania de Dados
-      \draw[#1, line width=0.9pt, rounded corners=1pt] (-0.2,0.03) rectangle (0.2,0.22);
-      \draw[#1, line width=0.9pt, rounded corners=1pt] (-0.2,-0.22) rectangle (0.2,-0.03);
-      \fill[#1] (0.12,0.125) circle (1.0pt);
-      \fill[#1] (0.12,-0.125) circle (1.0pt);
-      \draw[#1, line width=0.7pt] (-0.14,0.125) -- (0.02,0.125);
-      \draw[#1, line width=0.7pt] (-0.14,-0.125) -- (0.02,-0.125);
+      \draw[#1, line width=0.9pt, rounded corners=1pt] (-0.2,0.03) rectangle (0.2,0.21);
+      \draw[#1, line width=0.9pt, rounded corners=1pt] (-0.2,-0.21) rectangle (0.2,-0.03);
+      \fill[#1] (0.12,0.12) circle (1.0pt);
+      \fill[#1] (0.12,-0.12) circle (1.0pt);
+      \draw[#1, line width=0.7pt] (-0.14,0.12) -- (0.04,0.12);
+      \draw[#1, line width=0.7pt] (-0.14,-0.12) -- (0.04,-0.12);
     }{%
     \ifstrequal{#3}{user}{%
       % Usuário / Validador Humano (HITL)
-      \fill[#1] (0,0.14) circle (0.1cm);
-      \draw[#1, line width=1.0pt, line cap=round] (-0.18,-0.18) arc (180:0:0.18cm and 0.20cm);
+      \fill[#1] (0,0.13) circle (0.09cm);
+      \draw[#1, line width=1.0pt, line cap=round] (-0.18,-0.16) arc (180:0:0.18cm and 0.18cm);
     }{%
     \ifstrequal{#3}{clock}{%
       % Relógio / Latência / Tempo de Resposta
-      \draw[#1, line width=1.0pt] (0,0) circle (0.2cm);
-      \draw[#1, line width=0.9pt, line cap=round] (0,0) -- (0,0.12);
-      \draw[#1, line width=0.9pt, line cap=round] (0,0) -- (0.1,0);
+      \draw[#1, line width=1.0pt] (0,0) circle (0.19cm);
+      \draw[#1, line width=0.9pt, line cap=round] (0,0) -- (0,0.11);
+      \draw[#1, line width=0.9pt, line cap=round] (0,0) -- (0.09,0);
     }{%
     \ifstrequal{#3}{lock}{%
       % Cadeado / Criptografia
-      \draw[#1, line width=0.9pt] (-0.10,0.06) arc (180:0:0.10cm and 0.12cm) -- (0.10,0.02);
-      \draw[#1, line width=0.9pt, rounded corners=1pt] (-0.16,-0.16) rectangle (0.16,0.04);
-      \fill[#1] (0,-0.04) circle (0.8pt);
+      \draw[#1, line width=0.9pt] (-0.09,0.05) arc (180:0:0.09cm and 0.11cm) -- (0.09,0.02);
+      \draw[#1, line width=0.9pt, rounded corners=1pt] (-0.15,-0.16) rectangle (0.15,0.03);
+      \fill[#1] (0,-0.04) circle (0.9pt);
       \draw[#1, line width=0.7pt] (0,-0.04) -- (0,-0.10);
+    }{%
+    \ifstrequal{#3}{check}{%
+      % Checkmark isolado de alta definição
+      \draw[#1, line width=1.1pt, line cap=round, line join=round] (-0.14,-0.02) -- (-0.04,-0.12) -- (0.14,0.10);
+    }{%
+    \ifstrequal{#3}{chart}{%
+      % Gráfico de Tendência e Métricas
+      \draw[#1, line width=0.95pt, line cap=round, line join=round] (-0.18,-0.12) -- (-0.06,0.0) -- (0.04,-0.06) -- (0.17,0.12);
+      \draw[#1, line width=0.85pt, line cap=round] (0.09,0.12) -- (0.17,0.12) -- (0.17,0.04);
     }{%
       % Fallback: Círculo CEIA
       \fill[#1] (0,0) circle (0.15cm);
-    }}}}}}}}
+    }}}}}}}}}}
   \end{tikzpicture}%
 }
 
