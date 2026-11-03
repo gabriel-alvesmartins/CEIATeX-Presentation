@@ -309,14 +309,32 @@
   \setbeamercolor{normal text}{fg=white, bg=CEIADarkBlue}%
 }
 
-% 4. Layout: section (Divisória de Grandes Capítulos)
+% 4. Layout: section (Divisória de Grandes Capítulos com Padrão de Gotas Oficial)
 \newcommand{\setLayoutSection}{%
   \renewcommand{\currentlayout}{section}%
   \usebackgroundtemplate{%
     \begin{tikzpicture}[remember picture, overlay]
       \fill[CEIADarkBlue] (current page.south west) rectangle (current page.north east);
-      % Detalhes sutis em verde menta no canto inferior
-      \fill[CEIAGreen!15] ($(current page.south east)+(-3, 0)$) arc[start angle=180, end angle=90, radius=3] -- ++(0,-3) -- cycle;
+      
+      % Suave iluminação radial no quadrante superior
+      \shade[inner color=CEIABrightBlue!20!CEIADarkBlue, outer color=CEIADarkBlue] 
+        ($(current page.north west)+(2.0, -1.5)$) circle (5.5cm);
+
+      % Grade oficial de gotas autênticas do CEIA no canto inferior direito (Manual pág. 23)
+      \begin{scope}[shift={($(current page.south east)+(-4.5, -0.1)$)}]
+        % Linha 3 (Topo, y = 2.6)
+        \ceiacoveritem{1.3}{2.6}{CEIABrightBlue}{270}
+        \ceiacoveritem{2.6}{2.6}{CEIAGreen!80!CEIADarkBlue}{90}
+
+        % Linha 2 (y = 1.3)
+        \ceiacoveritem{0.0}{1.3}{CEIABrightBlue!60!CEIADarkBlue}{180}
+        \ceiacoveritem{1.3}{1.3}{CEIAGreen}{0}
+        \ceiacoveritem{2.6}{1.3}{CEIABlue}{circle}
+
+        % Linha 1 (Base, y = 0.0)
+        \ceiacoveritem{1.3}{0.0}{CEIABlue!70!CEIADarkBlue}{circle}
+        \ceiacoveritem{2.6}{0.0}{CEIABrightBlue!80!CEIADarkBlue}{90}
+      \end{scope}
     \end{tikzpicture}%
   }%
   \setbeamertemplate{headline}{}%
@@ -325,45 +343,24 @@
   \setbeamercolor{normal text}{fg=white, bg=CEIADarkBlue}%
 }
 
-% 5. Layout: dark-code / dark (Modo Escuro Técnico para Arquitetura e IDE)
-\newcommand{\setLayoutDarkCode}{%
-  \renewcommand{\currentlayout}{dark-code}%
-  \usebackgroundtemplate{%
-    \begin{tikzpicture}[remember picture, overlay]
-      \fill[CEIADarkIDE] (current page.south west) rectangle (current page.north east);
-      % Acento de borda sutil no topo
-      \fill[CEIABlue] (current page.north west) rectangle ($(current page.north east)+(0, -2.5pt)$);
-    \end{tikzpicture}%
-  }%
-  \setbeamercolor{normal text}{fg=white!95, bg=CEIADarkIDE}%
-  \setbeamertemplate{headline}{}%
-  \setbeamertemplate{frametitle}{%
-    \vspace{0.02\paperheight}%
-    \begin{beamercolorbox}[wd=\textwidth]{frametitle}%
-      \ifx\ceiaeyebrowtext\@empty%
-        \ifx\insertsectionhead\@empty\else%
-          {\color{CEIAGreen}\fontsize{7.5}{9}\bfseries\MakeUppercase{\insertsectionhead}}\par\vspace{0.2ex}%
-        \fi%
-      \else%
-        {\color{CEIAGreen}\fontsize{7.5}{9}\bfseries\MakeUppercase{\ceiaeyebrowtext}}\par\vspace{0.2ex}%
-      \fi%
-      {\color{white}\bfseries\Large\MakeUppercase{\insertframetitle}}\par%
-      \ifx\insertframesubtitle\@empty\else%
-        \vspace{0.2ex}%
-        {\color{CEIABrightBlue}\mdseries\footnotesize\MakeUppercase{\insertframesubtitle}}\par%
-      \fi%
-    \end{beamercolorbox}%
-    \vspace{0.2ex}%
-  }%
-  \setbeamertemplate{footline}{%
-    \begin{beamercolorbox}[wd=\paperwidth, ht=2.2ex, dp=1.2ex, leftskip=0.06\paperwidth, rightskip=0.06\paperwidth]{}%
-      {\color{white!50}\tiny\ceiafooterleft}\hfill{\color{white!50}\tiny\ceiafooterright}%
-    \end{beamercolorbox}%
-    \vspace{0.015\paperheight}%
-  }%
+% Macro Canônica para Slide de Capítulo Respirável e Elegante
+\newcommand{\ceiasectionframe}[3]{%
+  \setLayout{section}%
+  \begin{frame}[noframenumbering]%
+    \vspace{0.14\paperheight}%
+    \hspace{0.03\paperwidth}%
+    \begin{minipage}{0.68\textwidth}%
+      \raggedright%
+      \tikz[baseline=-0.5ex]{\node[fill=CEIAGreen!18, text=CEIAGreen, font=\scriptsize\bfseries, rounded corners=3pt, inner sep=4.5pt, draw=CEIAGreen!60, line width=0.6pt] {CAPÍTULO #1};}\par\vspace{1.2em}%
+      {\fontsize{22}{26}\bfseries\color{white}\MakeUppercase{#2}}\par\vspace{0.8em}%
+      {\color{CEIAGreen}\rule{3.2cm}{1.8pt}}\par\vspace{0.9em}%
+      {\fontsize{9.5}{14}\mdseries\color{white!80} #3\par}%
+    \end{minipage}%
+  \end{frame}%
+  \setLayout{content}%
 }
 
-% 6. Layout: statement (Frase de Impacto ou Tese)
+% 5. Layout: statement (Frase de Impacto ou Tese)
 \newcommand{\setLayoutStatement}{%
   \renewcommand{\currentlayout}{statement}%
   \usebackgroundtemplate{}%
@@ -400,11 +397,7 @@
   \ifstrequal{#1}{CEIADarkBlue}{%
     \setbeamercolor{normal text}{fg=white, bg=#1}%
   }{%
-    \ifstrequal{#1}{CEIADarkIDE}{%
-      \setbeamercolor{normal text}{fg=white!95, bg=#1}%
-    }{%
-      \setbeamercolor{normal text}{fg=CEIATextDark, bg=#1}%
-    }%
+    \setbeamercolor{normal text}{fg=CEIATextDark, bg=#1}%
   }%
 }
 
@@ -416,8 +409,6 @@
   \ifthenelse{\equal{#1}{titlepage}}{\setLayoutCover}{}%
   \ifthenelse{\equal{#1}{closing}}{\setLayoutClosing}{}%
   \ifthenelse{\equal{#1}{section}}{\setLayoutSection}{}%
-  \ifthenelse{\equal{#1}{dark}}{\setLayoutDarkCode}{}%
-  \ifthenelse{\equal{#1}{dark-code}}{\setLayoutDarkCode}{}%
   \ifthenelse{\equal{#1}{statement}}{\setLayoutStatement}{}%
   \ifthenelse{\equal{#1}{soft}}{\setLayoutSoft}{}%
 }

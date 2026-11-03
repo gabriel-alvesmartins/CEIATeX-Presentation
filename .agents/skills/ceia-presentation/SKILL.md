@@ -488,6 +488,31 @@ Distribuição em 2 colunas balanceadas com marcadores vetoriais (\matrixok, \ma
 
 ---
 
+### 27. Slides de Transição de Seção (`\ceiasectionframe`) e Fundo Suave (`\setLayout{soft}`)
+
+#### A. Transição Canônica de Capítulos (`\ceiasectionframe`)
+Para abrir novos capítulos com identidade visual robusta e respiração tipográfica:
+- Fundo nobre `CEIADarkBlue` com iluminação radial suave.
+- **Padrão Oficial de Gotas do CEIA (Manual pág. 23)** no canto inferior direito.
+- Tag de capítulo em pílula `CAPÍTULO XX`, título em caixa alta com espaçamento vertical generoso, barra de acento em verde menta (`CEIAGreen`) e subtítulo descritivo.
+
+```latex
+\section{ARQUITETURA \& MULTI-AGENTE}
+\ceiasectionframe{02}{ARQUITETURA \& MULTI-AGENTE}{Orquestração de Agentes, Contratos Formais e HITL Gates}
+```
+
+#### B. Fundo Suave Institucional (`\setLayout{soft}`)
+Aplica o fundo suave `#F8FAFC` (`CEIABgSoft`), ideal para visualização de cards, tabelas e submarcas com contraste agradável e moderno:
+```latex
+\setLayout{soft}
+\begin{frame}{TÍTULO DO SLIDE}{SUBTÍTULO}
+    % Conteúdo sobre fundo suave
+\end{frame}
+\setLayout{content} % Retorna ao fundo branco padrão
+```
+
+---
+
 ## 📏 Orçamento Rígido de Altura Vertical (Vertical Clearance)
 
 > [!IMPORTANT]
