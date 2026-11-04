@@ -35,6 +35,28 @@ xelatex -interaction=nonstopmode -synctex=1 starter.tex
 
 ---
 
+## 📁 Mandatory Project Isolation Standards
+
+When creating new presentations for the user, NEVER place working `.tex` files or output PDFs loose in the repository root. Follow the isolated project structure:
+
+```text
+projetos/<project_name>/
+├── src/        # Presentation source (e.g. apresentacao.tex)
+├── figs/       # Figures, diagrams, and project-specific assets
+├── build/      # Compiled PDF (apresentacao.pdf) — keep root and src/ clean!
+└── docs/       # User briefing, notes, and requirements
+```
+
+### Mandatory Rules for Claude Code:
+1. **Root is Read-Only for Works:** `CEIATeX-Presentation` root holds only the canonical template engine and showcase files (`presentation_ceia.tex`, `starter.tex`, `beamerthemeCeia.sty`, `lib/`).
+2. **Compile to `build/`:** Always compile using the output directory flag:
+   `tectonic -Z "search-path=CEIATeX-Presentation" projetos/<project_name>/src/apresentacao.tex -o projetos/<project_name>/build/`
+   Or:
+   `.\compile.ps1 projetos/<project_name>/src/apresentacao.tex -OutputDir projetos/<project_name>/build/`
+3. **Context Firewall:** Never read or inspect other folders inside `projetos/*` unless the user explicitly requests it.
+
+---
+
 ## 🛡️ Mandatory Design Invariants (Non-Negotiable)
 
 Every slide generated or edited MUST strictly adhere to these rules:

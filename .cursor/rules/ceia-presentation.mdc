@@ -1,12 +1,24 @@
-﻿---
+---
 description: Regras de autoria e compilacao Beamer do tema CEIA
 globs: **/*.tex
 ---
 
-# Invariantes de Design CEIA (Cursor Rule)
-- Sempre use superfÃ­cies claras em conteÃºdo (Zero Dark Mode). Modo escuro restrito a capa, seÃ§Ãµes e encerramento.
-- Alto contraste WCAG AAA (> 7:1) em badges e chips (\ceiachip). Fundo branco, borda saturada e texto bold em CEIADarkBlue.
-- DistribuiÃ§Ã£o de chips sempre em linha Ãºnica com \hfill.
-- Ãcone de escudo (shield) com crista e checkmark centrado.
-- CompilaÃ§Ã£o via Tectonic com search-path para C:\Users\gabri\Documents\antigravity\modest-faraday\CEIATeX-Presentation:
-  tectonic -Z "search-path=C:\Users\gabri\Documents\antigravity\modest-faraday\CEIATeX-Presentation" presentation.tex
+# Regras Oficiais do Tema CEIA (Cursor Rule)
+
+## 1. Isolamento Mandatório por Projeto
+- Nunca crie apresentações soltas na raiz do template.
+- Crie cada apresentação em `projetos/<nome_do_projeto>/`:
+  - `src/`: código `apresentacao.tex`
+  - `figs/`: diagramas e imagens locais
+  - `build/`: PDF compilado isolado
+  - `docs/`: especificações
+
+## 2. Invariantes de Design (Não Negociáveis)
+- Sempre use superfícies claras em conteúdo (Zero Dark Mode). Modo escuro restrito a capa, seções e encerramento.
+- Alto contraste WCAG AAA (> 7:1) em badges e chips (`\ceiachip`). Fundo branco, borda saturada e texto bold em `CEIADarkBlue`.
+- Distribuição de chips sempre em linha única com `\hfill`.
+- Ícone de escudo (`shield`) com crista e checkmark centrado.
+
+## 3. Compilação
+- Compilação via Tectonic direcionando a saída para `build/`:
+  `tectonic -Z "search-path=CEIATeX-Presentation" projetos/<nome>/src/apresentacao.tex -o projetos/<nome>/build/`

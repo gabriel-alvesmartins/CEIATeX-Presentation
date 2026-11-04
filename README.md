@@ -234,7 +234,8 @@ Sintaxe: `\ceiaicon[cor][escala]{nome}`
 ├── CEIA_Brand_Guidelines_compressed.pdf # Manual de Identidade Visual CEIA 2026
 ├── .agents/                          # Diretrizes para Agentes de IA
 │   ├── rules/
-│   │   └── ceia_design_invariants.md # Regras invariantes (Zero dark mode, WCAG AAA, etc.)
+│   │   ├── ceia_design_invariants.md # Regras invariantes (Zero dark mode, WCAG AAA, etc.)
+│   │   └── project_isolation.md      # Regra de isolamento de apresentacoes (src, build, figs)
 │   └── skills/
 │       └── ceia-presentation/
 │           └── SKILL.md              # Skill oficial v3.4 para Google Antigravity
