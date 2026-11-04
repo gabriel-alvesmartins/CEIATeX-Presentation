@@ -10,8 +10,22 @@
 % ------------------------------------------------------------------------------
 % Pacotes Obrigatórios
 % ------------------------------------------------------------------------------
-\RequirePackage{fontspec}
-\RequirePackage[sfdefault]{inter} % Família tipográfica oficial (Manual pág. 19)
+\RequirePackage{iftex}
+\iftutex
+    % Motor XeLaTeX / LuaLaTeX: Fontes OpenType nativas via fontspec
+    \RequirePackage{fontspec}
+    \RequirePackage[sfdefault]{inter}
+\else
+    % Motor pdfLaTeX: Compatibilidade T1 e fontes vetoriais Type 1
+    \RequirePackage[T1]{fontenc}
+    \RequirePackage[utf8]{inputenc}
+    \IfFileExists{inter.sty}{
+        \RequirePackage[sfdefault]{inter}
+    }{
+        \RequirePackage[scaled=0.92]{helvet}
+        \renewcommand{\familydefault}{\sfdefault}
+    }
+\fi
 \RequirePackage{tikz}
 \usetikzlibrary{calc,shapes,arrows.meta,positioning,backgrounds}
 \RequirePackage{listings}
