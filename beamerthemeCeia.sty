@@ -567,6 +567,44 @@
 \newcommand{\ceiaremoved}[1]{{\setlength{\fboxsep}{1.2pt}\colorbox{red!15}{\vphantom{Ag}\color{red!75!black}\bfseries#1}}}
 
 % ------------------------------------------------------------------------------
+% Definicao de Linguagem e Estilo VSCode com Paleta Oficial CEIA
+% ------------------------------------------------------------------------------
+\lstdefinelanguage{CeiaTypeScript}{
+  keywords={abstract, any, as, async, await, boolean, break, case, catch, class,
+    const, constructor, continue, debugger, declare, default, delete, do, else,
+    enum, export, extends, false, finally, for, from, function, get, if, implements,
+    import, in, instanceof, interface, is, keyof, let, module, namespace, never,
+    new, null, number, readonly, require, return, set, static, string, super,
+    switch, symbol, this, throw, true, try, type, typeof, undefined, var, void,
+    while, with, yield, z, expect, toContain, toBe, toEqual},
+  morekeywords=[2]{string, number, boolean, any, void, never, unknown, object, Record, Array, Promise, z, EmitAuditInput, PatternEntry, UiOutputSchema},
+  morekeywords=[3]{summarizeUxFlows, asRecord, pickString, getUserBody, expect, toContain, not, run, find, toBe, toEqual, renderPatternCatalogBlock, loadPatternCatalog},
+  sensitive=true,
+  comment=[l]{//},
+  morecomment=[s]{/*}{*/},
+  morestring=[b]',
+  morestring=[b]",
+  morestring=[b]`
+}
+
+\lstdefinestyle{ceiavscode}{
+  language=CeiaTypeScript,
+  basicstyle=\fontsize{7.0pt}{8.6pt}\selectfont\ttfamily\color{CEIATextDark},
+  keywordstyle=\bfseries\color{CEIABlue},
+  keywordstyle=[2]{\bfseries\color{CEIABrightBlue}},
+  keywordstyle=[3]{\bfseries\color{CEIAGreen!70!CEIADarkBlue}},
+  stringstyle=\color{CEIAGreen!75!black},
+  commentstyle=\itshape\color{CEIATextMuted},
+  numbers=none,
+  breaklines=true,
+  tabsize=2,
+  showstringspaces=false,
+  keepspaces=true,
+  columns=fullflexible,
+  escapeinside={(*@}{@*)},
+}
+
+% ------------------------------------------------------------------------------
 % Biblioteca de Componentes Customizados (Engenharia de Software & IA)
 % ------------------------------------------------------------------------------
 
@@ -594,6 +632,36 @@
   listing only,
   listing engine=listings,
   listing options={style=ceiacodestyle,#1}
+}
+
+% 1.1 Bloco de Codigo Compacto sem Numeracao (ceiacodecompact)
+% Ideal para colunas duplas (0.48\textwidth), diffs cirurgicos e assercoes de testes
+% Suporta [equal height group=...] via argumento opcional #1
+\newtcblisting{ceiacodecompact}[2][]{%
+  enhanced,
+  colback=CEIALightGray,
+  colframe=CEIABorder,
+  boxrule=0.7pt,
+  arc=3.5pt,
+  left=4pt, right=4pt, top=2pt, bottom=2pt,
+  before={\par\vspace{0.5pt}\noindent}, after={\par\vspace{0.5pt}},
+  before upper={\raggedright},
+  colbacktitle=CEIABgSoft,
+  coltitle=CEIADarkBlue,
+  fonttitle=\fontsize{6.0pt}{7.0pt}\ttfamily\bfseries,
+  title={%
+    \begin{tikzpicture}[baseline=-0.5ex]
+      \fill[CEIADarkBlue] (0,0) circle (2.0pt);
+      \fill[CEIABrightBlue] (5.5pt,0) circle (2.0pt);
+      \fill[CEIAGreen] (11pt,0) circle (2.0pt);
+    \end{tikzpicture}\hspace{5pt}#2%
+  },
+  listing only,
+  listing engine=listings,
+  listing options={
+    style=ceiavscode
+  },
+  #1
 }
 
 % 2. Janela de IDE Dark Mode
@@ -880,7 +948,8 @@
 % Variante compacta para otimização de espaço vertical
 \newenvironment{ceiaitemizecompact}{%
   \begin{itemize}%
-  \setlength{\itemsep}{1.5pt}%
+  \fontsize{8.2pt}{10.2pt}\selectfont
+  \setlength{\itemsep}{2.0pt}%
   \setlength{\parskip}{0pt}%
 }{%
   \end{itemize}%

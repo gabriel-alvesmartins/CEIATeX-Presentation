@@ -26,7 +26,7 @@
         
         % Coluna Direita: Conteúdo e Logotipo Oficial
         \column{0.52\textwidth}
-        {\fontsize{20}{24}\bfseries\color{white}\raggedright\inserttitle}\par\vspace{0.6em}
+        {\fontsize{18pt}{23pt}\selectfont\bfseries\color{white}\raggedright\inserttitle}\par\vspace{0.6em}
         {\fontsize{9.5}{13}\mdseries\color{CEIAGreen}\raggedright\insertsubtitle}\par\vspace{1.2em}
         
         \ceialogowhite[height=1.3cm]\par\vspace{1.2em}
@@ -224,6 +224,43 @@ export const AgentVerdictSchema = z.object({
     \begin{ceiaalert}[top=1.5pt, bottom=1.5pt]{Structured Outputs com Verificação em Tempo de Execução}
         {\fontsize{7.2}{8.6}\selectfont Respostas de LLMs validadas contra schemas Zod. Saídas malformadas disparam retentativas determinísticas antes da propagação de estado.}
     \end{ceiaalert}
+\end{frame}
+\setLayout{content}
+
+% ==============================================================================
+% 11.1 CÓDIGO COMPACTO EM DUAS COLUNAS COM HIGHLIGHT VSCODE (ceiacodecompact)
+% ==============================================================================
+\begin{frame}[fragile]{BLOCOS DE CÓDIGO COMPACTOS EM DUAS COLUNAS}{SINCRONIZAÇÃO DE ALTURAS E DESTAQUE SEMÂNTICO VSCODE}
+    \vspace{-0.4em}
+    \begin{columns}[T]
+        \column{0.49\textwidth}
+        \begin{ceiacodecompact}[equal height group=code_demo]{packages/agents/src/ui/prompt.ts:20-33}
+// Linha 20: Regra estrita no prompt:
+"frames têm pngPath sob"
+"  20-design/ui-mockups/."
+
+// Linhas 32-33: Few-Shot conflitante:
+(*@\ceiaremoved{"FRAME-2: /assets/dashboard.png"}@*)
+(*@\ceiaremoved{"FRAME-3: /assets/list.png"}@*)
+        \end{ceiacodecompact}
+        \vspace{0.3em}
+        {\scriptsize\textbf{Diagnóstico:} Exemplos divergentes induziam o LLM a emitir caminhos sob \texttt{/assets/}.}
+
+        \column{0.49\textwidth}
+        \begin{ceiacodecompact}[equal height group=code_demo]{packages/agents/src/ui/prompt.ts:50-51}
+// Linhas 50-51: Menção obsoleta a Gate:
+"- fallbackHtml é WIREFRAME low-fi"
+"  NÃO é código de produção;"
+
+// Menção obsoleta ao gate legado:
+(*@\ceiaremoved{"  preview pro stakeholder"}@*)
+(*@\ceiaremoved{"  aprovar o Gate G4."}@*)
+        \end{ceiacodecompact}
+        \vspace{0.3em}
+        {\scriptsize\textbf{Drift Corrigido:} O \textbf{ADR-165} unificou a validação de telas no \textbf{Gate G3}.}
+    \end{columns}
+    \vspace{0.3em}
+    {\tiny\color{CEIATextMuted}\textbf{Regra de Largura:} Em colunas duplas (0.49 de largura), limite linhas a $\le 38$ caracteres para prevenir \textit{Overfull \textbackslash hbox}.}
 \end{frame}
 \setLayout{content}
 

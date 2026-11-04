@@ -217,6 +217,40 @@ Sintaxe: `\ceiaicon[cor][escala]{nome}`
 
 ---
 
+### 7. Janela de Código Compacto e Sincronizado (`ceiacodecompact`)
+Ideal para layouts em 2 colunas (`0.49\textwidth`), asserções de testes e diffs cirúrgicos com realce semântico oficial estilo VSCode (`ceiavscode`):
+- **Cabeçalho IDE Compacto:** 3 esferas TikZ e título monoespaçado ajustado (`\fontsize{6.0pt}{7.0pt}\ttfamily\bfseries`), permitindo exibir caminhos longos sem vazar a margem.
+- **Equalização de Altura:** Suporta `[equal height group=...]` via argumento opcional para nivelar perfeitamente pares de caixas paralelas.
+- **Regra de Largura:** Em colunas de $0.49\textwidth$, limite cada linha a no máximo **36 a 38 caracteres** para evitar `Overfull \hbox`.
+
+```latex
+\begin{columns}[T]
+    \column{0.49\textwidth}
+    \begin{ceiacodecompact}[equal height group=code_demo]{packages/core/src/agent.ts:15-28}
+// Assercoes deterministicas de teste:
+expect(result.status).toBe("APPROVED");
+expect(result.tier).toBe("standard");
+(*@\ceiaremoved{- result.fallbackHtml // legado}@*)
+(*@\ceiaadded{+ result.tokens // conformidade}@*)
+    \end{ceiacodecompact}
+    \vspace{0.3em}
+    {\scriptsize\textbf{Nota:} Validacao estrita em tempo de execucao.}
+
+    \column{0.49\textwidth}
+    \begin{ceiacodecompact}[equal height group=code_demo]{packages/core/src/schema.ts:50}
+// Contrato Zod de auditoria:
+export const AuditSchema = z.object({
+  runId: z.string().min(8),
+  hash: z.string().length(64),
+});
+    \end{ceiacodecompact}
+    \vspace{0.3em}
+    {\scriptsize\textbf{Rastreabilidade:} Schema compativel com EU AI Act.}
+\end{columns}
+```
+
+---
+
 ## 📁 Estrutura do Repositório
 
 ```text
@@ -229,6 +263,8 @@ Sintaxe: `\ceiaicon[cor][escala]{nome}`
 ├── install_skill.sh                  # Instalador universal de IA para Linux/macOS (Bash)
 ├── compile.ps1                       # Script de compilacao rapida (Windows PowerShell)
 ├── compile.sh                        # Script de compilacao rapida (Linux/macOS Bash)
+├── scripts/
+│   └── audit_layout.py               # Auditoria algorítmica de layout com PyMuPDF
 ├── .latexmkrc                        # Forca motor XeLaTeX automaticamente no Overleaf
 ├── .gitignore                        # Filtro de arquivos intermediarios do LaTeX
 ├── CEIA_Brand_Guidelines_compressed.pdf # Manual de Identidade Visual CEIA 2026
@@ -247,6 +283,29 @@ Sintaxe: `\ceiaicon[cor][escala]{nome}`
     ├── layouts/                      # Texturas e fundos oficiais
     └── logos/                        # Logotipos e simbolos vetoriais em PDF
 ```
+
+---
+
+## 🔬 Garantia de Qualidade e Auditoria Algorítmica de Layout
+
+O repositório inclui um verificador algorítmico baseado em `pymupdf` (`scripts/audit_layout.py`) que valida automaticamente os limites geométricos oficiais do Beamer 16:9 ($453.54\text{ pt} \times 255.12\text{ pt}$):
+- **Teto Vertical Seguro:** $y_1 \le 226.5\text{ pt}$ (garante respiro livre de pelo menos $12\text{ pt}$ antes do rodapé institucional).
+- **Limite Horizontal Seguro:** $x_1 \le 433.0\text{ pt}$ (garante margem livre de pelo menos $20\text{ pt}$ antes da borda lateral direita).
+- **Margem Esquerda Segura:** $x_0 \ge 15.0\text{ pt}$.
+
+```bash
+# Rodar auditoria na apresentacao compilada:
+python scripts/audit_layout.py presentation_ceia.pdf
+```
+
+### Checklist Obrigatório de Pré-Commit / Pré-Entrega:
+- [ ] **Código Isolado:** Todo trecho literal de código está encapsulado em `ceiacode` ou `ceiacodecompact` (zero código solto em texto corrido).
+- [ ] **Rastreabilidade Completa:** Todo bloco de código cita explicitamente o caminho do arquivo e intervalo de linhas (`caminho/arquivo.ts:linhas`).
+- [ ] **Syntax Highlighting Oficial:** Destaque de sintaxe ativo via `ceiavscode` nas cores do BrandBook CEIA (zero código preto monocromático).
+- [ ] **Harmonia Tipográfica (8.2pt / 7.0pt):** Cartões de tópicos compactos utilizam `\fontsize{8.2pt}{10.2pt}\selectfont` para equilibrar a leitura com blocos de código em `7.0pt`.
+- [ ] **Fundos Alinhados:** Caixas irmãs paralelas compartilham o mesmo `[equal height group=...]`.
+- [ ] **Entrelinha Monumental da Capa:** Título da capa com `\fontsize{...}{...}\selectfont` explícito e quebras manuais controladas com `\\[3pt]`.
+- [ ] **Auditoria PyMuPDF Verde:** Script `audit_layout.py` retorna exit code 0 com 0 extravasamentos.
 
 ---
 
