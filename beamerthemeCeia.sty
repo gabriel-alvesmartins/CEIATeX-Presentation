@@ -1630,17 +1630,15 @@
     enhanced,
     colback=CEIABgSoft, colframe=CEIABorder,
     boxrule=0.75pt, arc=4.5pt,
-    left=14pt, right=14pt, top=14pt, bottom=16pt,
-    titlerule=0pt,
-    fonttitle=\scriptsize\bfseries,
-    coltitle=\ceiasummarycol, colbacktitle=CEIABgSoft,
+    left=15pt, right=15pt, top=14pt, bottom=14pt,
     borderline west={4.5pt}{0pt}{\ceiasummarycol},
-    title={\MakeUppercase{#2}},
-    after title={\par\vspace{4pt}{\fontsize{14}{17}\selectfont\bfseries\color{CEIADarkBlue} #3}\par\vspace{8pt}},
-    before upper={\color{CEIATextDark}\fontsize{9.5}{13.5}\selectfont},
-    before={\par\vspace{6pt}\noindent}, after={\par\vspace{6pt}}
+    before={\par\vspace{4pt}\noindent}, after={\par\vspace{4pt}}
   ]%
+    {\fontsize{8}{9.5}\selectfont\bfseries\color{\ceiasummarycol}\MakeUppercase{#2}}\par\vspace{7pt}%
+    {\fontsize{13.5}{16.5}\selectfont\bfseries\color{CEIADarkBlue} #3}\par\vspace{9pt}%
+    \begingroup\color{CEIATextDark}\fontsize{9.5}{13.5}\selectfont
 }{%
+    \endgroup%
   \endtcolorbox
 }
 
