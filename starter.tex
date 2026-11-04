@@ -1,0 +1,139 @@
+\documentclass[aspectratio=169,t,xcolor=table]{beamer}
+\usepackage{amsmath,amssymb}
+
+% ==============================================================================
+% STARTER TEMPLATE - CEIA BEAMER DESIGN SYSTEM v3.4
+% ==============================================================================
+% Use este arquivo para iniciar sua apresentacao de forma rapida e limpa.
+% Para compilar:
+%   Windows: .\compile.ps1 starter.tex
+%   Linux/macOS: ./compile.sh starter.tex
+%   Tectonic CLI: tectonic starter.tex
+% ==============================================================================
+
+\usetheme{Ceia}
+
+% Metadados Oficiais (Altere com os dados do seu projeto)
+\title{TITULO DA SUA APRESENTACAO}
+\subtitle{SUBTITULO TECNICO OU INSTITUCIONAL DO PROJETO}
+\author{Nome do Autor ou Equipe}
+\institute{Centro de Excelencia em Inteligencia Artificial -- UFG}
+\date{Goiania, 2026}
+
+\begin{document}
+
+% ==============================================================================
+% 1. CAPA OFICIAL (Fundo azul institucional com gotas parametricas TikZ)
+% ==============================================================================
+\setLayout{cover}
+\begin{frame}[noframenumbering]
+    \vspace{0.14\paperheight}
+    \begin{columns}
+        % Coluna Esquerda: Reservada para o padrao de gotas TikZ (Manual CEIA pag. 23)
+        \column{0.44\textwidth}
+        \phantom{Padrao de Gotas TikZ}
+        
+        % Coluna Direita: Titulo, Subtitulo, Logo e Autoria
+        \column{0.52\textwidth}
+        {\fontsize{20}{24}\bfseries\color{white}\raggedright\inserttitle}\par\vspace{0.6em}
+        {\fontsize{9.5}{13}\mdseries\color{CEIAGreen}\raggedright\insertsubtitle}\par\vspace{1.2em}
+        
+        \ceialogowhite[height=1.3cm]\par\vspace{1.2em}
+        
+        {\fontsize{8.5}{11}\mdseries\color{white!85}\insertauthor}\par\vspace{0.2em}
+        {\fontsize{7.5}{9.5}\mdseries\color{white!65}\insertinstitute}
+    \end{columns}
+\end{frame}
+
+% ==============================================================================
+% 2. CONTEXTO E OBJETIVOS (Layout Content - Cards Modulares)
+% ==============================================================================
+\setLayout{content}
+\begin{frame}{CONTEXTO E MOTIVACAO}{PILARES ESTRATEGICOS DO PROJETO}
+    \vspace{0.5em}
+    \begin{ceiacards}[3]
+        \ceiacarditem[1]{Pesquisa Aplicada}{Modelos de estado da arte treinados com rigor cientifico e reproducibilidade.}
+        \ceiacarditem[2]{Soberania de Dados}{Execucao e orquestracao on-premise com total aderencia a LGPD e seguranca.}
+        \ceiacarditem[3]{Engenharia e Escala}{Pipelines resilientes, tipagem estrita de contratos e monitoramento em tempo real.}
+    \end{ceiacards}
+\end{frame}
+
+% ==============================================================================
+% 3. ARQUITETURA MULTI-AGENTE (DSL Declarativa TikZ sem coordenadas)
+% ==============================================================================
+\begin{frame}{ARQUITETURA DA SOLUCAO}{PIPELINE DECLARATIVO COM GATES DE VALIDACAO}
+    \vspace{0.5em}
+    % Sintaxe: \ceiapipelinethree{Label 1}{role}{Label 2}{role}{Label 3}{role}
+    % Roles disponiveis: agent, gate, tool, db
+    \ceiapipelinethree{Elicitacao \&\\Parser Zod}{agent}{[G1] Gate de\\Homologacao}{gate}{Execucao \&\\Observabilidade}{tool}
+    
+    \vspace{1.2em}
+    \ceiabanner[ok]{Contratos Formais Garantidos}{A validacao deterministica elimina 100\% dos incidentes de parsing silencioso em runtime.}
+\end{frame}
+
+% ==============================================================================
+% 4. TABELA EXECUTIVA E RESULTADOS (Tabela com marcadores vetoriais)
+% ==============================================================================
+\begin{frame}{BENCHMARKS E IMPACTO}{AVALIACAO COMPARATIVA DE DESEMPENHO}
+    \vspace{0.5em}
+    \begin{ceiamatrixtable}{l c c c}
+        \textbf{Requisito Tecnico} & \textbf{Abordagem Legada} & \textbf{Cloud Generica} & \textbf{Padrao CEIA} \\
+        \midrule
+        \ceiaicon{shield}\hspace{4pt} Governanca \& LGPD & \matrixfail & \matrixwarn & \matrixok (Soberana) \\
+        \ceiaicon{database}\hspace{4pt} Rastreabilidade OpenTelemetry & \matrixfail & \matrixok & \matrixok (100\%) \\
+        \ceiaicon{clock}\hspace{4pt} Latencia p95 em Producao & 3.4s & 1.2s & \bestmetric{110ms} \\
+    \end{ceiamatrixtable}
+    
+    \vspace{1.0em}
+    \begin{columns}[T]
+        \begin{column}{0.48\textwidth}
+            \ceiastatfour{99.8\%}{Disponibilidade}{3.2x}{Throughput}{0}{Vazamentos}{110ms}{Latencia p95}
+        \end{column}
+        \begin{column}{0.48\textwidth}
+            \ceiabanner[info]{Impacto Direto}{Reducao de 65\% nos custos operacionais com throughput 3 vezes superior.}
+        \end{column}
+    \end{columns}
+\end{frame}
+
+% ==============================================================================
+% 5. DIVISOR DE CAPITULO (Layout Section paramétrico oficial)
+% ==============================================================================
+% Sintaxe: \ceiasectionframe[right|bottom]{Numero}{TITULO}{Subtitulo}
+\ceiasectionframe{02}{SINTESE E PROXIMOS PASSOS}{Consolidacao dos Resultados e Cronograma de Entrega}
+
+% ==============================================================================
+% 6. CONCLUSAO EXECUTIVA (Card Monumental Anti-Vacuo e Chips de Alto Contraste)
+% ==============================================================================
+\setLayout{content}
+\begin{frame}{VEREDITO EXECUTIVO}{SINTESE DOS RESULTADOS HOMOLOGADOS}
+    \vspace{0.4em}
+    
+    \begin{ceiasummarypunch}{VEREDITO DE ENGENHARIA \& PESQUISA}{Arquitetura Homologada para Operacao Critica em Producao}
+        A migracao para orquestracao declarativa e contratos formais garantiu estabilidade deterministica, eliminando riscos de regressao e assegurando total conformidade regulatoria.
+        \par\vspace{12pt}
+        \ceiachip[CEIAGreen]{shield}{Conformidade LGPD \& EU AI Act}\hfill
+        \ceiachip[CEIABrightBlue]{server}{Soberania On-Premise}\hfill
+        \ceiachip[CEIADarkBlue]{clock}{Latencia p95 $<$ 120ms}
+    \end{ceiasummarypunch}
+\end{frame}
+
+% ==============================================================================
+% 7. ENCERRAMENTO OFICIAL (Layout closing)
+% ==============================================================================
+\setLayout{closing}
+\begin{frame}[noframenumbering]
+    \begin{tikzpicture}[remember picture, overlay]
+        % Centro: OBRIGADO :)
+        \node[anchor=center, align=center] at ($(current page.center)+(0, 0.02\paperheight)$) {
+            {\fontsize{44}{50}\selectfont\bfseries\color{white} OBRIGADO :)}
+        };
+
+        % Rodape Institucional
+        \node[anchor=south, align=center] at ($(current page.south)+(0, 0.75)$) {
+            {\fontsize{11}{14}\selectfont\color{CEIAGreen}\bfseries ceia.ufg.br \quad\textbar\quad contato@ceia.ufg.br}\\[6pt]
+            {\fontsize{8}{10}\selectfont\color{white!70} CENTRO DE EXCELENCIA EM INTELIGENCIA ARTIFICIAL --- UFG}
+        };
+    \end{tikzpicture}
+\end{frame}
+
+\end{document}

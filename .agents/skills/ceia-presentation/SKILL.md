@@ -39,12 +39,48 @@ Para iniciar uma apresentação dentro de um projeto isolado no workspace (`proj
 \end{document}
 ```
 
-2. Compile via PowerShell a partir da raiz do repositório:
-```powershell
-& .\bin\tectonic.exe -Z "search-path=CEIATeX-Presentation" projetos\<nome_do_projeto>\src\apresentacao.tex -o projetos\<nome_do_projeto>\build\
-```
+2. **Compilação via PowerShell (Local ou Global):**
+
+- **Se estiver no workspace `modest-faraday`:**
+  ```powershell
+  & .\bin\tectonic.exe -Z "search-path=CEIATeX-Presentation" <arquivo.tex> -o <pasta_saida>
+  ```
+- **Se estiver em QUALQUER outro workspace ou diretório externo:**
+  Utilize os caminhos absolutos do repositório central de templates:
+  ```powershell
+  $TECTONIC = if (Get-Command tectonic -ErrorAction SilentlyContinue) { "tectonic" } else { "C:\Users\gabri\Documents\antigravity\modest-faraday\bin\tectonic.exe" }
+  $CEIA_TEMPLATE = "C:\Users\gabri\Documents\antigravity\modest-faraday\CEIATeX-Presentation"
+
+  & $TECTONIC -Z "search-path=$CEIA_TEMPLATE" <arquivo.tex> -o <pasta_saida>
+  ```
 
 ---
+
+---
+
+## 🛡️ Invariantes de Design Mandatórios (Diretrizes Inegociáveis)
+
+Todo slide gerado ou editado sob esta skill deve seguir estritamente:
+
+1. **Padrão Estrito de Modo Claro (Zero Dark Mode em Conteúdo):**
+   - Slides de conteúdo, relatórios, métricas, código e síntese devem utilizar **exclusivamente superfícies claras** (`white` ou `CEIABgSoft` #F4F6F9, com bordas `CEIABorder` #E2E8F0).
+   - O fundo escuro (`CEIADarkBlue` #1B3983) é **estritamente restrito** à Capa (`\setLayoutCover`), divisores de seção (`\setLayoutSection`) e Encerramento (`\setLayoutClosing`).
+   - NUNCA crie caixas ou cards escuros (`colback=CEIADarkBlue`) dentro de slides de conteúdo.
+
+2. **Acessibilidade e Contraste Cromático (Mínimo WCAG AAA > 7:1):**
+   - NUNCA utilize fundos pastéis desbotados (opacidade a 15%) em tags corporativas.
+   - NUNCA renderize ícones em branco (`\ceiaicon[white]`) sobre fundos claros ou pastéis.
+   - Chips e badges (`\ceiachip`) devem ter fundo `white`, borda saturada (`\chipcol!85`), ícones nas cores plenas oficiais (`CEIAGreen`, `CEIABrightBlue`, `CEIADarkBlue`) e tipografia bold em `CEIADarkBlue`.
+
+3. **Geometria Fechada para Ícones TikZ:**
+   - O ícone `shield` possui silhueta clássica com crista e ponta inferior nítida (`(0,-0.22)`), com checkmark bold centrado no bojo.
+
+4. **Ritmo Tipográfico Vertical em Cards (Anti-Vácuo):**
+   - Mantenha o fluxo de texto unificado no corpo do card (respiro de 7pt entre chapéu e título; 9pt entre título e parágrafo; 12pt antes dos chips).
+
+5. **Distribuição em Linha Única:**
+   - Grupos de chips de status devem ser alinhados horizontalmente de borda a borda usando `\hfill` (`\noindent\ceiachip[...]\hfill\ceiachip[...]\hfill\ceiachip[...]`), garantindo simetria perfeita em linha única.
+
 
 ## 🎨 Paleta Cromática Institucional Obrigatória
 
@@ -242,11 +278,21 @@ Gráficos 100% vetoriais, estritamente alinhados à paleta cromática do CEIA:
                    {(0.5, 30) (1.5, 75) (2.5, 88) (3.5, 94) (4.5, 97)} % Acurácia
 ```
 
-### 12. Pílulas Semânticas Inline (`\ceiatag`)
-Tags modernas para tecnologias, tiers e status:
+### 12. Chips de Status e Pílulas Semânticas (`\ceiachip` & `\ceiatag`)
+Em estrita conformidade com o Manual de Identidade Visual CEIA, os badges e chips utilizam fundo branco nítido (`fill=white`), borda institucional de acento saturada (`\chipcol!85`), ícones na cor saturada da marca (garantindo contraste acessível > 7:1) e tipografia bold em `CEIADarkBlue`:
+
 ```latex
+% Chips semânticos com ícone e rótulo institucional:
+\ceiachip[ok]{shield}{Conformidade LGPD \& EU AI Act}
+\ceiachip[info]{server}{Soberania On-Premise}
+\ceiachip[warn]{clock}{Latência p95 < 120ms}
+
+% Pílula inline para versões ou tecnologias:
 \ceiatag[CEIABlue]{v3.0} \ceiatag[CEIAGreen]{PROD} \ceiatag{XeTeX}
 ```
+
+> **Regra de Distribuição Horizontal:**
+> Ao dispor 3 chips lado a lado dentro de um card, utilize sempre `\hfill` entre eles (`\noindent\ceiachip[...]\hfill\ceiachip[...]\hfill\ceiachip[...]`). Isso garante que todas as pílulas repousem perfeitamente em uma **linha única simétrica**, alinhada de ponta a ponta com as margens do texto, evitando quebras descompassadas para uma segunda linha.
 
 ### 13. Janela de IDE e Code Diffs (`\begin{ceiacode}`)
 Caixa simulando janela de editor de código com highlight de diffs:
@@ -449,16 +495,26 @@ O sumário oficial do CEIA estiliza automaticamente chamadas a `\tableofcontents
 ### 26. Sistema de Sumarização e Conclusões Moduláveis (Adaptável ao Volume de Texto)
 Para solucionar o clássico problema do Beamer (pouco texto deixa o slide vazio; muito texto estoura o layout), o CEIATeX oferece 3 padrões de síntese executiva:
 
-#### A. Modelo Punchy / Hero (ceiasummarypunch) — Para Pouco Texto / 1 Grande Veredito
-Um card monumental com tipografia expandida, fundo nobre (dark com CEIADarkBlue ou light com CEIABgSoft), borda em Verde Menta (CEIAGreen) e pílulas semânticas:
-`latex
-\begin{ceiasummarypunch}[dark]{Veredito Consolidado}{Arquitetura Homologada para Produção}
-    A migração para orquestração declarativa garantiu estabilidade determinística e 100\% de tipagem.
-    \par\vspace{0.6em}
-    \ceiatag[ok]{\ceiaicon[white][0.7]{shield}\hspace{2pt} Conformidade LGPD}\hspace{6pt}
-    \ceiatag[info]{\ceiaicon[white][0.7]{server}\hspace{2pt} On-Premise}
-\end{ceiasummarypunch}
-`
+#### A. Modelo Punchy / Hero (`ceiasummarypunch`) — Para Pouco Texto / 1 Grande Veredito
+Um card monumental com tipografia expandida, fundo suave em padrão institucional claro (`CEIABgSoft`), borda de acento (`CEIABrightBlue` ou `CEIAGreen`) e chips de status com alto contraste.
+
+```latex
+\begin{frame}{SUMARIZAÇÃO HERO: CONCLUSÃO DE ALTO IMPACTO}{MODELO PARA POUCO TEXTO COM MÁXIMA ENERGIA VISUAL}
+    \vspace{0.2em}
+    \begin{ceiasummarypunch}{Veredito de Engenharia \& Pesquisa}{Arquitetura Homologada para Operação Crítica em Produção}
+        A migração para orquestração declarativa e contratos formais de tipos garantiu estabilidade determinística, eliminando 100\% dos incidentes de parsing silencioso.
+        \par\vspace{12pt}
+        \noindent
+        \ceiachip[ok]{shield}{Conformidade LGPD \& EU AI Act}\hfill
+        \ceiachip[info]{server}{Soberania On-Premise}\hfill
+        \ceiachip[warn]{clock}{Latência p95 < 120ms}
+    \end{ceiasummarypunch}
+\end{frame}
+```
+
+> **Boas Práticas de Diagramação do Hero Summary:**
+> 1. **Ritmo Tipográfico Vertical (Sem Vácuo):** O ambiente equaliza o fluxo de texto contínuo internamente com `7pt` de respiro entre o chapéu (`VEREDITO...`) e o título principal (`\fontsize{13.5}{16.5}`), seguido de `9pt` para o parágrafo descritivo. Nunca divida o conteúdo entre as chaves `title` e `after title` do `tcolorbox`, pois isso gera espaços mortos no meio do card.
+> 2. **Princípio Anti-Crowding (Card Exclusivo no Frame):** O Hero Summary deve reinar sozinho no slide. Não empilhe `\ceiabanner` ou notas secundárias no mesmo frame para não forçar a compressão do padding e criar uma "impressão de espremido".
 
 #### B. Modelo Split (ceiasummarysplit) — Para Texto Médio (Veredito + 3 Evidências)
 Layout assimétrico: card executivo em CEIADarkBlue à esquerda e desdobramentos modulares à direita:

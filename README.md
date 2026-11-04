@@ -1,11 +1,14 @@
 # CEIATeX-Presentation
 
 > **Template Oficial de Apresentações em LaTeX Beamer do CEIA (Centro de Excelência em Inteligência Artificial)**  
-> *Desenvolvido para Pesquisa Científica, Engenharia de Software e IA — Totalmente compatível com Overleaf e IDEs modernas.*
+> *Desenvolvido para Pesquisa Científica, Engenharia de Software e IA — Totalmente compatível com Overleaf, IDEs modernas e Agentes de IA.*
 
 [![LaTeX Beamer](https://img.shields.io/badge/LaTeX-Beamer%2016%3A9-blue.svg)](https://ctan.org/pkg/beamer)
 [![Overleaf Ready](https://img.shields.io/badge/Overleaf-XeLaTeX%20Ready-success.svg)](https://www.overleaf.com/)
 [![Tectonic Compatible](https://img.shields.io/badge/Tectonic-Fast%20Compile-brightgreen.svg)](https://tectonic-typesetting.github.io/)
+[![Google Antigravity](https://img.shields.io/badge/Antigravity-Skill%20Ready-4285F4.svg)](#-suporte-nativo-a-agentes-de-ia)
+[![Claude Code](https://img.shields.io/badge/Claude%20Code-CLAUDE.md%20Ready-D97706.svg)](#-suporte-nativo-a-agentes-de-ia)
+[![Cursor](https://img.shields.io/badge/Cursor-Rules%20Ready-000000.svg)](#-suporte-nativo-a-agentes-de-ia)
 [![Brand Guidelines](https://img.shields.io/badge/Manual%20da%20Marca-CEIA%202026-1B3983.svg)](CEIA_Brand_Guidelines_compressed.pdf)
 
 ---
@@ -14,98 +17,115 @@
 
 O **CEIATeX-Presentation** é o sistema visual canônico de apresentações em slides do **CEIA**, projetado para unir o rigor estético do **Manual de Uso da Marca (Goiânia, 2026)** à produtividade técnica de engenharia de software e pesquisa científica.
 
-Ele foi construído do zero com foco em **alta moldabilidade**: tabelas executivas com marcadores vetoriais, diagramas de agentes declarativos sem coordenadas manuais, ícones vetoriais nativos em TikZ puro, linha do tempo/roadmaps, gráficos científicos (donuts, barras verticais e horizontais), layouts de figuras laterais e blocos semânticos.
+Ele foi construído do zero com foco em **alta modularidade e automação declarativa**: tabelas executivas com marcadores vetoriais, diagramas de agentes multi-agente sem coordenadas manuais, ícones vetoriais nativos em TikZ puro, linha do tempo/roadmaps, gráficos científicos (donuts, barras verticais e horizontais), layouts de figuras laterais e cartões de síntese executiva.
 
 ---
 
-## 🖼️ Layouts e Variações de Fundo (Compatível com o Padrão INF/UFG)
+## ⚡ Início Rápido em 3 Minutos
 
-Assim como no template base do INF (UFGTeX), o **CEIATeX** permite alternar o layout estrutural e a cor de fundo de qualquer slide antes de \begin{frame} via \setLayout{nome} e \setBGColor{cor}:
+Escolha a modalidade que melhor atende ao seu fluxo de trabalho:
 
-![Mosaico Geral de Layouts CEIA](figs/layouts/layouts_overview.png)
+### Opção 1: No Overleaf (Zero Instalação)
+1. Baixe este repositório como arquivo **ZIP** (botão verde `<> Code` $\rightarrow$ `Download ZIP` no GitHub).
+2. Acesse sua conta no [Overleaf](https://www.overleaf.com/).
+3. Clique em **Novo Projeto** $\rightarrow$ **Fazer Upload de Projeto** e selecione o arquivo ZIP.
+4. Clique em **Recompilar**.
+> *Dica:* O arquivo `main.tex` é o ponto de entrada padrão. Por padrão, ele carrega o showcase completo (`presentation_ceia.tex`). Para criar uma apresentação nova a partir do modelo enxuto de 7 slides, basta descomentar `\input{starter.tex}` em `main.tex`.
 
-### Tabela de Seleção de Layouts
+---
+
+### Opção 2: No seu Computador (Terminal ou VS Code)
+O compilador recomendado é o **Tectonic**, que gerencia pacotes TeX automaticamente sem precisar instalar gigabytes do TeX Live:
+
+1. **Instale o Tectonic em 1 comando:**
+   - **Windows:** `winget install tectonic` (ou `choco install tectonic`)
+   - **macOS:** `brew install tectonic`
+   - **Linux:** `cargo install tectonic` (ou pacote da sua distribuição)
+
+2. **Clone e compile:**
+   ```bash
+   git clone https://github.com/gabriel-alvesmartins/CEIATeX-Presentation.git
+   cd CEIATeX-Presentation
+   ```
+   - **No Windows (PowerShell):**
+     ```powershell
+     .\compile.ps1 starter.tex
+     ```
+   - **No Linux / macOS (Bash):**
+     ```bash
+     chmod +x compile.sh && ./compile.sh starter.tex
+     ```
+   - **Ou diretamente via CLI:**
+     ```bash
+     tectonic starter.tex
+     ```
+
+---
+
+### Opção 3: Com Agentes de IA (Google Antigravity, Claude Code, Cursor)
+
+Este repositório vem 100% equipado com skills, regras e invariantes de design para os principais assistentes de código e agentes autônomos.
+
+Execute o instalador automático de 1 comando:
+- **No Windows (PowerShell):**
+  ```powershell
+  .\install_skill.ps1
+  ```
+- **No Linux / macOS (Bash):**
+  ```bash
+  chmod +x install_skill.sh && ./install_skill.sh
+  ```
+
+O instalador configura automaticamente:
+- 🔵 **Google Antigravity:** Instala a skill global em `~/.gemini/config/skills/ceia-presentation/SKILL.md` com resolução dinâmica do caminho absoluto do template.
+- 🟠 **Claude Code:** Ativa as instruções de engenharia e diretrizes de design via `CLAUDE.md`.
+- ⚫ **Cursor IDE:** Injeta a regra de contexto em `.cursor/rules/ceia-presentation.mdc`.
+
+#### Exemplo de Prompt para o Agente de IA:
+> *"Crie uma apresentação técnica de 6 slides sobre a arquitetura do nosso novo microsserviço de orquestração LLM usando o modelo CEIA Beamer (`starter.tex`). Inclua um pipeline de agentes com gate humano, uma tabela de comparação de latência e um card final de veredito executivo com chips de status."*
+
+---
+
+## 🛡️ Invariantes de Design Mandatórios (Diretrizes Inegociáveis)
+
+Todo slide gerado ou editado neste tema deve obedecer aos seguintes princípios fundamentais:
+
+1. **Zero Dark Mode em Conteúdo:**
+   - Slides de conteúdo, relatórios, métricas, código e tabelas utilizam **exclusivamente superfícies claras** (`white` ou `CEIABgSoft` `#F8FAFC`).
+   - O fundo escuro (`CEIADarkBlue` `#1B3983`) é **estritamente restrito** à Capa (`\setLayout{cover}`), divisores de capítulo (`\ceiasectionframe`) e Encerramento (`\setLayout{closing}`).
+   - **Nunca** crie caixas ou cards escuros dentro de slides de conteúdo.
+
+2. **Alto Contraste Cromático (WCAG AAA > 7:1):**
+   - É proibido o uso de fundos pastéis desbotados (opacidade a 15%) em tags corporativas.
+   - É proibido renderizar ícones em branco (`\ceiaicon[white]`) sobre superfícies claras.
+   - Chips e badges (`\ceiachip`) possuem fundo branco, borda saturada (`\chipcol!85`), ícones plenos (`CEIAGreen`, `CEIABrightBlue`, `CEIADarkBlue`) e tipografia bold em `CEIADarkBlue`.
+
+3. **Geometria Icônica Fechada:**
+   - O ícone `shield` possui silhueta clássica de crista com ponta inferior nítida e checkmark bold centrado.
+
+4. **Ritmo Tipográfico Vertical Anti-Vácuo:**
+   - Em cards compostos (`ceiasummarypunch`), todos os elementos seguem no fluxo contínuo da caixa: 7pt a 8pt entre chapéu e título; 8pt a 10pt entre título e corpo; 11pt a 12pt antes da fileira de chips.
+
+5. **Distribuição em Linha Única:**
+   - Chips e badges de status são sempre distribuídos em linha única contínua via `\hfill`.
+
+---
+
+## 🖼️ Layouts e Variações de Fundo
+
 | Layout | Comando | Descrição Visual |
 |---|---|---|
 | **Capa Oficial** | `\setLayout{cover}` | Fundo azul marinho `CEIADarkBlue` com padrão paramétrico de gotas TikZ (Manual pág. 23) e logotipo branco. |
 | **Conteúdo Padrão** | `\setLayout{content}` | Fundo branco limpo, cabeçalho *eyebrow* em azul brilhante e rodapé discreto com metadados. |
-| **Transição de Seção (Lateral)** | `\setLayout{section}` ou `\setLayout{section-right}` | Fundo escuro `CEIADarkBlue` com duas fileiras de gotas verticais de cima a baixo na direita (sem cortes) e logo branco no canto inferior esquerdo. |
-| **Transição de Seção (Inferior)** | `\setLayout{section-bottom}` | Fundo escuro `CEIADarkBlue` com faixa horizontal de gotas na base preenchendo de ponta a ponta e logo branco no canto superior direito. |
+| **Transição de Seção (Lateral)** | `\setLayout{section}` ou `\ceiasectionframe` | Fundo escuro `CEIADarkBlue` com gotas verticais na margem direita (sem cortes) e logo branco no canto inferior esquerdo. |
+| **Transição de Seção (Inferior)** | `\setLayout{section-bottom}` | Fundo escuro `CEIADarkBlue` com faixa horizontal de gotas na base e logo branco no canto superior direito. |
 | **Fundo Suave** | `\setLayout{soft}` | Fundo suave `CEIABgSoft` (`#F8FAFC`) para visualização de cards modulares com contraste amigável. |
 | **Tese Institucional** | `\setLayout{statement}` | Fundo limpo com manifesto *We Are CEIA* vetorizado em tipografia oficial Actay Wide. |
-| **Encerramento** | `\setLayout{closing}` | Slide final oficial com OBRIGADO, contatos e régua institucional. |
-
-#### Cor de Fundo Dinâmica (\setBGColor)
-Para trocar a cor de fundo de um slide específico mantendo a estrutura:
-`latex
-\setBGColor{CEIABgSoft}    % Fundo suave acinzentado/azulado
-\setBGColor{CEIADarkBlue}  % Fundo escuro nobre institucional
-\setBGColor{white}        % Retorna ao fundo branco padrão
-`
+| **Encerramento** | `\setLayout{closing}` | Slide final oficial com OBRIGADO, contatos institucionais e régua. |
 
 ---
 
-## 📸 Galeria de Demonstração
-
-| Capa Institucional | Multi-Agente & HITL Gates |
-| :---: | :---: |
-| ![Capa Institucional](figs/slide_01.png) | ![Multi-Agente & HITL Gates](figs/slide_13.png) |
-| **Transição de Seção (Lateral)** | **Transição de Seção (Inferior)** |
-| ![Transição Lateral](figs/layouts/section_variant_A_right.png) | ![Transição Inferior](figs/layouts/section_variant_B_bottom.png) |
-| **Matriz Comparativa & Tabelas** | **Gráficos Científicos Vetoriais** |
-| ![Matriz Comparativa](figs/slide_17.png) | ![Gráficos Científicos](figs/slide_19.png) |
-| **Code Diff & Janela IDE** | **Métricas e Indicadores de Impacto** |
-| ![Code Diff](figs/slide_12.png) | ![Indicadores de Impacto](figs/slide_21.png) |
-
-> 💡 *Todos os 28 slides renderizados em alta definição estão disponíveis na pasta [`figs/`](figs/).*
-
----
-
-## 🚀 Como Usar no Overleaf (1-Click Setup)
-
-O projeto já vem 100% pré-configurado para o **Overleaf**:
-
-1. Baixe este repositório como arquivo **ZIP** (botão verde `<> Code` $\rightarrow$ `Download ZIP` no GitHub).
-2. Acesse sua conta no [Overleaf](https://www.overleaf.com/).
-3. Clique em **Novo Projeto** $\rightarrow$ **Fazer Upload de Projeto** e selecione o arquivo ZIP baixado.
-4. Clique em **Recompilar**.
-
-> [!NOTE]  
-> O arquivo `.latexmkrc` incluso na raiz do projeto força automaticamente o motor **XeLaTeX** no Overleaf (necessário para a fonte OpenType *Inter* e pacote `fontspec`). Você não precisa alterar nenhuma configuração manual! O ponto de entrada padrão é `main.tex` (que carrega `presentation_ceia.tex`).
-
----
-
-## 💻 Como Usar em IDEs Locais (VS Code, Cursor, TeXstudio, CLI)
-
-### Opção 1: Compilação Ultra-Rápida com Tectonic (Recomendado)
-O [Tectonic](https://tectonic-typesetting.github.io/) baixa e gerencia todos os pacotes TeX automaticamente sem necessidade de instalar gigabytes do TeX Live:
-
-```powershell
-# Windows PowerShell
-.\compile.ps1
-```
-
-```bash
-# Linux / macOS
-chmod +x compile.sh && ./compile.sh
-```
-
-Ou diretamente via CLI:
-```bash
-tectonic presentation_ceia.tex
-```
-
-### Opção 2: Compilação com XeLaTeX Tradicional (TeX Live / MacTeX / MiKTeX)
-```bash
-xelatex -interaction=nonstopmode -synctex=1 presentation_ceia.tex
-xelatex -interaction=nonstopmode -synctex=1 presentation_ceia.tex
-```
-
----
-
-## 🎨 Paleta Cromática Institucional (Manual pág. 14)
-
-Todas as cores da identidade visual do CEIA estão disponíveis como macros LaTeX:
+## 🎨 Paleta Cromática Institucional
 
 | Cor TeX | HEX | RGB | Aplicação Semântica |
 |---|---|---|---|
@@ -120,107 +140,13 @@ Todas as cores da identidade visual do CEIA estão disponíveis como macros LaTe
 
 ---
 
-## 🧩 Catálogo de Blocos Modulares e Sintaxe
+## 🧩 Catálogo de Componentes e Sintaxe
 
-### 1. Tabelas Executivas & Marcadores Vetoriais (`ceiamatrixtable`, `ceiadatatable`)
-Tabelas com zebra-striping institucional, linhas `booktabs` e marcadores vetoriais:
-- `\matrixok`: Círculo verde com checkmark institucional.
-- `\matrixwarn`: Círculo azul com exclamação.
-- `\matrixfail`: Círculo slate com barra de não-conformidade.
-- `\bestmetric{valor}`: Pílula verde-menta de destaque.
-
-```latex
-\begin{ceiamatrixtable}{l c c c}
-    \textbf{Capacidade Avaliada} & \textbf{Legado} & \textbf{Cloud} & \textbf{Padrão CEIA} \\
-    \midrule
-    \ceiaicon{shield}\hspace{4pt} Governança \& LGPD & \matrixfail & \matrixwarn & \matrixok (Local) \\
-    \ceiaicon{server}\hspace{4pt} Soberania de Dados & \matrixwarn & \matrixfail & \matrixok (100\%) \\
-    \ceiaicon{clock}\hspace{4pt} Latência & 3.2s & 1.8s & \bestmetric{0.45s} \\
-\end{ceiamatrixtable}
-```
-
-Para células descritivas com parágrafo e quebra automática de linha:
-```latex
-\begin{ceiadatatable}{l c p{8.2cm}}
-    \textbf{Módulo} & \textbf{Status} & \textbf{Diretriz Operacional do Sistema} \\
-    \midrule
-    \ceiaicon{brain}\hspace{3pt} Runtime LLM & \bestmetric{ATIVO} & Execução local com modelos quantizados em 4-bit. \\
-\end{ceiadatatable}
-```
-
----
-
-### 2. DSL Declarativa de Multi-Agent Pipeline (`\ceiapipelinefour`, `\ceiapipelinethree`)
-Desenhe grafos de agentes sem escrever coordenadas TikZ:
-```latex
-\ceiapipelinefour{Discovery\\Agent}{agent}{[G1] Decision\\Gate}{gate}{Software\\Architect}{agent}{Automated\\Deploy}{tool}
-```
-*Roles suportados:* `agent` (azul suave), `gate` (marinho HITL), `tool` (verde menta), `db` (slate soft).
-
----
-
-### 3. Biblioteca Nativa de Ícones Vetoriais TikZ (`\ceiaicon`)
-Ícones 100% vetoriais sem fontes externas:
-Sintaxe: `\ceiaicon[cor][escala]{nome}`
-```latex
-\ceiaicon{brain}     % Rede neural / IA
-\ceiaicon{shield}    % Segurança / Governança / LGPD
-\ceiaicon{database}  % Banco de dados / Armazenamento
-\ceiaicon{code}      % Contratos Zod / Sintaxe < / >
-\ceiaicon{server}    % Servidor / Soberania
-\ceiaicon{user}      % Validador humano / HITL
-\ceiaicon{clock}     % Latência / Tempo de resposta
-\ceiaicon{lock}      % Criptografia / Trilha imutável
-```
-
----
-
-### 4. Linha do Tempo e Roadmap Modular (`\ceiaroadmapthree`, `\ceiaroadmapfour`)
-```latex
-\ceiaroadmapthree{FASE 1 (CONCLUÍDO)}{Elicitação \& Contratos}%
-                 {FASE 2 (EM ANDAMENTO)}{Orquestração Local}%
-                 {FASE 3 (PLANEJADO)}{Auditoria \& Escala}
-```
-
----
-
-### 5. Layout Canônico de Figura Lateral (`ceiasidefigure`)
-Figura técnica emoldurada à esquerda e texto/bullets alinhados à direita:
-```latex
-\begin{ceiasidefigure}{lib/logos/ceia_simbolo.pdf}{Símbolo Oficial CEIA}
-    {\small\bfseries\color{CEIADarkBlue} Princípios de Identidade Visual}\par\vspace{0.3em}
-    \begin{itemize}
-        \item \textbf{Cérebro Conectado}: Sinergia científica e aplicada.
-        \item \textbf{Geometria Oficial}: Arcos com raio $R = W/2$ e ângulo reto de $90^\circ$.
-    \end{itemize}
-\end{ceiasidefigure}
-```
-
----
-
-### 6. Banners Executivos Institucionais (`\ceiabanner`)
-Callouts elegantes com borda esquerda colorida e fundo suave:
-```latex
-\ceiabanner[ok]{Conformidade Legal Assegurada}{Todas as métricas atendem ao Art. 12 do EU AI Act.}
-\ceiabanner[warn]{Atenção}{Modelos proprietários externos não devem receber dados sensíveis.}
-\ceiabanner[info]{Tese Central}{Arquiteturas baseadas em contratos reduzem depuração em até 70\%.}
-```
-
----
-
-### 7. Gráficos Vetoriais Nativos em TikZ
-- **Rosca / Donut**: `\ceiadonutthree{55}{CEIADarkBlue}{30}{CEIABrightBlue}{15}{CEIAGreen}{3.2M\\Reqs}`
-- **Barras Verticais**: `\ceiavbarsthree{88}{HumanEval}{94}{MBPP}{91}{GSM8K}`
-- **Barras Horizontais**: `\ceiahbar[CEIAGreen]{Claude 3.5 Sonnet}{92.4}{100}{\%}`
-- **Curva de Treino**: `\ceiatrainingchart{(0.5, 95) (1.5, 60) ...}{(0.5, 30) (1.5, 75) ...}`
-
----
-
-### 8. Cards Modulares e Flexíveis (`ceiacards` & `\ceiacarditem`)
+### 1. Cards Modulares e Flexíveis (`ceiacards` & `\ceiacarditem`)
 Cards com altura sincronizada automática para 2, 3 ou 4 colunas:
 ```latex
 \begin{ceiacards}[3]
-    \ceiacarditem[1]{Pesquisa Aplicada}{Algoritmos com publicação de alto impacto.}
+    \ceiacarditem[1]{Pesquisa Aplicada}{Modelos com rigor científico e reprodutibilidade.}
     \ceiacarditem[2]{Governança \& Ética}{Trilhas auditáveis e conformidade com LGPD.}
     \ceiacarditem[3]{Engenharia de IA}{Sistemas escaláveis e observabilidade ponta a ponta.}
 \end{ceiacards}
@@ -228,110 +154,97 @@ Cards com altura sincronizada automática para 2, 3 ou 4 colunas:
 
 ---
 
-### 9. Janela de IDE e Code Diffs (`\begin{ceiacode}`)
+### 2. DSL Declarativa de Multi-Agent Pipeline (`\ceiapipelinefour`, `\ceiapipelinethree`)
+Desenhe grafos de agentes declarativamente sem coordenadas TikZ manuais:
 ```latex
-\begin{frame}[fragile]{CONTRATOS DE DADOS E CODE DIFF}{REFACTORING E VALIDAÇÃO VIA ZOD}
-\begin{ceiacode}[language=Java]{packages/core/src/agentContract.ts}
-export const AgentVerdictSchema = z.object({
-  specId: z.string(),
-(*@\ceiaremoved{- approved: z.boolean(), // obsoleto: faltava trilha de auditoria}@*)
-(*@\ceiaadded{+ status: z.enum(["APPROVED", "BLOCKED", "NEEDS\_REVISION"]),}@*)
-(*@\ceiaadded{+ auditHash: z.string().min(32), // conformidade EU AI Act Art. 12}@*)
-  issues: z.array(z.string()).default([]),
-});
-\end{ceiacode}
-\end{frame}
+\ceiapipelinethree{Elicitação \&\\Contratos}{agent}{[G1] Gate de\\Homologação}{gate}{Orquestração \&\\Deploy}{tool}
+```
+*Roles suportados:* `agent` (azul suave), `gate` (marinho HITL), `tool` (verde menta), `db` (slate soft).
+
+---
+
+### 3. Tabelas Executivas & Marcadores Vetoriais (`ceiamatrixtable`)
+```latex
+\begin{ceiamatrixtable}{l c c c}
+    \textbf{Capacidade Avaliada} & \textbf{Legado} & \textbf{Cloud} & \textbf{Padrão CEIA} \\
+    \midrule
+    \ceiaicon{shield}\hspace{4pt} Governança \& LGPD & \matrixfail & \matrixwarn & \matrixok (Soberana) \\
+    \ceiaicon{server}\hspace{4pt} Soberania de Dados & \matrixwarn & \matrixfail & \matrixok (100\%) \\
+    \ceiaicon{clock}\hspace{4pt} Latência p95 & 3.2s & 1.8s & \bestmetric{110ms} \\
+\end{ceiamatrixtable}
 ```
 
 ---
 
-### 10. Indicadores Numéricos de Impacto (\ceiastatfour)
-`latex
-\ceiastatfour{99.1\%}{F1-Score Geral}{4.2x}{Throughput}{18ms}{Inferência}{0}{Falhas Críticas}
-`
-
----
-
-### 10. Slides de Transição de Grandes Capítulos (`\ceiasectionframe`)
-Abertura de seções com identidade visual de alto impacto e respiração tipográfica:
-- **Tipografia Pura**: Rótulo `CAPÍTULO XX` diretamente em fonte Inter Bold na cor `CEIAGreen` (sem caixas ou cards fechados), título em caixa alta de 24pt e subtítulo descritivo em `white!85`.
-- **Suporte a 2 Variantes Oficiais com Logotipo Integrado**:
-  - `[right]` (padrão): Duas fileiras de gotas preenchendo de cima a baixo na margem direita (sem cortes) com logotipo oficial do CEIA no canto inferior esquerdo.
-  - `[bottom]`: Gotas alinhadas em faixa horizontal na base preenchendo de ponta a ponta com logotipo oficial do CEIA no canto superior direito.
-
+### 4. Conclusão Executiva e Veredito (`ceiasummarypunch`)
+Card monumental de alta densidade sem vácuo e com chips de alto contraste:
 ```latex
-% Variante 1: Gotas na lateral direita (padrão)
-\ceiasectionframe{02}{ARQUITETURA \& MULTI-AGENTE}{Orquestração de Agentes, Contratos Formais e HITL Gates}
-
-% Variante 2: Gotas na horizontal inferior
-\ceiasectionframe[bottom]{03}{BENCHMARKS \& ESPECIFICAÇÕES}{Avaliação Empírica de Modelos e Conformidade SDD}
-```
-
----
-
-### 11. Sistema de Sumarização e Conclusões Moduláveis
-Adaptável dinamicamente à quantidade de texto para eliminar slides vazios ou sobrecarregados:
-
-- **Pouco Texto / Punchy (ceiasummarypunch):**
-`latex
-\begin{ceiasummarypunch}[dark]{Veredito Consolidado}{Arquitetura Homologada para Produção}
-    A migração para orquestração declarativa garantiu estabilidade determinística e 100% de tipagem.
-    \par\vspace{0.6em}
-    \ceiatag[ok]{\ceiaicon[white][0.7]{shield} LGPD Assegurada}\hspace{6pt}
-    \ceiatag[info]{\ceiaicon[white][0.7]{server} Soberania On-Premise}
+\begin{ceiasummarypunch}{VEREDITO DE ENGENHARIA \& PESQUISA}{Arquitetura Homologada para Operação Crítica em Produção}
+    A migração para orquestração declarativa e contratos formais de tipos garantiu estabilidade determinística, eliminando 100\% dos incidentes de parsing silencioso.
+    \par\vspace{12pt}
+    \ceiachip[CEIAGreen]{shield}{Conformidade LGPD \& EU AI Act}\hfill
+    \ceiachip[CEIABrightBlue]{server}{Soberania On-Premise}\hfill
+    \ceiachip[CEIADarkBlue]{clock}{Latência p95 $<$ 120ms}
 \end{ceiasummarypunch}
-`
-
-- **Texto Médio / Split (ceiasummarysplit):**
-`latex
-\begin{ceiasummarysplit}[0.38]{Veredito Final}{99.4\%}{Sistema aprovado em estresse.}{shield}
-    \ceiasplititem[CEIABrightBlue]{Orquestração}{Fallback automático para modelos locais.}
-    \ceiasplititem[CEIAGreen]{Eficiência}{Redução de 68% no consumo de tokens.}
-    \ceiasplititem[CEIADarkBlue]{Observabilidade}{Trilhas OpenTelemetry fim a fim.}
-\end{ceiasummarysplit}
-`
-
-- **Texto Volumoso / Compacto (\ceiacompactitem):**
-`latex
-\begin{columns}[T]
-    \begin{column}{0.485\textwidth}
-        \ceiacompactitem{\matrixok}{Contratos Tipados}{Interfaces Zod validadas em compilação.}
-        \ceiacompactitem{\matrixok}{HITL Gates}{Aprovação mandatória antes de deploys.}
-    \end{column}
-    \begin{column}{0.485\textwidth}
-        \ceiacompactitem{\matrixok}{Latência Sob SLA}{Tempo de resposta p95 mantido <180ms.}
-        \ceiacompactitem{\matrixwarn}{Cache Semântico}{Homologação final para economia de tokens.}
-    \end{column}
-\end{columns}
-`
+```
 
 ---
 
-## 🤖 Uso com Agentes de IA (Skill Integrada)
-
-Este repositório inclui a skill canônica em `.agents/skills/ceia-presentation/SKILL.md`. Assistentes de IA como **Antigravity**, **Cursor** ou **Copilot** carregam automaticamente as diretrizes de diagramação e regras de ouro do tema ao abrir o projeto.
+### 5. Biblioteca Nativa de Ícones Vetoriais TikZ (`\ceiaicon`)
+Ícones 100% vetoriais sem dependência de fontes externas:
+Sintaxe: `\ceiaicon[cor][escala]{nome}`
+```latex
+\ceiaicon{brain}     % Rede neural / IA
+\ceiaicon{shield}    % Seguranca / Governanca / LGPD
+\ceiaicon{database}  % Banco de dados / Storage
+\ceiaicon{code}      % Contratos / Codigo
+\ceiaicon{server}    % Servidor / Soberania on-premise
+\ceiaicon{user}      % Validador humano / Gate HITL
+\ceiaicon{clock}     % Latencia / Tempo de resposta
+\ceiaicon{lock}      % Criptografia / Autenticacao
+```
 
 ---
 
-## 📁 Estrutura de Arquivos
+### 6. Slides de Transição de Grandes Capítulos (`\ceiasectionframe`)
+```latex
+% Variante 1: Gotas na lateral direita (padrao) com logo no canto inferior esquerdo
+\ceiasectionframe{02}{ARQUITETURA \& MULTI-AGENTE}{Orquestracao de Agentes e Contratos Formais}
+
+% Variante 2: Gotas na horizontal inferior com logo no canto superior direito
+\ceiasectionframe[bottom]{03}{BENCHMARKS \& ESPECIFICACOES}{Avaliacao Empirica de Modelos}
+```
+
+---
+
+## 📁 Estrutura do Repositório
 
 ```text
-├── beamerthemeCeia.sty               # Tema Beamer Oficial v3.4
-├── presentation_ceia.tex             # Apresentação Canônica de Referência (27 slides)
-├── main.tex                          # Ponto de entrada padrão para o Overleaf
-├── .latexmkrc                        # Configuração automática de motor XeLaTeX para Overleaf
-├── .gitignore                        # Filtro de arquivos intermediários do LaTeX
-├── compile.ps1                       # Script de compilação rápida no Windows
-├── compile.sh                        # Script de compilação rápida no Linux/macOS
-├── CEIA_Brand_Guidelines_compressed.pdf # Manual de Uso da Marca CEIA 2026 (Comprimido)
-├── .agents/skills/ceia-presentation/ # Skill oficial para agentes de IA
-│   └── SKILL.md
-├── figs/                             # Previews dos 27 slides em alta resolução (PNG)
-│   └── cards/                        # Recortes visuais dos cards isolados (CEIADarkBlue, Split, Compact)
-└── lib/                              # Ativos gráficos vetoriais oficiais
-    ├── fonts/                        # Fontes OpenType
+├── beamerthemeCeia.sty               # Tema Beamer Oficial v3.4 (Definicao central)
+├── presentation_ceia.tex             # Showcase Canônico Completo (28 slides de referencia)
+├── starter.tex                       # Template Minimalista de 7 slides para novos projetos
+├── main.tex                          # Ponto de entrada padrao para o Overleaf
+├── CLAUDE.md                         # Guia e instrucoes canonicas para Claude Code
+├── install_skill.ps1                 # Instalador universal de IA para Windows (PowerShell)
+├── install_skill.sh                  # Instalador universal de IA para Linux/macOS (Bash)
+├── compile.ps1                       # Script de compilacao rapida (Windows PowerShell)
+├── compile.sh                        # Script de compilacao rapida (Linux/macOS Bash)
+├── .latexmkrc                        # Forca motor XeLaTeX automaticamente no Overleaf
+├── .gitignore                        # Filtro de arquivos intermediarios do LaTeX
+├── CEIA_Brand_Guidelines_compressed.pdf # Manual de Identidade Visual CEIA 2026
+├── .agents/                          # Diretrizes para Agentes de IA
+│   ├── rules/
+│   │   └── ceia_design_invariants.md # Regras invariantes (Zero dark mode, WCAG AAA, etc.)
+│   └── skills/
+│       └── ceia-presentation/
+│           └── SKILL.md              # Skill oficial v3.4 para Google Antigravity
+├── .cursor/rules/                    # Regras automáticas de contexto para Cursor IDE
+│   └── ceia-presentation.mdc
+├── figs/                             # Previews dos slides em alta resolucao (PNG)
+└── lib/                              # Ativos graficos vetoriais oficiais
+    ├── fonts/                        # Fontes OpenType (Inter)
     ├── layouts/                      # Texturas e fundos oficiais
-    └── logos/                        # Logotipos, submarcas e réguas vetoriais
+    └── logos/                        # Logotipos e simbolos vetoriais em PDF
 ```
 
 ---

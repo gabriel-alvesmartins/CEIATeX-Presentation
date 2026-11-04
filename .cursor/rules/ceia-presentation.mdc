@@ -1,0 +1,12 @@
+﻿---
+description: Regras de autoria e compilacao Beamer do tema CEIA
+globs: **/*.tex
+---
+
+# Invariantes de Design CEIA (Cursor Rule)
+- Sempre use superfÃ­cies claras em conteÃºdo (Zero Dark Mode). Modo escuro restrito a capa, seÃ§Ãµes e encerramento.
+- Alto contraste WCAG AAA (> 7:1) em badges e chips (\ceiachip). Fundo branco, borda saturada e texto bold em CEIADarkBlue.
+- DistribuiÃ§Ã£o de chips sempre em linha Ãºnica com \hfill.
+- Ãcone de escudo (shield) com crista e checkmark centrado.
+- CompilaÃ§Ã£o via Tectonic com search-path para C:\Users\gabri\Documents\antigravity\modest-faraday\CEIATeX-Presentation:
+  tectonic -Z "search-path=C:\Users\gabri\Documents\antigravity\modest-faraday\CEIATeX-Presentation" presentation.tex
